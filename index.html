@@ -644,6 +644,79 @@
   /* ===== Utility ===== */
   .hidden { display: none !important; }
 
+  /* ===== Getting Started section ===== */
+  .getting-started {
+    margin-bottom: 2rem;
+  }
+
+  .getting-started h2 {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.01em;
+    color: var(--text);
+  }
+
+  .getting-started .section-lead {
+    color: var(--text-mute);
+    font-size: 0.95rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .path-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+  }
+
+  .path-card {
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    padding: 1.5rem 1.25rem 1.25rem;
+    border-radius: 3px;
+    text-decoration: none;
+    color: var(--text);
+    display: block;
+    transition: border-color 0.15s, background 0.15s, transform 0.15s;
+    position: relative;
+    cursor: pointer;
+  }
+
+  .path-card:hover {
+    border-color: var(--raider);
+    background: var(--bg-card);
+  }
+
+  .path-card .path-num {
+    position: absolute;
+    top: 1rem;
+    right: 1.25rem;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--raider);
+    color: #ffffff;
+    font-size: 0.78rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .path-card .path-title {
+    font-weight: 500;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: var(--text);
+    padding-right: 32px;
+  }
+
+  .path-card .path-desc {
+    color: var(--text-mute);
+    font-size: 0.9rem;
+    line-height: 1.45;
+  }
+
   /* ===== Responsive ===== */
   @media (max-width: 640px) {
     .site-header {
@@ -694,6 +767,28 @@
     Convert a Word doc into a Canvas quiz. Expand a small question bank. Build a full exam that pulls random questions from your pools. Drop a <code>.txt</code>, <code>.md</code>, or <code>.docx</code> written with simple markers and get back a Canvas-importable <code>.zip</code>. <strong>Everything runs in your browser — no file leaves your computer.</strong>
   </p>
 
+  <section class="getting-started">
+    <h2>Getting started</h2>
+    <p class="section-lead">Three common starting points &mdash; pick the one that matches what you&rsquo;re doing today.</p>
+    <div class="path-grid">
+      <a class="path-card" href="docs/how-to.md#recipe-1-convert-a-word-doc-quiz" target="_blank" rel="noopener">
+        <div class="path-num">1</div>
+        <div class="path-title">I have questions in Word</div>
+        <div class="path-desc">Format your existing doc with simple markers, then drop the .docx below to convert.</div>
+      </a>
+      <a class="path-card" href="docs/how-to.md#recipe-2-build-a-quiz-with-ai" target="_blank" rel="noopener">
+        <div class="path-num">2</div>
+        <div class="path-title">I want AI to write it</div>
+        <div class="path-desc">Open the Raider Quiz Builder Assistant &mdash; describe your topic and get a ready-to-convert file.</div>
+      </a>
+      <a class="path-card" href="docs/how-to.md" target="_blank" rel="noopener">
+        <div class="path-num">3</div>
+        <div class="path-title">I&rsquo;m new &mdash; show me how</div>
+        <div class="path-desc">Read the recipe-style guides, see templates and samples, and learn what&rsquo;s possible.</div>
+      </a>
+    </div>
+  </section>
+
   <div class="dropzone" id="dropzone" tabindex="0" role="button" aria-label="Drop a quiz file or click to browse">
     <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
       <path d="M12 3v14m0-14l-5 5m5-5l5 5M5 21h14"/>
@@ -723,6 +818,11 @@
   <section class="resources">
     <h2>Resources</h2>
     <div class="resource-grid">
+      <a class="resource-card" href="docs/how-to.md" target="_blank" rel="noopener">
+        <div class="r-title">How-to guide <span class="arrow">&rarr;</span></div>
+        <div class="r-desc">Recipe-style walkthroughs for common workflows: convert a Word doc, build with AI, grow a small bank, build random-draw exams, fix common issues.</div>
+      </a>
+
       <a class="resource-card" href="docs/format-reference.md" target="_blank" rel="noopener">
         <div class="r-title">Format reference <span class="arrow">&rarr;</span></div>
         <div class="r-desc">Complete syntax for all 7 question types, GROUP blocks, feedback, and edge cases.</div>

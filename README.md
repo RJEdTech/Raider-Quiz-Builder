@@ -16,22 +16,31 @@ Browser-based tool that converts plain text, Markdown, or Word documents into Ca
 
 ## How to use it
 
+**Most teachers should start with the [how-to guide](docs/how-to.md)** — recipe-style walkthroughs for the most common workflows (convert a Word doc, build with AI, grow a small bank, build random-draw exams, fix common issues).
+
+Quick version of the workflow:
+
 1. Write your quiz in a `.txt`, `.md`, or `.docx` file using the [format reference](docs/format-reference.md) (or start from a [template](templates/)).
 2. Open the [live site](https://rjedtech.github.io/Raider-Quiz-Builder/) and drop your file in.
-3. Review the validation results — errors are shown with line numbers if anything's wrong.
+3. Review the validation results &mdash; errors are shown with line numbers if anything's wrong.
 4. Click **Convert to Canvas quiz** and download the `.zip`.
-5. In Canvas: **Settings → Import Course Content → QTI .zip file** → choose your file → Import.
+5. In Canvas: **Settings &rarr; Import Course Content &rarr; QTI .zip file** &rarr; choose your file &rarr; Import.
 
-To have an AI build the quiz file for you, click the **AI prompt** card on the site, paste the prompt into Claude, Flint, or ChatGPT, and ask for a quiz on your topic.
+To have an AI build the quiz file for you, click the **AI prompt** card on the site, paste the prompt into Claude, Flint, or ChatGPT, and ask for a quiz on your topic. If your school has a deployed Raider Quiz Builder Assistant (GPT or Flint Activity), use that instead &mdash; one-step generation with no copy-paste.
 
 ## Repository layout
 
 ```
+├── README.md
 ├── index.html                       UI (single page)
-├── lib/raider-quiz-builder.js       Parser, QTI generator, ZIP bundler
+├── favicon.svg
+├── lib/
+│   └── raider-quiz-builder.js       Parser, QTI generator, ZIP bundler
 ├── docs/
+│   ├── how-to.md                    Recipe-style guides (start here)
 │   ├── format-reference.md          Full syntax for every question type
-│   └── ai-prompt.md                 Paste-ready prompt for LLMs
+│   ├── ai-prompt.md                 Paste-ready prompt for LLMs
+│   └── ai-deployment.md             Setup instructions for the GPT and Flint Activity
 ├── templates/                       Starter files (txt, docx, GROUP example)
 └── samples/                         Ready-to-import sample .zip files
 ```
