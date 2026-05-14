@@ -1,0 +1,125 @@
+Quiz title: Unit 4 Mid-Chapter Check - Replace Title
+Quiz description: This quiz draws random questions from each taxonomy level. Replace the description.
+
+COMMENT
+This template shows how to use GROUP blocks for stratified random draw.
+
+When a student takes this quiz, Canvas will randomly select:
+  - 9 questions from the Recall pool (worth 1 point each)
+  - 3 questions from the Application pool (worth 2 points each)
+  - 1 question from the Analysis pool (worth 3 points)
+That's a 13-question quiz worth 18 points total.
+
+GROUP rules:
+- GROUP and END_GROUP must be ALL CAPS, on their own lines, at column 1.
+- "pick:" sets how many questions each student sees from the pool.
+- "points per question:" sets the value of each question in the group.
+- Every question inside one group must be worth the same point value.
+- You can mix GROUP blocks and standalone questions in the same file.
+END_COMMENT
+
+
+% =========================================================================
+% RECALL POOL - draws 9 random questions, 1 point each
+% Add as many recall questions as you want; Canvas picks 9 of them per attempt.
+% =========================================================================
+
+GROUP
+pick: 9
+points per question: 1
+
+1. What does mitosis produce?
+*a) Two genetically identical daughter cells
+b) Four haploid gametes
+c) One polyploid cell
+d) Cells with random genetic variation
+
+2. The structure that holds sister chromatids together at the centromere is the:
+*a) kinetochore
+b) spindle fiber
+c) cleavage furrow
+d) cytoskeleton
+
+3. The phase of the cell cycle in which a cell grows and replicates DNA is called:
+*a) interphase
+b) prophase
+c) anaphase
+d) telophase
+
+4. Which structure is the site of protein synthesis?
+*a) Ribosome
+b) Mitochondrion
+c) Lysosome
+d) Golgi apparatus
+
+5. Cellular respiration primarily takes place in the:
+*a) mitochondria
+b) nucleus
+c) endoplasmic reticulum
+d) ribosomes
+
+% Add more recall questions here. The pool can be any size.
+
+END_GROUP
+
+
+% =========================================================================
+% APPLICATION POOL - draws 3 random questions, 2 points each
+% =========================================================================
+
+GROUP
+pick: 3
+points per question: 2
+
+1. A patient's white blood cell count is rising rapidly during an infection. Which cellular process is most directly accelerated in their lymphocyte precursors?
+*a) Mitosis
+b) Meiosis
+c) Apoptosis
+d) Photosynthesis
+
+2. A scientist exposes a culture of cells to a drug that prevents spindle fiber formation. At which phase will most cells become stuck?
+*a) Metaphase
+b) Interphase
+c) Telophase
+d) Cytokinesis
+
+3. A biopsy sample shows cells with abnormal numbers of chromosomes. Which process most likely went wrong?
+*a) Nondisjunction during cell division
+b) Normal interphase
+c) Standard DNA replication
+d) Routine protein folding
+
+% Add more application questions here.
+
+END_GROUP
+
+
+% =========================================================================
+% ANALYSIS POOL - draws 1 random question, 3 points each
+% =========================================================================
+
+GROUP
+pick: 1
+points per question: 3
+
+1. Compare the cellular energy demands of skeletal muscle cells versus skin cells. Which cell type would you predict has greater mitochondrial density, and what evidence from this unit supports your prediction?
+____
+
+2. Two patients show abnormal cell division. Patient A has cells that divide too rapidly; Patient B has cells that fail to undergo apoptosis when expected. Explain why both conditions could lead to similar visible outcomes despite different underlying mechanisms.
+____
+
+% Add more analysis questions here.
+
+END_GROUP
+
+
+% =========================================================================
+% Optional: standalone questions appear in EVERY attempt (not randomized).
+% Use these for questions every student must see.
+% =========================================================================
+
+% Title: Unit 4 Concept Check
+% Points: 1
+% 1. The cell theory states that all living things are made of cells.
+% *a) True
+% b) False

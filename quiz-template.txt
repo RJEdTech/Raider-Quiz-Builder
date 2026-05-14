@@ -1,0 +1,106 @@
+Quiz title: Sample Quiz - Replace This Title
+Quiz description: Replace this description with whatever students should see when they open the quiz.
+
+% Optional settings - uncomment (remove the % at the start) to enable
+% shuffle answers: true
+% show correct answers: false
+% one question at a time: false
+% can't go back: false
+
+COMMENT
+This template shows all 7 question types Raider Quiz Builder supports.
+Replace each example with your own content. You can keep, delete, or reorder
+any question.
+
+The basic rules:
+- Every marker (1., a), *a), [*], =, *, ____, ^^^^, ...) starts at column 1.
+- A space follows every marker.
+- One blank line between questions.
+- Questions are renumbered automatically on export, so any number works.
+END_COMMENT
+
+
+% --- Multiple choice ---
+1. What is the capital of France?
+*a) Paris
+b) London
+c) Berlin
+d) Madrid
+
+
+% --- True/False (just multiple choice with True and False as options) ---
+2. The Pacific is the largest ocean on Earth.
+*a) True
+b) False
+
+
+% --- Multiple answer (use [*] for correct, [ ] for incorrect) ---
+3. Which of these are noble gases? (Select all that apply.)
+[*] Helium
+[ ] Oxygen
+[*] Neon
+[*] Argon
+[ ] Hydrogen
+
+
+% --- Numerical (three formats: exact, range, or value +- tolerance) ---
+4. What is 12 multiplied by 8?
+= 96
+
+5. The boiling point of water at standard pressure, in degrees Celsius, falls between what two values?
+= [99, 101]
+
+6. To three decimal places, what is the value of pi?
+= 3.142 +- 0.001
+
+
+% --- Short answer / Fill in the Blank ---
+% List every accepted answer on its own line, prefixed with "* " (asterisk + space)
+7. The Spanish word for "library" is _____.
+* biblioteca
+* la biblioteca
+
+
+% --- Essay (use four underscores) ---
+8. Explain the role of mitochondria in cellular respiration. Use at least three specific terms from this unit.
+____
+
+
+% --- File upload (use four carets) ---
+9. Submit your completed lab report as a PDF.
+^^^^
+
+
+% --- Optional: Title and Points metadata above any question ---
+Title: Mitosis vocabulary
+Points: 2
+10. What does mitosis produce?
+*a) Two genetically identical daughter cells
+b) Four haploid gametes
+c) One polyploid cell
+d) Cells with random genetic variation
+
+
+% --- Multiple choice with correct/incorrect feedback ---
+11. What is 2 + 3?
++ Right.
+- Take another look. Basic addition.
+*a) 5
+b) 4
+c) 6
+d) 23
+
+
+% --- Multiple choice with per-answer feedback ---
+12. Which is the sum of 2 and 3?
+a) 6
+... Close, but that's 2 times 3, not 2 plus 3.
+*b) 5
+... Yes - basic addition.
+c) 4
+... Not quite. You may have subtracted instead of added.
+d) 23
+
+
+% --- IMPORTANT: do NOT add feedback to numerical or short-answer questions.
+%     It causes conversion errors. The validator will catch it before convert.

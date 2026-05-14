@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Raider Quiz Builder</title>
+<meta name="description" content="Build Canvas quizzes from text. Convert a Word doc, expand a question bank, or assemble an exam with random draws — all in your browser.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" integrity="sha512-XMVd28F1oH/O71fzwBnV7HucLxVwtxf26XV8P4wPk26EDxuGZ91N8bsOttmnomcCD3CS5ZMRL50H0GgOHvegtg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.11.0/mammoth.browser.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="lib/raider-quiz-builder.js"></script>
+<style>
+  /* ===== Theme tokens ===== */
+  :root {
+    /* Light mode (default) */
+    --bg: #ffffff;
+    --bg-elev: #fafafa;
+    --bg-card: #f3f3f3;
+    --bg-hover: #ededed;
+    --raider: #C11430;
+    --raider-hot: #a0102a;
+    --raider-tint: rgba(193, 20, 48, 0.08);
+    --text: #1a1a1a;
+    --text-mute: #595959;
+    --text-dim: #999999;
+    --border: #e5e5e5;
+    --border-strong: #c5c5c5;
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+  }
+
+  [data-theme="dark"] {
+    --bg: #0a0a0a;
+    --bg-elev: #161616;
+    --bg-card: #1c1c1c;
+    --bg-hover: #222222;
+    --raider: #C11430;
+    --raider-hot: #e0223f;
+    --raider-tint: rgba(193, 20, 48, 0.15);
+    --text: #ffffff;
+    --text-mute: #a0a0a0;
+    --text-dim: #666666;
+    --border: #2a2a2a;
+    --border-strong: #3a3a3a;
+    --shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    min-height: 100vh;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  body {
+    display: flex;
+    flex-direction: column;
+  }
+
+  code, pre, .mono {
+    font-family: "IBM Plex Mono", "Consolas", "Courier New", monospace;
+  }
+
+  ::selection {
+    background: var(--raider);
+    color: #ffffff;
+  }
+
+  /* ===== Focus visibility (accessibility) ===== */
+  :focus-visible {
+    outline: 2px solid var(--raider);
+    outline-offset: 2px;
+  }
+
+  /* ===== Header ===== */
+  .site-header {
+    border-bottom: 1px solid var(--border);
+    padding: 1.25rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .header-left {
+    display: flex;
+    align-items: baseline;
+    gap: 1.25rem;
+    min-width: 0;
+  }
+
+  .brand {
+    font-size: 1.35rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+  }
+
+  .brand .accent {
+    color: var(--raider);
+  }
+
+  .tagline {
+    color: var(--text-mute);
+    font-size: 0.9rem;
+  }
+
+  /* Theme toggle button */
+  .theme-toggle {
+    background: transparent;
+    border: 1px solid var(--border-strong);
+    color: var(--text-mute);
+    width: 36px;
+    height: 36px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+    flex-shrink: 0;
+  }
+
+  .theme-toggle:hover {
+    border-color: var(--raider);
+    color: var(--raider);
+  }
+
+  .theme-toggle svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  [data-theme="light"] .theme-toggle .icon-moon { display: block; }
+  [data-theme="light"] .theme-toggle .icon-sun { display: none; }
+  [data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+  [data-theme="dark"] .theme-toggle .icon-sun { display: block; }
+
+  /* ===== Main layout ===== */
+  main {
+    flex: 1;
+    max-width: 880px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 2.5rem 2rem 4rem;
+  }
+
+  .lead {
+    color: var(--text-mute);
+    font-size: 1.05rem;
+    margin-bottom: 2rem;
+    max-width: 720px;
+  }
+
+  .lead strong {
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  .lead code {
+    background: var(--bg-card);
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-size: 0.9em;
+  }
+
+  /* ===== Drop zone ===== */
+  .dropzone {
+    border: 2px dashed var(--border-strong);
+    border-radius: 4px;
+    padding: 3rem 2rem;
+    text-align: center;
+    background: var(--bg-elev);
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+    margin-bottom: 1.5rem;
+  }
+
+  .dropzone:hover,
+  .dropzone.drag-over {
+    border-color: var(--raider);
+    background: var(--raider-tint);
+  }
+
+  .dropzone.has-file {
+    border-style: solid;
+    border-color: var(--border-strong);
+    text-align: left;
+    padding: 1.5rem 2rem;
+    cursor: default;
+    background: var(--bg-elev);
+  }
+
+  .dropzone .upload-icon {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 1rem;
+    color: var(--text-dim);
+  }
+
+  .dropzone .primary-text {
+    font-size: 1.1rem;
+    margin-bottom: 0.4rem;
+    color: var(--text);
+  }
+
+  .dropzone .secondary-text {
+    color: var(--text-mute);
+    font-size: 0.9rem;
+  }
+
+  .dropzone .browse-link {
+    color: var(--raider);
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  .file-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .file-info .filename {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.95rem;
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .file-info .file-meta {
+    color: var(--text-mute);
+    font-size: 0.85rem;
+  }
+
+  .file-info .reset-btn {
+    background: transparent;
+    border: 1px solid var(--border-strong);
+    color: var(--text-mute);
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+    cursor: pointer;
+    border-radius: 3px;
+    font-family: inherit;
+    transition: all 0.15s;
+  }
+
+  .file-info .reset-btn:hover {
+    border-color: var(--raider);
+    color: var(--raider);
+  }
+
+  /* ===== Validation panel ===== */
+  .validation {
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-left-width: 4px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.5rem;
+    border-radius: 3px;
+  }
+
+  .validation.success { border-left-color: var(--text); }
+  .validation.warning { border-left-color: var(--text-mute); }
+  .validation.error { border-left-color: var(--raider); }
+  .validation.pending { border-left-color: var(--text-dim); }
+
+  .validation .v-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  .validation .v-header .icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+  }
+
+  .validation.error .v-header .icon { color: var(--raider); }
+
+  .validation .v-summary {
+    color: var(--text-mute);
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+  }
+
+  .validation .v-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-height: 300px;
+    overflow-y: auto;
+  }
+
+  .validation .v-list li {
+    padding: 0.55rem 0.75rem;
+    margin-bottom: 0.4rem;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--border-strong);
+    font-size: 0.9rem;
+    display: flex;
+    gap: 0.75rem;
+    border-radius: 2px;
+  }
+
+  .validation .v-list li.error-item { border-left-color: var(--raider); }
+  .validation .v-list li.warn-item { border-left-color: var(--text-mute); }
+
+  .validation .v-list .line-num {
+    color: var(--text-mute);
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+    min-width: 60px;
+  }
+
+  .validation .v-list .v-msg {
+    flex: 1;
+    color: var(--text);
+  }
+
+  /* ===== Action row ===== */
+  .action-row {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    background: var(--raider);
+    color: #ffffff;
+    border: none;
+    padding: 0.8rem 1.7rem;
+    font-size: 1rem;
+    font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: background 0.15s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+  }
+
+  .btn:hover:not(:disabled) {
+    background: var(--raider-hot);
+  }
+
+  .btn:disabled {
+    background: var(--bg-card);
+    color: var(--text-dim);
+    cursor: not-allowed;
+  }
+
+  .btn.secondary {
+    background: transparent;
+    border: 1px solid var(--border-strong);
+    color: var(--text-mute);
+  }
+
+  .btn.secondary:hover:not(:disabled) {
+    background: transparent;
+    border-color: var(--raider);
+    color: var(--raider);
+  }
+
+  .btn .spinner {
+    width: 14px;
+    height: 14px;
+    border: 2px solid rgba(255, 255, 255, 0.35);
+    border-top-color: #ffffff;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .convert-anyway {
+    color: var(--text-mute);
+    font-size: 0.9rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-decoration: underline;
+    font-family: inherit;
+    padding: 0.5rem;
+  }
+
+  .convert-anyway:hover {
+    color: var(--raider);
+  }
+
+  /* ===== Download panel ===== */
+  .download-panel {
+    background: var(--bg-elev);
+    border: 1px solid var(--raider);
+    border-left-width: 4px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    border-radius: 3px;
+  }
+
+  .download-panel .download-info {
+    flex: 1;
+    min-width: 200px;
+  }
+
+  .download-panel .download-title {
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+    color: var(--text);
+  }
+
+  .download-panel .download-desc {
+    color: var(--text-mute);
+    font-size: 0.9rem;
+  }
+
+  /* ===== Resources section ===== */
+  .resources {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .resources h2 {
+    font-size: 1.05rem;
+    font-weight: 500;
+    margin-bottom: 1.25rem;
+    letter-spacing: 0.01em;
+    color: var(--text);
+  }
+
+  .resource-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+  }
+
+  .resource-card {
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    padding: 1.25rem;
+    border-radius: 3px;
+    text-decoration: none;
+    color: var(--text);
+    display: block;
+    transition: border-color 0.15s, background 0.15s;
+    cursor: pointer;
+    font-family: inherit;
+    text-align: left;
+    width: 100%;
+    font-size: 1rem;
+  }
+
+  .resource-card:hover {
+    border-color: var(--raider);
+    background: var(--bg-card);
+  }
+
+  .resource-card .r-title {
+    font-weight: 500;
+    margin-bottom: 0.4rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text);
+  }
+
+  .resource-card .r-title .arrow {
+    color: var(--raider);
+    transition: transform 0.15s;
+  }
+
+  .resource-card:hover .r-title .arrow {
+    transform: translateX(2px);
+  }
+
+  .resource-card .r-desc {
+    color: var(--text-mute);
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+
+  /* ===== AI prompt modal ===== */
+  .modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    padding: 1.5rem;
+  }
+
+  [data-theme="dark"] .modal-backdrop {
+    background: rgba(0, 0, 0, 0.75);
+  }
+
+  .modal-backdrop.open { display: flex; }
+
+  .modal {
+    background: var(--bg);
+    border: 1px solid var(--border-strong);
+    border-radius: 4px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    max-width: 760px;
+    width: 100%;
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .modal-header {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .modal-header h3 {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  .modal-close {
+    background: transparent;
+    border: none;
+    color: var(--text-mute);
+    font-size: 1.6rem;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+  }
+
+  .modal-close:hover {
+    color: var(--text);
+    background: var(--bg-card);
+  }
+
+  .modal-body {
+    padding: 1.5rem;
+    overflow-y: auto;
+    flex: 1;
+  }
+
+  .modal-body p {
+    color: var(--text-mute);
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+  }
+
+  .modal-body p.example-line {
+    color: var(--text);
+    font-size: 0.95rem;
+  }
+
+  .modal-body .prompt-box {
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    padding: 1rem;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.82rem;
+    line-height: 1.5;
+    max-height: 280px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    color: var(--text);
+    margin-bottom: 1rem;
+    border-radius: 3px;
+  }
+
+  .modal-footer {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    gap: 0.75rem;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  .copy-feedback {
+    color: var(--raider);
+    font-size: 0.9rem;
+    margin-right: auto;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .copy-feedback.show { opacity: 1; }
+
+  /* ===== Footer ===== */
+  .site-footer {
+    border-top: 1px solid var(--border);
+    padding: 1.5rem 2rem;
+    color: var(--text-dim);
+    font-size: 0.85rem;
+    text-align: center;
+  }
+
+  .site-footer a {
+    color: var(--text-mute);
+    text-decoration: none;
+    border-bottom: 1px solid var(--border);
+    transition: color 0.15s, border-color 0.15s;
+  }
+
+  .site-footer a:hover {
+    color: var(--raider);
+    border-color: var(--raider);
+  }
+
+  /* ===== Utility ===== */
+  .hidden { display: none !important; }
+
+  /* ===== Responsive ===== */
+  @media (max-width: 640px) {
+    .site-header {
+      padding: 1rem 1.25rem;
+      flex-wrap: wrap;
+    }
+
+    .header-left {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.2rem;
+    }
+
+    main {
+      padding: 1.5rem 1.25rem 3rem;
+    }
+
+    .dropzone {
+      padding: 2rem 1rem;
+    }
+
+    .resource-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-left">
+    <div class="brand">Raider <span class="accent">Quiz Builder</span></div>
+    <div class="tagline">Build, expand, and convert Canvas quizzes</div>
+  </div>
+  <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode">
+    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+    </svg>
+    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="4"/>
+      <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+    </svg>
+  </button>
+</header>
+
+<main>
+  <p class="lead">
+    Convert a Word doc into a Canvas quiz. Expand a small question bank. Build a full exam that pulls random questions from your pools. Drop a <code>.txt</code>, <code>.md</code>, or <code>.docx</code> written with simple markers and get back a Canvas-importable <code>.zip</code>. <strong>Everything runs in your browser — no file leaves your computer.</strong>
+  </p>
+
+  <div class="dropzone" id="dropzone" tabindex="0" role="button" aria-label="Drop a quiz file or click to browse">
+    <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M12 3v14m0-14l-5 5m5-5l5 5M5 21h14"/>
+    </svg>
+    <div class="primary-text">Drop a quiz file here</div>
+    <div class="secondary-text">or <span class="browse-link">browse to choose a file</span> &middot; .txt, .md, .docx</div>
+    <input type="file" id="file-input" accept=".txt,.md,.docx" hidden>
+  </div>
+
+  <div class="validation hidden" id="validation"></div>
+
+  <div class="action-row hidden" id="action-row">
+    <button class="btn" id="convert-btn" disabled>
+      <span class="btn-label">Convert to Canvas quiz</span>
+    </button>
+    <button class="convert-anyway hidden" id="convert-anyway-btn">Convert anyway</button>
+  </div>
+
+  <div class="download-panel hidden" id="download-panel">
+    <div class="download-info">
+      <div class="download-title">Quiz package ready</div>
+      <div class="download-desc">Import into Canvas via Settings &rarr; Import Course Content &rarr; QTI .zip file.</div>
+    </div>
+    <a class="btn" id="download-link" download>Download .zip</a>
+  </div>
+
+  <section class="resources">
+    <h2>Resources</h2>
+    <div class="resource-grid">
+      <a class="resource-card" href="docs/format-reference.md" target="_blank" rel="noopener">
+        <div class="r-title">Format reference <span class="arrow">&rarr;</span></div>
+        <div class="r-desc">Complete syntax for all 7 question types, GROUP blocks, feedback, and edge cases.</div>
+      </a>
+
+      <button class="resource-card" id="ai-prompt-btn" type="button">
+        <div class="r-title">AI prompt <span class="arrow">&rarr;</span></div>
+        <div class="r-desc">Paste-ready prompt for Claude, Flint, or ChatGPT &mdash; generates valid quiz files from a topic.</div>
+      </button>
+
+      <a class="resource-card" href="templates/quiz-template.txt" download>
+        <div class="r-title">Basic template <span class="arrow">&rarr;</span></div>
+        <div class="r-desc">Starter file with one example of each question type.</div>
+      </a>
+
+      <a class="resource-card" href="templates/quiz-template-with-groups.txt" download>
+        <div class="r-title">GROUP block template <span class="arrow">&rarr;</span></div>
+        <div class="r-desc">Template for stratified random draw &mdash; pull N random questions from each pool.</div>
+      </a>
+
+      <a class="resource-card" href="templates/quiz-template.docx" download>
+        <div class="r-title">Word template <span class="arrow">&rarr;</span></div>
+        <div class="r-desc">Same as the basic template, but as a .docx for teachers who prefer Word.</div>
+      </a>
+
+      <a class="resource-card" href="samples/sample-basic.zip" download>
+        <div class="r-title">Sample quiz package <span class="arrow">&rarr;</span></div>
+        <div class="r-desc">Ready-to-import Canvas .zip with all 7 question types. Use this to test your Canvas import workflow before converting your own content.</div>
+      </a>
+
+      <a class="resource-card" href="samples/sample-groups.zip" download>
+        <div class="r-title">Sample with random draws <span class="arrow">&rarr;</span></div>
+        <div class="r-desc">Ready-to-import .zip showing GROUP blocks in action &mdash; Canvas Question Groups that draw N random questions from each pool.</div>
+      </a>
+    </div>
+  </section>
+</main>
+
+<div class="modal-backdrop" id="modal-backdrop">
+  <div class="modal" role="dialog" aria-labelledby="modal-title">
+    <div class="modal-header">
+      <h3 id="modal-title">AI prompt</h3>
+      <button class="modal-close" id="modal-close" type="button" aria-label="Close">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p>Paste this into Claude, Flint, ChatGPT, or any chat AI. Then on the next line, tell it what kind of quiz you want &mdash; topic, number of questions, mix of types, anything else. The AI will return a file you can drop straight into the converter.</p>
+      <p class="example-line"><strong>Example follow-up after pasting:</strong> <em>"Generate a 15-question quiz on the French Revolution. Mix multiple choice, true/false, and one essay. Title it 'Unit 6 Check' with a 30-minute description."</em></p>
+      <div class="prompt-box" id="prompt-content"></div>
+    </div>
+    <div class="modal-footer">
+      <span class="copy-feedback" id="copy-feedback">Copied to clipboard</span>
+      <button class="btn secondary" id="modal-close-btn" type="button">Close</button>
+      <button class="btn" id="copy-prompt-btn" type="button">Copy prompt</button>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  Built for Regis Jesuit High School &middot;
+  Marker conventions originally established by
+  <a href="https://github.com/gpoore/text2qti" target="_blank" rel="noopener">text2qti</a>
+  (Geoffrey Poore, MIT-licensed) &middot;
+  <a href="https://github.com/RJEdTech/Raider-Quiz-Builder" target="_blank" rel="noopener">View on GitHub</a>
+</footer>
+
+<script>
+/* ===========================================================================
+ * Theme toggle
+ * ========================================================================= */
+
+const root = document.documentElement;
+const themeToggle = document.getElementById('theme-toggle');
+const THEME_KEY = 'raider-quiz-builder-theme';
+
+function applyTheme(theme) {
+  root.setAttribute('data-theme', theme);
+  try { localStorage.setItem(THEME_KEY, theme); } catch (e) { /* private mode */ }
+}
+
+(function initTheme() {
+  let stored = null;
+  try { stored = localStorage.getItem(THEME_KEY); } catch (e) {}
+  applyTheme(stored || 'light');
+})();
+
+themeToggle.addEventListener('click', () => {
+  applyTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+});
+
+/* ===========================================================================
+ * AI prompt content (also published as docs/ai-prompt.md)
+ * ========================================================================= */
+
+const AI_PROMPT = `You are generating a quiz file for Raider Quiz Builder, a tool that converts text into Canvas-importable quiz files. The file will be parsed line by line, so the format must be exact.
+
+OUTPUT RULES:
+- Output ONLY the quiz file content. No preamble, no commentary, no explanations.
+- Do NOT wrap the output in markdown code fences. Do NOT use triple-backticks around the output.
+- After the last question, stop. Do not add a summary.
+
+THE GOLDEN RULE:
+Every marker (1., a), *a), [*], =, *, ____, ^^^^, ..., +, -, GROUP) starts at column 1 with no leading spaces or tabs. Most markers require a space immediately after them.
+
+QUIZ HEADER (optional):
+Quiz title: [title]
+Quiz description: [description]
+
+OPTIONAL SETTINGS (one per line, true/false only):
+shuffle answers: true
+show correct answers: true
+one question at a time: false
+can't go back: false
+
+QUESTION TYPES:
+
+Multiple choice — asterisk touches the letter, exactly one * per question:
+1. Which planet is closest to the sun?
+a) Venus
+*b) Mercury
+c) Earth
+d) Mars
+
+True/False — multiple choice with True and False as options:
+1. The Pacific is the largest ocean.
+*a) True
+b) False
+
+Multiple answer — [*] for correct, [ ] for incorrect:
+1. Which are noble gases? (Select all that apply.)
+[*] Helium
+[ ] Oxygen
+[*] Neon
+
+Numerical — three formats:
+1. What is 12 × 8?
+= 96
+
+2. What range, in °C, is the boiling point of water?
+= [99, 101]
+
+3. To three decimals, what is pi?
+= 3.142 +- 0.001
+
+Short answer / Fill in blank — each accepted answer on its own line, prefixed with "* ":
+1. The capital of France is _____.
+* Paris
+* paris
+
+Essay — four underscores on a line by themselves:
+1. Explain photosynthesis using at least three terms from this unit.
+____
+
+File upload — four carets:
+1. Submit your lab report as a PDF.
+^^^^
+
+OPTIONAL PER-QUESTION METADATA (place above any question):
+Title: [shows in Canvas analytics]
+Points: [number, default 1]
+1. Question text...
+
+FEEDBACK MARKERS (each requires space after marker):
+... general feedback (shown to all students)
++  feedback when correct
+-  feedback when incorrect
+
+COMPATIBILITY — DO NOT VIOLATE:
+- Multiple choice and true/false: all three feedback types work.
+- Multiple answer: general (...) only.
+- Essay and file upload: general (...) only.
+- Numerical and short answer: NO FEEDBACK OF ANY KIND. Adding feedback to these types causes conversion errors.
+
+QUESTION GROUPS (for random-draw quizzes):
+GROUP
+pick: 9
+points per question: 1
+
+1. [question 1]
+*a) Correct
+b) Distractor
+
+2. [question 2]
+*a) Correct
+b) Distractor
+
+[as many as you want in the pool]
+
+END_GROUP
+
+GROUP and END_GROUP must be ALL CAPS, on their own lines, at column 1. All questions in one group must be worth the same points.
+
+COMMENTS (ignored on conversion):
+% line comment
+COMMENT
+block comment
+END_COMMENT
+
+SELF-CHECK BEFORE OUTPUT:
+- Every marker line starts at column 1.
+- Every multiple choice question has exactly one * marker.
+- Numerical and short-answer questions have no feedback.
+- Answer text is unique within each question.
+- One blank line between questions.
+- Output starts with "Quiz title:" or with question 1 — never with anything else.
+
+REMINDER: Output only the file content. No fences, no commentary, no explanation. The first character of your response is the first character of the file.`;
+
+/* ===========================================================================
+ * State and DOM refs
+ * ========================================================================= */
+
+let currentFile = null;
+let parsedResult = null;
+
+const dropzone = document.getElementById('dropzone');
+const fileInput = document.getElementById('file-input');
+const validation = document.getElementById('validation');
+const actionRow = document.getElementById('action-row');
+const convertBtn = document.getElementById('convert-btn');
+const convertAnywayBtn = document.getElementById('convert-anyway-btn');
+const downloadPanel = document.getElementById('download-panel');
+const downloadLink = document.getElementById('download-link');
+
+/* ===========================================================================
+ * Drop zone wiring
+ * ========================================================================= */
+
+dropzone.addEventListener('click', (e) => {
+  if (currentFile) return;
+  if (e.target.closest('.reset-btn')) return;
+  fileInput.click();
+});
+
+dropzone.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault();
+    if (!currentFile) fileInput.click();
+  }
+});
+
+dropzone.addEventListener('dragover', (e) => {
+  e.preventDefault();
+  dropzone.classList.add('drag-over');
+});
+
+dropzone.addEventListener('dragleave', () => dropzone.classList.remove('drag-over'));
+
+dropzone.addEventListener('drop', (e) => {
+  e.preventDefault();
+  dropzone.classList.remove('drag-over');
+  if (currentFile) return;
+  const file = e.dataTransfer.files[0];
+  if (file) handleFile(file);
+});
+
+fileInput.addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  if (file) handleFile(file);
+});
+
+/* ===========================================================================
+ * File handling
+ * ========================================================================= */
+
+async function handleFile(file) {
+  const validTypes = /\.(txt|md|docx)$/i;
+  if (!validTypes.test(file.name)) {
+    showValidationError('Unsupported file type. Use .txt, .md, or .docx.');
+    return;
+  }
+
+  currentFile = file;
+  renderFileInfo(file);
+
+  try {
+    const text = await readFileAsText(file);
+    parsedResult = await parseAndValidate(text, file.name);
+    renderValidation(parsedResult);
+    renderActionRow(parsedResult);
+  } catch (err) {
+    showValidationError('Could not read file: ' + err.message);
+  }
+}
+
+function renderFileInfo(file) {
+  dropzone.classList.add('has-file');
+  dropzone.innerHTML = `
+    <div class="file-info">
+      <span class="filename">${escapeHtml(file.name)}</span>
+      <span class="file-meta mono">${formatBytes(file.size)}</span>
+      <button class="reset-btn" type="button">Choose different file</button>
+    </div>
+  `;
+  dropzone.querySelector('.reset-btn').addEventListener('click', resetForm);
+}
+
+function resetForm() {
+  currentFile = null;
+  parsedResult = null;
+  fileInput.value = '';
+  dropzone.classList.remove('has-file');
+  dropzone.innerHTML = `
+    <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M12 3v14m0-14l-5 5m5-5l5 5M5 21h14"/>
+    </svg>
+    <div class="primary-text">Drop a quiz file here</div>
+    <div class="secondary-text">or <span class="browse-link">browse to choose a file</span> &middot; .txt, .md, .docx</div>
+  `;
+  validation.classList.add('hidden');
+  actionRow.classList.add('hidden');
+  downloadPanel.classList.add('hidden');
+}
+
+async function readFileAsText(file) {
+  if (/\.docx$/i.test(file.name)) {
+    if (typeof mammoth === 'undefined') {
+      throw new Error('Mammoth library failed to load. Refresh the page or save your file as .txt and try again.');
+    }
+    const arrayBuffer = await file.arrayBuffer();
+    const result = await mammoth.extractRawText({ arrayBuffer });
+    // Mammoth separates paragraphs with two newlines. Collapse those to one
+    // so the parser sees source-adjacent lines as adjacent and treats
+    // originally-blank source lines as the single-blank question separator.
+    return result.value.replace(/\n\n/g, '\n');
+  }
+  return await file.text();
+}
+
+/* ===========================================================================
+ * Parser and generator hooks
+ * ========================================================================= */
+
+async function parseAndValidate(text, filename) {
+  if (window.RaiderQuizBuilder && typeof window.RaiderQuizBuilder.parse === 'function') {
+    return window.RaiderQuizBuilder.parse(text, filename);
+  }
+  return {
+    questionCount: 0,
+    errors: [{ line: null, message: 'Parser library failed to load. Check that lib/raider-quiz-builder.js is reachable.' }],
+    warnings: [],
+    parsed: null
+  };
+}
+
+async function generateQuizZip(parsed) {
+  if (window.RaiderQuizBuilder && typeof window.RaiderQuizBuilder.generate === 'function') {
+    return await window.RaiderQuizBuilder.generate(parsed);
+  }
+  throw new Error('Generator library not loaded.');
+}
+
+/* ===========================================================================
+ * Validation rendering
+ * ========================================================================= */
+
+function renderValidation(result) {
+  validation.classList.remove('hidden');
+  const { errors, warnings, questionCount } = result;
+  const hasErrors = errors && errors.length > 0;
+  const hasWarnings = warnings && warnings.length > 0;
+
+  let cls, icon, headerText, summary;
+  if (hasErrors) {
+    cls = 'error';
+    icon = errorIcon();
+    headerText = `${errors.length} error${errors.length === 1 ? '' : 's'} blocking conversion`;
+    summary = 'Fix the issues below and the file will convert. Or use "Convert anyway" to bypass validation (not recommended).';
+  } else if (hasWarnings) {
+    cls = 'warning';
+    icon = warnIcon();
+    headerText = `${questionCount} question${questionCount === 1 ? '' : 's'} detected &middot; ${warnings.length} note${warnings.length === 1 ? '' : 's'}`;
+    summary = 'File is valid. The notes below are advisory and won\'t block conversion.';
+  } else {
+    cls = 'success';
+    icon = checkIcon();
+    headerText = `${questionCount} question${questionCount === 1 ? '' : 's'} detected &middot; ready to convert`;
+    summary = 'No issues found. Click "Convert to Canvas quiz" to generate the import package.';
+  }
+
+  validation.className = `validation ${cls}`;
+  validation.innerHTML = `
+    <div class="v-header">${icon}<span>${headerText}</span></div>
+    <div class="v-summary">${summary}</div>
+    ${renderList(errors, 'error-item') + renderList(warnings, 'warn-item')}
+  `;
+}
+
+function renderList(items, cssClass) {
+  if (!items || items.length === 0) return '';
+  const lis = items.map(item => `
+    <li class="${cssClass}">
+      <span class="line-num mono">${item.line ? `Line ${item.line}` : '&mdash;'}</span>
+      <span class="v-msg">${escapeHtml(item.message)}</span>
+    </li>
+  `).join('');
+  return `<ul class="v-list">${lis}</ul>`;
+}
+
+function showValidationError(msg) {
+  validation.classList.remove('hidden');
+  validation.className = 'validation error';
+  validation.innerHTML = `
+    <div class="v-header">${errorIcon()}<span>Could not read file</span></div>
+    <div class="v-summary">${escapeHtml(msg)}</div>
+  `;
+}
+
+/* ===========================================================================
+ * Action row and conversion
+ * ========================================================================= */
+
+function renderActionRow(result) {
+  actionRow.classList.remove('hidden');
+  const hasErrors = result.errors && result.errors.length > 0;
+  convertBtn.disabled = hasErrors;
+  convertAnywayBtn.classList.toggle('hidden', !hasErrors);
+}
+
+convertBtn.addEventListener('click', runConvert);
+convertAnywayBtn.addEventListener('click', runConvert);
+
+async function runConvert() {
+  const labelEl = convertBtn.querySelector('.btn-label');
+  const originalLabel = labelEl.textContent;
+  convertBtn.disabled = true;
+  convertAnywayBtn.disabled = true;
+  labelEl.innerHTML = `<span class="spinner"></span> Generating&hellip;`;
+
+  try {
+    const blob = await generateQuizZip(parsedResult);
+    const url = URL.createObjectURL(blob);
+    const filename = (currentFile.name.replace(/\.(txt|md|docx)$/i, '') || 'quiz') + '.zip';
+    downloadLink.href = url;
+    downloadLink.setAttribute('download', filename);
+    downloadPanel.classList.remove('hidden');
+    labelEl.textContent = 'Convert another';
+    convertBtn.disabled = false;
+    convertAnywayBtn.disabled = false;
+  } catch (err) {
+    labelEl.textContent = originalLabel;
+    convertBtn.disabled = false;
+    convertAnywayBtn.disabled = false;
+    showValidationError('Conversion failed: ' + err.message);
+  }
+}
+
+/* ===========================================================================
+ * AI prompt modal
+ * ========================================================================= */
+
+const modalBackdrop = document.getElementById('modal-backdrop');
+const modalClose = document.getElementById('modal-close');
+const modalCloseBtn = document.getElementById('modal-close-btn');
+const aiPromptBtn = document.getElementById('ai-prompt-btn');
+const promptContent = document.getElementById('prompt-content');
+const copyPromptBtn = document.getElementById('copy-prompt-btn');
+const copyFeedback = document.getElementById('copy-feedback');
+
+aiPromptBtn.addEventListener('click', () => {
+  promptContent.textContent = AI_PROMPT;
+  modalBackdrop.classList.add('open');
+});
+
+modalClose.addEventListener('click', closeModal);
+modalCloseBtn.addEventListener('click', closeModal);
+modalBackdrop.addEventListener('click', (e) => {
+  if (e.target === modalBackdrop) closeModal();
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && modalBackdrop.classList.contains('open')) {
+    closeModal();
+  }
+});
+
+function closeModal() {
+  modalBackdrop.classList.remove('open');
+  copyFeedback.classList.remove('show');
+}
+
+copyPromptBtn.addEventListener('click', async () => {
+  try {
+    await navigator.clipboard.writeText(AI_PROMPT);
+    copyFeedback.classList.add('show');
+    setTimeout(() => copyFeedback.classList.remove('show'), 2500);
+  } catch (err) {
+    const range = document.createRange();
+    range.selectNodeContents(promptContent);
+    const sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+  }
+});
+
+/* ===========================================================================
+ * Helpers
+ * ========================================================================= */
+
+function escapeHtml(s) {
+  if (s == null) return '';
+  return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+function formatBytes(n) {
+  if (n < 1024) return n + ' B';
+  if (n < 1024 * 1024) return (n / 1024).toFixed(1) + ' KB';
+  return (n / 1024 / 1024).toFixed(2) + ' MB';
+}
+
+function checkIcon() {
+  return `<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>`;
+}
+
+function warnIcon() {
+  return `<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4m0 4h.01M5 21h14a2 2 0 001.7-3l-7-12a2 2 0 00-3.4 0l-7 12A2 2 0 005 21z"/></svg>`;
+}
+
+function errorIcon() {
+  return `<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M15 9l-6 6m0-6l6 6"/></svg>`;
+}
+</script>
+
+</body>
+</html>
