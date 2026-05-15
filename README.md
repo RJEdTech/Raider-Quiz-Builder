@@ -20,7 +20,7 @@ Browser-based tool that converts plain text, Markdown, or Word documents into Ca
 
 Quick version of the workflow:
 
-1. Write your quiz in a `.txt`, `.md`, or `.docx` file using the [format reference](docs/format-reference.md) (or start from a [template](templates/)).
+1. Write your quiz in a `.txt`, `.md`, or `.docx` file using the [format reference](docs/format-reference.html) (or start from a [template](templates/)).
 2. Open the [live site](https://rjedtech.github.io/Raider-Quiz-Builder/) and drop your file in.
 3. Review the validation results &mdash; errors are shown with line numbers if anything's wrong.
 4. Click **Convert to Canvas quiz** and download the `.zip`.
@@ -38,7 +38,7 @@ To have an AI build the quiz file for you, click the **AI prompt** card on the s
 ├── lib/
 │   └── raider-quiz-builder.js       Parser, QTI generator, ZIP bundler
 ├── docs/
-│   ├── format-reference.md          Full syntax for every question type
+│   ├── format-reference.html          Full syntax for every question type
 │   ├── for-your-ai.md               Drop into any AI to write quiz files
 │   ├── ai-prompt.md                 Paste-ready prompt for LLMs
 │   └── ai-deployment.md             Setup instructions for the GPT and Flint Activity
