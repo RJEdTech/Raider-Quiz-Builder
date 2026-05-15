@@ -463,6 +463,7 @@
   <aside class="toc">
     <h2>Contents</h2>
     <ul>
+      <li><a href="#before-you-start">Before you start &middot; Canvas basics</a></li>
       <li><a href="#recipe-1">Recipe 1 &middot; Convert a Word doc</a></li>
       <li><a href="#recipe-2">Recipe 2 &middot; AI from a unit brief</a></li>
       <li><a href="#recipe-3">Recipe 3 &middot; Expand a few questions</a></li>
@@ -474,6 +475,29 @@
   <main class="doc-content">
     <h1>How to use Raider Quiz Builder</h1>
     <p class="doc-lead">Four recipes for the most common workflows. Recipes 2 and 3 are the substantive ones &mdash; they teach you how to actually prompt AI for a quiz that matches what <em>you taught</em>, not a generic chatbot version of your subject.</p>
+
+    <h2 id="before-you-start">Before you start &middot; a note on Canvas imports</h2>
+    <p>If you've never imported a quiz file into Canvas before, here's the basic mental model. You can skip this section if you already know your way around Canvas quiz imports.</p>
+
+    <ul>
+      <li>Canvas can import quizzes from a standard file format called <strong>QTI</strong> (a <code>.zip</code> file containing the quiz structure as XML). This isn't a third-party tool or an add-on &mdash; it's a built-in Canvas feature that every Canvas course has.</li>
+      <li>Importing happens through <strong>Course Settings &rarr; Import Course Content &rarr; QTI .zip file</strong>. You don't need admin permissions; any teacher with edit access to a Canvas course can do this.</li>
+      <li>After importing, the quiz appears in your <strong>Quizzes</strong> page in Canvas. You can edit, preview, add to a module, and assign it the same way you would a quiz you wrote by hand.</li>
+    </ul>
+
+    <p>So the full pipeline this tool is part of:</p>
+    <ol>
+      <li>You produce a Canvas QTI <code>.zip</code> here in Raider Quiz Builder (from a Word doc, an AI-generated file, or by hand).</li>
+      <li>You import that <code>.zip</code> into Canvas via the built-in import tool.</li>
+      <li>The questions appear as a quiz in your course. Tweak settings, due dates, point values, or wording from there.</li>
+    </ol>
+
+    <p>Canvas's official documentation if you want the step-by-step with screenshots:</p>
+    <ul>
+      <li><a href="https://community.instructure.com/en/kb/articles/660996-how-do-i-import-quizzes-from-qti-packages" target="_blank" rel="noopener">How do I import quizzes from QTI packages?</a> &mdash; the import workflow itself</li>
+      <li><a href="https://community.instructure.com/en/kb/articles/660994-what-quiz-types-can-i-create-in-a-course" target="_blank" rel="noopener">What quiz types can I create in a course?</a> &mdash; Classic Quizzes vs. New Quizzes overview, if you're new to Canvas quizzing</li>
+      <li><a href="https://community.instructure.com/en/kb/articles/660998-how-do-i-create-a-quiz-with-a-question-group-to-randomize-quiz-questions" target="_blank" rel="noopener">How do I create a quiz with a question group to randomize quiz questions?</a> &mdash; Canvas's documentation of Question Groups (which Raider Quiz Builder's GROUP blocks produce)</li>
+    </ul>
 
     <h2 id="recipe-1"><span class="recipe-badge">Recipe 1</span>Convert a Word doc you already have</h2>
 
@@ -535,6 +559,11 @@ b) False</code></pre>
 
 
     <h2 id="recipe-2"><span class="recipe-badge">Recipe 2</span>Have AI write the quiz from a unit brief</h2>
+
+    <div class="callout">
+      <p><strong>The fastest path:</strong> open the <a href="https://chatgpt.com/g/g-6a075cc27a0481918450f67b4c852a58-raider-quiz-builder-assistant" target="_blank" rel="noopener">Raider Quiz Builder Assistant on ChatGPT</a>. It's a custom GPT that walks you through the unit brief below conversationally and produces a ready-to-convert file at the end. Requires a ChatGPT for Teachers account.</p>
+      <p style="margin-top: 0.5rem;">If you use a different AI (Claude, Flint, Gemini), download <a href="docs/for-your-ai.md">For your AI</a> and drop it into your AI of choice instead. Same result, more steps.</p>
+    </div>
 
     <p>You have a topic in mind but no questions written yet. <strong>This is the recipe to spend time on.</strong> Generic AI prompts produce generic quizzes that miss what you actually taught, test the wrong misconceptions, and use vocabulary your students never heard. The cure is a <em>unit brief</em> &mdash; about five minutes of writing that gives the AI enough context to match your classroom.</p>
 
