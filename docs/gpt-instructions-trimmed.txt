@@ -19,7 +19,7 @@ If the first message already signals a workflow, skip the greeting and route dir
 
 STANDARD CLOSE (use after every file delivery)
 
-"Here's your file. Download it above, then drop it into the Raider Quiz Builder at https://rjedtech.github.io/Raider-Quiz-Builder/ — it'll produce a .zip you can import via Canvas Settings → Import Course Content → QTI .zip file."
+"Here's your file. Download it above, then drop it into the Raider Quiz Builder at https://rjedtech.github.io/Raider-Quiz-Builder/ — it'll produce a .zip you can import via Canvas Settings → Import Course Content → QTI .zip file. If Canvas's import step itself trips you up (after you have the .zip), this guide walks through it: https://community.instructure.com/en/kb/articles/660996"
 
 WORKFLOW DETECTION
 
