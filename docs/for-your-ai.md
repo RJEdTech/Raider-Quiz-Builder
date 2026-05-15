@@ -11,17 +11,33 @@ This file is a complete reference for the Raider Quiz Builder quiz file format. 
 1. Download this file (you're probably already looking at it).
 2. Open your AI of choice &mdash; ChatGPT, Claude, Flint, Gemini, Copilot, etc.
 3. Drop this file into the chat, or upload it as an attachment.
-4. Tell the AI what kind of quiz you want. Give it a *unit brief* (see the next section) for best results.
+4. Tell the AI what you have:
+   - **If you already have a quiz written** (Word doc, list of questions, table, etc.), upload or paste it. The AI will convert it into the format the Raider Quiz Builder needs.
+   - **If you have a topic in mind but no questions yet**, tell the AI the topic. It will walk you through a unit brief and then write the quiz.
 5. The AI returns a quiz file. Download or copy it into a `.txt` file.
 6. Drop the file into Raider Quiz Builder &mdash; you'll get a `.zip` ready to import into Canvas.
 
-**The AI reading this file:** everything below this section is for you. Read it as the authoritative reference for the format and behavior of Raider Quiz Builder. When the teacher asks for a quiz, follow the *Best practice* section to gather context, then follow the *Format* sections to write a valid file.
+**The AI reading this file:** everything below this section is for you. Read it as the authoritative reference for the format and behavior of Raider Quiz Builder.
 
 ---
 
-## Best practice: bring a unit brief
+## Workflow detection
 
-**For the AI:** when a teacher asks you to build a quiz, do not jump straight to generation. Generic prompts produce generic quizzes that miss what the teacher actually taught, test the wrong misconceptions, and use vocabulary the teacher's students never heard. Interview the teacher for a *unit brief* first &mdash; the six elements below. Two items per message, three to four back-and-forths total.
+When the teacher arrives, determine which workflow they need based on what they bring:
+
+**Workflow A &mdash; Building from scratch:** the teacher has a topic in mind but no questions written. Use the unit-brief interview (next section).
+
+**Workflow B &mdash; Converting existing content:** the teacher uploads or pastes quiz content that already has questions and (usually) answers written. Convert it into the Raider Quiz Builder format without inventing new content.
+
+**Workflow C &mdash; Hybrid:** the teacher provides existing questions AND asks for more added. Run Workflow B first to convert what they have, then ask if they want expansion. If yes, run a brief unit-brief interview (just the missing elements; the existing questions anchor style and difficulty).
+
+Signals for Workflow B: teacher uploads a `.docx`, `.pdf`, `.txt`, or image file containing quiz questions; pastes numbered questions with answer choices; says things like "I have a quiz already" or "convert this for me."
+
+---
+
+## Workflow A &mdash; Building from scratch: bring a unit brief
+
+**For the AI:** when a teacher asks you to build a quiz from scratch, do not jump straight to generation. Generic prompts produce generic quizzes that miss what the teacher actually taught, test the wrong misconceptions, and use vocabulary the teacher's students never heard. Interview the teacher for a *unit brief* first &mdash; the six elements below. Two items per message, three to four back-and-forths total.
 
 If the teacher pastes existing content (a lesson plan, learning objectives, vocabulary list, chapter outline, or actual unit notes), use that as the source of the brief and only ask for missing elements.
 
@@ -48,6 +64,151 @@ A teacher who has done the brief might send you something like:
 > Build me a 20-question quiz on the French Revolution, scoped to causes through the storming of the Bastille (1770 to July 14, 1789). Source materials students covered: Chapter 18 sections 18.1&ndash;18.3 plus an excerpt from Sieyès's "What Is the Third Estate?" read in class Tuesday. Key terms and concepts to test: the three Estates, the Estates-General, the National Assembly, the Tennis Court Oath, the storming of the Bastille, the *Cahiers de Doléances*, the fiscal crisis (assignats and debt), and the cause-and-effect chain from fiscal crisis to political revolution. Out of scope: the Reign of Terror, Robespierre, the Directory, Napoleon, and anything after July 1789. Mix: 12 questions at recall/understanding level (1 point each), 6 questions requiring application of cause-and-effect reasoning (2 points each), 2 short essays asking students to interpret a primary source quote (5 points each). For distractors, draw from these student misconceptions: confusing the Estates-General with the National Assembly, mistaking the Tennis Court Oath for the Bastille storming, and overestimating the number of prisoners freed at the Bastille (the real answer is 7). Quiz title: "Unit 6 &mdash; French Revolution: Causes Check."
 
 That's the kind of prompt that produces a quiz worth giving. Strive to elicit context like this from teachers who arrive with vaguer requests.
+
+---
+
+## Workflow B &mdash; Converting existing content
+
+When the teacher uploads or pastes quiz content already written, your job is to convert it into the Raider Quiz Builder format faithfully &mdash; not to rewrite, expand, or "improve" it.
+
+### Step 1: Acknowledge and read the file
+
+"I see you have a quiz already written. Let me convert it to the right format."
+
+If the file is uploaded as `.docx`, `.pdf`, or `.txt` and you have file-reading capabilities (Code Interpreter in ChatGPT, native file support in Claude/Gemini), open it and extract the text. If only pasted text is available (some platforms), work from the paste directly.
+
+### Step 2: Parse the structure
+
+For each question in the source content, identify:
+
+- Where the question starts and ends
+- The question stem (the actual question text)
+- The answer choices (if any)
+- Which answer is correct
+- The question type
+- Any feedback or instructor notes
+
+### Common existing formats you'll encounter
+
+**Format 1 &mdash; Answer key at the bottom:**
+
+```
+1. What is the capital of Japan?
+A) Beijing
+B) Tokyo
+C) Seoul
+D) Bangkok
+
+2. The largest ocean is the Pacific.
+A) True
+B) False
+
+Answer Key: 1.B  2.A
+```
+
+**Format 2 &mdash; Inline answer marker:**
+
+```
+1. What is the capital of Japan? (Answer: B)
+A) Beijing
+B) Tokyo
+C) Seoul
+D) Bangkok
+```
+
+**Format 3 &mdash; Bolded, underlined, or starred correct answer:**
+
+```
+1. What is the capital of Japan?
+A) Beijing
+**B) Tokyo**
+C) Seoul
+D) Bangkok
+```
+
+**Format 4 &mdash; Table format (rows = questions, one column indicates correct):**
+
+```
+| # | Question         | A       | B     | C     | D       | Correct |
+|---|------------------|---------|-------|-------|---------|---------|
+| 1 | Capital of Japan?| Beijing | Tokyo | Seoul | Bangkok | B       |
+```
+
+**Format 5 &mdash; Narrative answer in the question text:**
+
+```
+1. What is the capital of Japan? The answer is Tokyo, located on Honshu Island. Common wrong answers include Beijing, Seoul, and Bangkok.
+```
+
+For each format, transform to Raider Quiz Builder marker syntax. The converted version of all five formats above:
+
+```
+1. What is the capital of Japan?
+a) Beijing
+*b) Tokyo
+c) Seoul
+d) Bangkok
+
+2. The largest ocean is the Pacific.
+*a) True
+b) False
+```
+
+### Question type identification
+
+From the source content, determine the question type:
+
+- **Lettered choices** (A, B, C, D) with one correct &rarr; multiple choice &rarr; output as `*b) Tokyo`
+- **True/False options** &rarr; true/false &rarr; output as `*a) True` / `b) False`
+- **Multiple correct** (phrases like "select all that apply," "all that are correct," or multiple letters marked as the answer) &rarr; multi-answer &rarr; output with `[*]` / `[ ]`
+- **Fill-in-blank** (one-word or short-phrase answer, often with a blank `____` in the question) &rarr; short answer &rarr; output as `* Paris` (one line per accepted answer; include lowercase variants for case-insensitive matching)
+- **Solve-for / numeric problems** with a number as the answer &rarr; numerical &rarr; output as `= 96` (or `= [99, 101]` for range, `= 3.14 +- 0.01` for margin)
+- **Open-ended response** with no answer choices, expecting a paragraph &rarr; essay &rarr; output `____` on a line by itself
+- **"Upload your..."** / **"Submit a file..."** &rarr; file upload &rarr; output `^^^^` on a line by itself
+
+If the type is ambiguous, ask the teacher.
+
+### Step 3: Confirm ambiguities BEFORE generating
+
+**Do not guess.** When the format is unclear, ask. Common cases:
+
+- "I see no correct answers marked in your file. Could you send me an answer key, or tell me which letter is correct for each question?"
+- "Question 5 has 'C, D' marked &mdash; should I make this a multi-answer question (where students select all correct), or did you mean only one of those?"
+- "Question 12 looks like it could be a short-answer fill-in-blank or a multiple choice &mdash; what did you intend?"
+- "Some of these look like essays. Should I convert them as essay questions (text-box response) or as short answer (single text input)?"
+
+If you're confident about most of the file but uncertain about a few specific items, list them by number and ask the teacher to clarify those specific ones, then proceed with the rest.
+
+### Step 4: Preserve faithfully
+
+When converting:
+
+- **Keep the teacher's exact wording** for question stems and answer choices.
+- **Keep their exact correct-answer markings** &mdash; don't change which answer is correct, even if you think a different one would be better.
+- **Keep the order** of questions and answer choices unless the teacher asks you to randomize.
+- **Fix obvious typos** silently (e.g., "teh" &rarr; "the"). Fix anything else only after asking the teacher.
+- **Do NOT invent** new questions, answer choices, distractors, or feedback. Preserve only what the teacher provided. If you think a question is weak, you can mention it to the teacher *after* converting, but don't change it unilaterally.
+
+### Step 5: Generate and deliver
+
+Output the converted file in the marker format described in the rest of this document. If you have file-output capabilities (Code Interpreter, downloadable files), provide it as a download. Otherwise, place the entire converted file inside a single fenced code block.
+
+Close with: "Here's your converted file. Download it (or copy from the code block) and drop it into Raider Quiz Builder at https://rjedtech.github.io/Raider-Quiz-Builder/ &mdash; you'll get a .zip you can import directly into Canvas."
+
+### Step 6: Iterate on request
+
+If the teacher spots an error in the conversion ("question 8's correct answer should be A, not C," "you missed a question," "this should have been multi-answer"), fix it and provide a new file.
+
+---
+
+## Workflow C &mdash; Hybrid (convert AND expand)
+
+If the teacher provides existing content AND asks for additional questions in the same style:
+
+1. Run Workflow B first &mdash; convert the existing content faithfully and deliver the converted file.
+2. Then ask: "Want me to add more questions in this style? If so, I'll need a quick unit brief &mdash; what's the scope, key terms, and any misconceptions you want tested?"
+3. If yes, run a brief unit-brief interview (just the missing elements; the existing questions already anchor style and difficulty, so you don't need cognitive distribution or exhaustive context).
+4. Generate the expanded file (existing questions + new ones) and deliver it as a single file the teacher can drop into the converter.
 
 ---
 
