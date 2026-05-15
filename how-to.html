@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>How to use Raider Quiz Builder</title>
 <meta name="description" content="Recipe-style guide for building Canvas quizzes — convert a Word doc, build with AI, expand a small bank, build random-draw exams.">
-<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -441,7 +441,7 @@
 
 <header class="site-header">
   <div class="header-left">
-    <a class="back-link" href="../">
+    <a class="back-link" href="./">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
       Back to Quiz Builder
     </a>
@@ -477,11 +477,30 @@
 
     <h2 id="recipe-1"><span class="recipe-badge">Recipe 1</span>Convert a Word doc you already have</h2>
 
-    <p>You wrote quiz questions in Word. You want them in Canvas without retyping anything.</p>
+    <p>You have quiz questions already written somewhere &mdash; Word, PDF, a scanned test bank, a list in OneNote. You want them in Canvas without retyping anything. Two paths: let an AI do the format conversion for you (easiest), or format the doc yourself (more control, no AI needed).</p>
 
-    <p><strong>You'll need:</strong> the Word doc, about five minutes.</p>
+    <h3>The easy path &middot; have AI convert it for you</h3>
 
-    <h3>Steps</h3>
+    <p>Best for teachers who don't want to learn the marker syntax. The AI handles the format translation.</p>
+
+    <ol>
+      <li><strong>Grab the <a href="docs/for-your-ai.md" download>For your AI</a> file</strong> from the homepage Resources section.</li>
+      <li><strong>Open ChatGPT, Claude, Flint, or Gemini.</strong> Any AI that accepts file uploads will work.</li>
+      <li><strong>Upload both files</strong> &mdash; the "For your AI" file (the reference) and your Word doc (the source content).</li>
+      <li><strong>Ask the AI to convert it.</strong> Something like: <em>"Please convert this Word doc into the Raider Quiz Builder format."</em></li>
+      <li><strong>Answer any clarifying questions.</strong> If your Word doc doesn't clearly mark correct answers (no asterisks, no answer key at the bottom), the AI will ask which letter is correct for each question. Provide an answer key or tell it inline.</li>
+      <li><strong>Download the converted file</strong> the AI produces.</li>
+      <li><strong>Drop the file into Raider Quiz Builder</strong>, click <strong>Convert to Canvas quiz</strong>, and download the <code>.zip</code>.</li>
+      <li><strong>Import into Canvas:</strong> Settings &rarr; Import Course Content &rarr; QTI .zip file &rarr; choose your file &rarr; Import.</li>
+    </ol>
+
+    <div class="callout">
+      <p><strong>The AI handles whatever format your Word doc uses</strong> &mdash; answer key at the bottom, inline <code>(Answer: B)</code> markers, bolded correct answers, table format, scanned-text exports. You don't need to learn any syntax. If you also want the AI to add more questions in the same style on top of converting, just ask &mdash; it'll convert what you have and then offer to expand.</p>
+    </div>
+
+    <h3>The manual path &middot; format it yourself</h3>
+
+    <p>Best for teachers who want full control, or whose Word doc is already close to the format, or who prefer not to use AI.</p>
 
     <ol>
       <li><strong>Open your Word doc.</strong> Each question on its own line, numbered <code>1. </code>, <code>2. </code>, etc. Answer choices on separate lines, lettered <code>a)</code>, <code>b)</code>, <code>c)</code>, <code>d)</code>.</li>
@@ -493,7 +512,7 @@
       <li><strong>Import into Canvas:</strong> Settings &rarr; Import Course Content &rarr; QTI .zip file &rarr; choose your file &rarr; Import.</li>
     </ol>
 
-    <h3>Example of how your Word doc should look</h3>
+    <h4>Example of how your Word doc should look</h4>
 
 <pre><code>1. What is the capital of Japan?
 a) Beijing
@@ -506,13 +525,14 @@ d) Bangkok
 b) False</code></pre>
 
     <div class="callout">
-      <p><strong>Notes:</strong></p>
+      <p><strong>Notes for the manual path:</strong></p>
       <ul>
-        <li>Word's AutoCorrect will mangle <code>+-</code> (numerical tolerance) into <code>±</code>. Disable AutoCorrect or use a plain text editor for files with numerical answers.</li>
-        <li>Don't write questions inside a Word table &mdash; the converter reads tables as flat text.</li>
-        <li>See the <a href="format-reference.md">format reference</a> for the full syntax of all 7 question types.</li>
+        <li>Word's AutoCorrect will mangle <code>+-</code> (numerical tolerance) into <code>&plusmn;</code>. Disable AutoCorrect or use a plain text editor for files with numerical answers.</li>
+        <li>Don't write questions inside a Word table &mdash; the converter reads tables as flat text. (The AI path handles tables fine; the manual path doesn't.)</li>
+        <li>See the <a href="docs/format-reference.md">format reference</a> for the full syntax of all 7 question types.</li>
       </ul>
     </div>
+
 
     <h2 id="recipe-2"><span class="recipe-badge">Recipe 2</span>Have AI write the quiz from a unit brief</h2>
 
@@ -535,7 +555,7 @@ b) False</code></pre>
 
     <h3>Step 2 &middot; Write the prompt</h3>
 
-    <p>Open the Raider Quiz Builder Assistant (or paste the <a href="ai-prompt.md">AI prompt</a> into Claude, ChatGPT, or Flint) and write the prompt. Treat it like a memo to a TA who'll write the quiz for you.</p>
+    <p>Open the Raider Quiz Builder Assistant (or paste the <a href="docs/ai-prompt.md">AI prompt</a> into Claude, ChatGPT, or Flint) and write the prompt. Treat it like a memo to a TA who'll write the quiz for you.</p>
 
     <p>A full worked example:</p>
 
@@ -649,7 +669,7 @@ b) False</code></pre>
     <h3>Steps writing by hand</h3>
 
     <ol>
-      <li><strong>Download the <a href="../templates/quiz-template-with-groups.txt">GROUP template</a></strong> as scaffolding.</li>
+      <li><strong>Download the <a href="templates/quiz-template-with-groups.txt">GROUP template</a></strong> as scaffolding.</li>
       <li><strong>Write each <code>GROUP</code> block</strong> with your questions. Make sure <code>pick:</code> &le; pool size, and ideally is closer to half.</li>
       <li><strong>Save, drop, convert, import.</strong></li>
     </ol>
@@ -678,12 +698,12 @@ b) False</code></pre>
     <p><strong>Fix:</strong></p>
     <ul>
       <li>In Canvas: Settings &rarr; Import Course Content &rarr; <strong>Content Type must be "QTI .zip file"</strong> &mdash; not Common Cartridge or anything else.</li>
-      <li>If that's set right and import still fails, try a <a href="../samples/">sample file</a> first. If samples import and yours doesn't, the issue is in your source.</li>
+      <li>If that's set right and import still fails, try a <a href="samples/">sample file</a> first. If samples import and yours doesn't, the issue is in your source.</li>
     </ul>
 
     <h3>"My multiple choice shows two correct answers"</h3>
     <p><strong>Cause:</strong> Two answer lines marked with <code>*</code>, or you meant multi-answer.</p>
-    <p><strong>Fix:</strong> Single-correct uses one <code>*</code> on one letter. Multi-correct uses <code>[*]</code> / <code>[ ]</code> instead of <code>a)</code> / <code>b)</code> style. See the <a href="format-reference.md">format reference</a> for examples.</p>
+    <p><strong>Fix:</strong> Single-correct uses one <code>*</code> on one letter. Multi-correct uses <code>[*]</code> / <code>[ ]</code> instead of <code>a)</code> / <code>b)</code> style. See the <a href="docs/format-reference.md">format reference</a> for examples.</p>
 
     <h3>"My short answer or numerical question won't convert"</h3>
     <p><strong>Cause:</strong> You added feedback (<code>... </code>, <code>+ </code>, or <code>- </code>). Those question types don't support feedback in QTI &mdash; including any feedback line causes the export to fail.</p>
@@ -703,15 +723,15 @@ b) False</code></pre>
     <p><strong>Fix:</strong> Go back to <a href="#recipe-2">Recipe 2</a>, write a real unit brief with key terms and out-of-scope items, and regenerate. The difference between a 30-second prompt and a 5-minute brief is night and day for output quality.</p>
 
     <h3>Still stuck?</h3>
-    <p>The full <a href="format-reference.md">format reference</a> covers every syntax detail. Or open the AI Assistant, paste your file in, and ask it to identify what's wrong &mdash; it can usually spot formatting issues faster than you can.</p>
+    <p>The full <a href="docs/format-reference.md">format reference</a> covers every syntax detail. Or open the AI Assistant, paste your file in, and ask it to identify what's wrong &mdash; it can usually spot formatting issues faster than you can.</p>
   </main>
 
 </div>
 
 <footer class="site-footer">
-  <a href="../">&larr; Back to Raider Quiz Builder</a> &middot;
-  <a href="format-reference.md">Format reference</a> &middot;
-  <a href="ai-prompt.md">AI prompt</a>
+  <a href="./">&larr; Back to Raider Quiz Builder</a> &middot;
+  <a href="docs/format-reference.md">Format reference</a> &middot;
+  <a href="docs/ai-prompt.md">AI prompt</a>
 </footer>
 
 <script>
