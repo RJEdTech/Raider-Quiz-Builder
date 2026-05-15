@@ -633,6 +633,21 @@ b) False</code></pre>
 
     <p>This is what <code>GROUP</code> blocks do in the file format. The format reference covers the syntax; this recipe is about how to think about the pool design.</p>
 
+    <h3>Pool design patterns &mdash; what teachers actually use this for</h3>
+
+    <p>GROUP blocks shine when you have natural categories in your unit. Some common patterns:</p>
+
+    <ul>
+      <li><strong>Bloom's / cognitive demand pools.</strong> Recall pool, Application pool, Analysis pool. Drawing from each guarantees every student gets a balanced exam across thinking levels. <em>Example: 9 random recall + 6 application + 2 analysis = a 17-question mid-chapter check where every student sees the same structure but different questions.</em></li>
+      <li><strong>One pool per text or source.</strong> Reading-based courses: questions about each poem, each primary document, each case study, each lab. <em>Example: an English exam covering four poems uses four pools of ~10 questions each, drawing 2-3 from each pool.</em></li>
+      <li><strong>One pool per chapter or section.</strong> For unit finals or comprehensive exams. Each chapter gets a pool; the quiz draws a few from each chapter to guarantee coverage of all material.</li>
+      <li><strong>Skill pools.</strong> For math, languages, or any practice-driven course. Each discrete skill is its own pool: "factoring," "solving for X," "word problems," or "present tense," "past tense," "subjunctive." Mix-and-match to build different practice quizzes from the same source file.</li>
+      <li><strong>Difficulty-stratified within one topic.</strong> Easy, medium, and hard pools on the same content. Drawing some from each guarantees mixed difficulty regardless of luck of the draw.</li>
+      <li><strong>Source-based for primary documents.</strong> History and social studies exams over multiple primary sources. One pool per document; random draws ensure every student engages with every source.</li>
+    </ul>
+
+    <p>The shared pattern: pools become reusable, semantically-meaningful units &mdash; not just buckets. Pick the framing that matches how you already think about your unit.</p>
+
     <h3>Designing the pools</h3>
 
     <p><strong>Each pool should be larger than what you draw from it.</strong> If you <code>pick: 9</code> from a pool of 9, every student sees the same 9 questions &mdash; no randomization. Aim for at least 2x the pick number per pool. A pool of 20 for a pick of 9 gives meaningful variation.</p>
