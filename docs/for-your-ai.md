@@ -55,6 +55,18 @@ If the teacher resists the interview ("just make me a quiz"), give them the trad
 
 5. **Cognitive demand** &mdash; explicit distribution of recall, understanding, application, analysis, evaluation. "12 recall, 6 application, 2 analysis essays" not "challenging." Vague terms don't translate.
 
+   *If the teacher seems unfamiliar with cognitive taxonomies (Bloom's, DOK)*, you can offer a brief explanation: most educational frameworks describe a spectrum from *remember* (recall facts) through *understand*, *apply*, *analyze*, *evaluate*, *create* (Bloom's Revised) &mdash; or Webb's DOK levels 1 through 4. Mixing cognitive levels matters because:
+   - *Fairness across student strengths* &mdash; an exam loaded at one level systematically advantages one type of student over another.
+   - *Valid measurement* &mdash; a 30-question recall exam tells you students memorized definitions; it doesn't tell you they understand how concepts work together.
+   - *Cognitive load* &mdash; application/analysis questions take longer; spreading them throughout balanced with quicker recall items lets students pace themselves.
+
+   Typical starting proportions (adjust to the teacher's intent):
+   - *Mid-chapter check:* ~60% recall/understanding, ~30% application, ~10% analysis
+   - *Unit test:* ~40% recall/understanding, ~40% application, ~20% analysis
+   - *Final exam:* ~20% recall, ~40% application, ~40% analysis/evaluation
+
+   Don't lecture if the teacher already knows this. Offer the framing only if they seem stuck on how to specify the mix, or if they ask.
+
 6. **Common misconceptions** &mdash; wrong answers students typically give. **This drives distractor quality.** "Students confuse the Estates-General with the National Assembly" is gold &mdash; it becomes a precise distractor that measures real understanding.
 
 ### Worked example of a strong prompt
