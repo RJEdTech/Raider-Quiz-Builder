@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Raider Quiz Builder</title>
-<meta name="description" content="Build Canvas quizzes from text. Convert a Word doc, expand a question bank, or assemble an exam with random draws — all in your browser.">
+<meta name="description" content="Build Canvas quizzes from text. Convert a Word doc, expand a question bank, or assemble a randomized exam — all in your browser.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -764,7 +764,7 @@
 
 <main>
   <p class="lead">
-    Convert a Word doc into a Canvas quiz. Expand a small question bank. Build a full exam that pulls random questions from your pools. Drop a <code>.txt</code>, <code>.md</code>, or <code>.docx</code> written with simple markers and get back a Canvas-importable <code>.zip</code>. <strong>Everything runs in your browser — no file leaves your computer.</strong>
+    Convert a Word doc into a Canvas quiz. Expand a small question bank. Build an exam where every student sees different questions. Drop a <code>.txt</code>, <code>.md</code>, or <code>.docx</code> written with simple markers and get back a Canvas-importable <code>.zip</code>. <strong>Everything runs in your browser — no file leaves your computer.</strong>
   </p>
 
   <section class="getting-started">
@@ -820,7 +820,7 @@
     <div class="resource-grid">
       <a class="resource-card" href="how-to.html" target="_blank" rel="noopener">
         <div class="r-title">How-to guide <span class="arrow">&rarr;</span></div>
-        <div class="r-desc">Recipe-style walkthroughs for common workflows: convert a Word doc, build with AI, grow a small bank, build random-draw exams, fix common issues.</div>
+        <div class="r-desc">Recipe-style walkthroughs for common workflows: convert a Word doc, build with AI, grow a small bank, build randomized exams, fix common issues.</div>
       </a>
 
       <a class="resource-card" href="docs/for-your-ai.md" download>
@@ -830,7 +830,7 @@
 
       <a class="resource-card" href="docs/format-reference.html" target="_blank" rel="noopener">
         <div class="r-title">Format reference <span class="arrow">&rarr;</span></div>
-        <div class="r-desc">Complete syntax for all 7 question types, GROUP blocks, feedback, and edge cases.</div>
+        <div class="r-desc">Complete syntax for all 7 question types, question groups, feedback, and edge cases.</div>
       </a>
 
       <button class="resource-card" id="ai-prompt-btn" type="button">
@@ -844,8 +844,8 @@
       </a>
 
       <a class="resource-card" href="templates/quiz-template-with-groups.txt" download>
-        <div class="r-title">GROUP block template <span class="arrow">&rarr;</span></div>
-        <div class="r-desc">Template for stratified random draw &mdash; pull N random questions from each pool.</div>
+        <div class="r-title">Randomized exam template <span class="arrow">&rarr;</span></div>
+        <div class="r-desc">Starter file for a quiz where every student sees a different selection of questions, organized into pools.</div>
       </a>
 
       <a class="resource-card" href="templates/quiz-template.docx" download>
@@ -859,8 +859,8 @@
       </a>
 
       <a class="resource-card" href="samples/sample-groups.zip" download>
-        <div class="r-title">Sample with random draws <span class="arrow">&rarr;</span></div>
-        <div class="r-desc">Ready-to-import .zip showing GROUP blocks in action &mdash; Canvas Question Groups that draw N random questions from each pool.</div>
+        <div class="r-title">Randomized sample (with pools) <span class="arrow">&rarr;</span></div>
+        <div class="r-desc">Ready-to-import .zip showing a randomized quiz in action &mdash; each student would see a different selection of questions.</div>
       </a>
     </div>
   </section>
@@ -1000,7 +1000,7 @@ COMPATIBILITY — DO NOT VIOLATE:
 - Essay and file upload: general (...) only.
 - Numerical and short answer: NO FEEDBACK OF ANY KIND. Adding feedback to these types causes conversion errors.
 
-QUESTION GROUPS (for random-draw quizzes):
+QUESTION GROUPS (for randomized exams where each student gets different questions):
 GROUP
 pick: 9
 points per question: 1
