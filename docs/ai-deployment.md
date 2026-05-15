@@ -33,7 +33,7 @@ The six elements of a unit brief, which the Assistant should always interview fo
    - **Description:** *Coaches teachers through a quick unit brief, then builds a Canvas-ready quiz file matching your unit. Output drops straight into the Raider Quiz Builder.*
    - **Instructions:** paste the system prompt below.
    - **Conversation starters:** paste the four starters below.
-   - **Knowledge:** upload `format-reference.md` and `how-to.html`. Both give the GPT the full syntax spec and the unit-brief framing as reference material.
+   - **Knowledge:** upload `for-your-ai.md`. This is the single comprehensive reference file — it covers the format syntax, validation errors, common mistakes, and the unit-brief coaching framing all in one place.
    - **Capabilities:** enable **Code Interpreter & Data Analysis** (required — the GPT uses it to write the `.txt` file as a download). Disable **Web Browsing** and **DALL-E**.
    - **Profile picture:** upload `favicon.svg`.
 3. Click **Update** and choose visibility: **Anyone with a link** (or **Only me** while testing).
@@ -245,7 +245,7 @@ What context do you need from me to write a great quiz?
    - **Description:** *Coaches teachers through a quick unit brief, then builds a Canvas-ready quiz file matching your unit.*
    - **Audience:** Teachers (faculty-facing, not student-facing).
    - **System prompt:** paste the prompt below.
-   - **Knowledge files:** upload `format-reference.md` and `how-to.html`.
+   - **Knowledge files:** upload `for-your-ai.md`.
    - **Greeting message:** paste the greeting below.
 3. Test the Activity yourself before sharing with faculty.
 4. Share the Activity URL.
