@@ -644,6 +644,81 @@
   /* ===== Utility ===== */
   .hidden { display: none !important; }
 
+  /* ===== Featured CTA (Raider Quiz Builder Assistant) ===== */
+  .featured-cta {
+    background: var(--raider-tint);
+    border: 1px solid var(--raider);
+    border-radius: 4px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .featured-cta-text {
+    flex: 1;
+    min-width: 240px;
+  }
+
+  .featured-cta-title {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.3rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .featured-cta-title .badge {
+    background: var(--raider);
+    color: #ffffff;
+    font-size: 0.65rem;
+    font-weight: 600;
+    padding: 0.15rem 0.5rem;
+    border-radius: 10px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .featured-cta-desc {
+    color: var(--text-mute);
+    font-size: 0.92rem;
+    line-height: 1.5;
+  }
+
+  .featured-cta-btn {
+    background: var(--raider);
+    color: #ffffff;
+    padding: 0.7rem 1.25rem;
+    border-radius: 3px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: background 0.15s, transform 0.15s;
+    white-space: nowrap;
+  }
+
+  .featured-cta-btn:hover {
+    background: var(--raider-hot);
+    transform: translateY(-1px);
+  }
+
+  .featured-cta-btn svg {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.15s;
+  }
+
+  .featured-cta-btn:hover svg {
+    transform: translateX(2px);
+  }
+
   /* ===== Getting Started section ===== */
   .getting-started {
     margin-bottom: 2rem;
@@ -766,6 +841,17 @@
   <p class="lead">
     Convert a Word doc into a Canvas quiz. Expand a small question bank. Build an exam where every student sees different questions. Drop a <code>.txt</code>, <code>.md</code>, or <code>.docx</code> written with simple markers and get back a Canvas-importable <code>.zip</code>. <strong>Everything runs in your browser — no file leaves your computer.</strong>
   </p>
+
+  <section class="featured-cta">
+    <div class="featured-cta-text">
+      <div class="featured-cta-title">Start with the Raider Quiz Builder Assistant <span class="badge">Easiest path</span></div>
+      <div class="featured-cta-desc">A custom ChatGPT that coaches you through a quick unit brief, then produces a ready-to-convert quiz file. Requires a ChatGPT for Teachers account.</div>
+    </div>
+    <a class="featured-cta-btn" href="https://chatgpt.com/g/g-6a075cc27a0481918450f67b4c852a58-raider-quiz-builder-assistant" target="_blank" rel="noopener">
+      Open the Assistant
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </section>
 
   <section class="getting-started">
     <h2>Getting started</h2>
