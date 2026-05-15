@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>How to use Raider Quiz Builder</title>
-<meta name="description" content="Recipe-style guide for building Canvas quizzes — convert a Word doc, build with AI, expand a small bank, build random-draw exams.">
+<meta name="description" content="Recipe-style guide for building Canvas quizzes — convert a Word doc, build with AI, expand a small bank, build randomized exams.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -466,7 +466,7 @@
       <li><a href="#recipe-1">Recipe 1 &middot; Convert a Word doc</a></li>
       <li><a href="#recipe-2">Recipe 2 &middot; AI from a unit brief</a></li>
       <li><a href="#recipe-3">Recipe 3 &middot; Expand a few questions</a></li>
-      <li><a href="#recipe-4">Recipe 4 &middot; Random-draw exam</a></li>
+      <li><a href="#recipe-4">Recipe 4 &middot; Randomized exam</a></li>
       <li><a href="#common-issues">Common issues</a></li>
     </ul>
   </aside>
@@ -491,7 +491,7 @@
       <li><strong>Answer any clarifying questions.</strong> If your Word doc doesn't clearly mark correct answers (no asterisks, no answer key at the bottom), the AI will ask which letter is correct for each question. Provide an answer key or tell it inline.</li>
       <li><strong>Download the converted file</strong> the AI produces.</li>
       <li><strong>Drop the file into Raider Quiz Builder</strong>, click <strong>Convert to Canvas quiz</strong>, and download the <code>.zip</code>.</li>
-      <li><strong>Import into Canvas:</strong> Settings &rarr; Import Course Content &rarr; QTI .zip file &rarr; choose your file &rarr; Import.</li>
+      <li><strong>Import into Canvas:</strong> Settings &rarr; Import Course Content &rarr; QTI .zip file &rarr; choose your file &rarr; Import. For the step-by-step, see Canvas's <a href="https://community.instructure.com/en/kb/articles/660996-how-do-i-import-quizzes-from-qti-packages" target="_blank" rel="noopener">official QTI import guide</a>.</li>
     </ol>
 
     <div class="callout">
@@ -509,7 +509,7 @@
       <li><strong>Open Raider Quiz Builder</strong> and drop the file onto the page.</li>
       <li><strong>Read the validation results.</strong> Errors come with line numbers so you can locate them in your source file. Fix and re-drop, or proceed if the only flags are advisory notes.</li>
       <li><strong>Click "Convert to Canvas quiz"</strong> and download the <code>.zip</code>.</li>
-      <li><strong>Import into Canvas:</strong> Settings &rarr; Import Course Content &rarr; QTI .zip file &rarr; choose your file &rarr; Import.</li>
+      <li><strong>Import into Canvas:</strong> Settings &rarr; Import Course Content &rarr; QTI .zip file &rarr; choose your file &rarr; Import. For the step-by-step, see Canvas's <a href="https://community.instructure.com/en/kb/articles/660996-how-do-i-import-quizzes-from-qti-packages" target="_blank" rel="noopener">official QTI import guide</a>.</li>
     </ol>
 
     <h4>Example of how your Word doc should look</h4>
@@ -627,11 +627,39 @@ b) False</code></pre>
       <p><strong>Why this works better than "just make 27 more":</strong> your existing questions give the AI a stylistic target. The brief gives it a substantive target. Without both, you get 27 generic questions in the AI's default voice that may or may not match your unit.</p>
     </div>
 
-    <h2 id="recipe-4"><span class="recipe-badge">Recipe 4</span>Build a stratified random-draw exam</h2>
+    <h2 id="recipe-4"><span class="recipe-badge">Recipe 4</span>Build a randomized exam from question pools</h2>
 
     <p>You want a quiz where each student sees a different random selection from named pools. For example: 9 random questions from a Recall pool of 25, plus 3 random from an Application pool of 10 &mdash; same exam structure for every student, different specific questions.</p>
 
     <p>This is what <code>GROUP</code> blocks do in the file format. The format reference covers the syntax; this recipe is about how to think about the pool design.</p>
+
+    <h3>A quick primer on cognitive demand</h3>
+
+    <p>Before designing your pools, a quick note on <em>why</em> this matters. Most educational frameworks describe a spectrum of cognitive demand &mdash; from simple recall up through complex analysis:</p>
+
+    <ul>
+      <li><strong>Bloom's Taxonomy (revised, 2001):</strong> Remember &rarr; Understand &rarr; Apply &rarr; Analyze &rarr; Evaluate &rarr; Create. The most widely-used framework in K-12 education.</li>
+      <li><strong>Webb's Depth of Knowledge (DOK):</strong> Levels 1&ndash;4 (Recall &rarr; Skill/Concept &rarr; Strategic Thinking &rarr; Extended Thinking). Common in standardized assessment design.</li>
+      <li><strong>The simple version:</strong> some questions test what students <em>remember</em>; others test how they <em>apply</em>, <em>analyze</em>, or build on that knowledge.</li>
+    </ul>
+
+    <p><strong>Why mixing cognitive levels in one exam matters:</strong></p>
+
+    <ol>
+      <li><strong>Fairness across student strengths.</strong> Some students excel at recall (they study terminology hard); others excel at application (they connect concepts but may struggle with vocabulary). An exam loaded entirely at one level systematically advantages one type of student over another. A mix gives every student a chance to show what they know.</li>
+      <li><strong>Valid measurement of understanding.</strong> A 30-question recall exam tells you students memorized definitions. It doesn't tell you whether they understand how concepts work together, or can apply them to new situations. If your goal is to measure understanding, you need questions at the application and analysis levels.</li>
+      <li><strong>Cognitive load and fatigue.</strong> Application and analysis questions take longer and use more mental energy than recall. An exam that's <em>all</em> application questions exhausts students before they finish &mdash; which produces worse scores even from students who know the material. Spreading higher-demand questions throughout, balanced with quicker recall items, lets students pace themselves.</li>
+    </ol>
+
+    <p><strong>Typical proportions</strong> depend on what you're testing. As rough starting points:</p>
+
+    <ul>
+      <li><strong>Mid-chapter check or unit quiz:</strong> ~60% recall and understanding, ~30% application, ~10% analysis. Students just learned the material; emphasis on solid retention of foundations.</li>
+      <li><strong>Unit test:</strong> ~40% recall and understanding, ~40% application, ~20% analysis. Material is older; focus shifts toward whether students can use it.</li>
+      <li><strong>Final exam or AP-style assessment:</strong> ~20% recall, ~40% application, ~40% analysis and evaluation. The point is cumulative mastery, not memorization.</li>
+    </ul>
+
+    <p>These are starting points, not rules. Adjust to match what you actually want to measure. For deeper reading on cognitive levels and example verbs for each, Vanderbilt's Center for Teaching has a <a href="https://cft.vanderbilt.edu/guides-sub-pages/blooms-taxonomy/" target="_blank" rel="noopener">clear overview of Bloom's Taxonomy</a>.</p>
 
     <h3>Pool design patterns &mdash; what teachers actually use this for</h3>
 
@@ -642,8 +670,8 @@ b) False</code></pre>
       <li><strong>One pool per text or source.</strong> Reading-based courses: questions about each poem, each primary document, each case study, each lab. <em>Example: an English exam covering four poems uses four pools of ~10 questions each, drawing 2-3 from each pool.</em></li>
       <li><strong>One pool per chapter or section.</strong> For unit finals or comprehensive exams. Each chapter gets a pool; the quiz draws a few from each chapter to guarantee coverage of all material.</li>
       <li><strong>Skill pools.</strong> For math, languages, or any practice-driven course. Each discrete skill is its own pool: "factoring," "solving for X," "word problems," or "present tense," "past tense," "subjunctive." Mix-and-match to build different practice quizzes from the same source file.</li>
-      <li><strong>Difficulty-stratified within one topic.</strong> Easy, medium, and hard pools on the same content. Drawing some from each guarantees mixed difficulty regardless of luck of the draw.</li>
-      <li><strong>Source-based for primary documents.</strong> History and social studies exams over multiple primary sources. One pool per document; random draws ensure every student engages with every source.</li>
+      <li><strong>Easy / medium / hard pools within one topic.</strong> Easy, medium, and hard pools on the same content. Drawing some from each guarantees mixed difficulty regardless of luck of the draw.</li>
+      <li><strong>Source-based for primary documents.</strong> History and social studies exams over multiple primary sources. One pool per document; the random selection ensures every student engages with every source.</li>
     </ul>
 
     <p>The shared pattern: pools become reusable, semantically-meaningful units &mdash; not just buckets. Pick the framing that matches how you already think about your unit.</p>
@@ -662,7 +690,7 @@ b) False</code></pre>
       <li><strong>Write a unit brief</strong> as in Recipe 2.</li>
       <li><strong>Add pool specifications to the brief:</strong>
         <blockquote>
-          <p>Build a stratified random-draw exam on [topic]. Structure it as three pools:</p>
+          <p>Build a randomized exam from question pools on [topic]. Structure it as three pools:</p>
           <p>Recall pool: 20 questions, each worth 1 point. Draws 9.<br>
           Application pool: 10 questions, each worth 2 points. Draws 3.<br>
           Analysis pool: 4 essay questions, each worth 5 points. Draws 1.</p>
@@ -678,7 +706,7 @@ b) False</code></pre>
         </ul>
       </li>
       <li><strong>Iterate by pool.</strong> Easier than iterating per-question: <em>"Replace the three weakest questions in the Recall pool with stronger ones. Most should test specific terminology, not paraphrased general knowledge."</em></li>
-      <li><strong>Convert and import.</strong> Canvas creates Question Groups inside the imported quiz that handle the randomization automatically.</li>
+      <li><strong>Convert and import.</strong> Canvas creates Question Groups inside the imported quiz that handle the randomization automatically. For Canvas's documentation of how Question Groups work after import, see <a href="https://community.instructure.com/en/kb/articles/660998-how-do-i-create-a-quiz-with-a-question-group-to-randomize-quiz-questions" target="_blank" rel="noopener">How do I create a quiz with a question group to randomize quiz questions?</a></li>
     </ol>
 
     <h3>Steps writing by hand</h3>
@@ -712,7 +740,7 @@ b) False</code></pre>
     <p><strong>Cause:</strong> Either the file wasn't generated correctly, or it's being imported as the wrong content type.</p>
     <p><strong>Fix:</strong></p>
     <ul>
-      <li>In Canvas: Settings &rarr; Import Course Content &rarr; <strong>Content Type must be "QTI .zip file"</strong> &mdash; not Common Cartridge or anything else.</li>
+      <li>In Canvas: Settings &rarr; Import Course Content &rarr; <strong>Content Type must be "QTI .zip file"</strong> &mdash; not Common Cartridge or anything else. Canvas's <a href="https://community.instructure.com/en/kb/articles/660996-how-do-i-import-quizzes-from-qti-packages" target="_blank" rel="noopener">official import guide</a> walks through the steps with screenshots.</li>
       <li>If that's set right and import still fails, try a <a href="samples/">sample file</a> first. If samples import and yours doesn't, the issue is in your source.</li>
     </ul>
 
