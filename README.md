@@ -16,7 +16,7 @@ Browser-based tool that converts plain text, Markdown, or Word documents into Ca
 
 ## How to use it
 
-**Most teachers should start with the [how-to guide](docs/how-to.md)** — recipe-style walkthroughs for the most common workflows (convert a Word doc, build with AI, grow a small bank, build random-draw exams, fix common issues).
+**Most teachers should start with the [how-to guide](how-to.html)** — recipe-style walkthroughs for the most common workflows (convert a Word doc, build with AI, grow a small bank, build random-draw exams, fix common issues).
 
 Quick version of the workflow:
 
@@ -32,13 +32,14 @@ To have an AI build the quiz file for you, click the **AI prompt** card on the s
 
 ```
 ├── README.md
-├── index.html                       UI (single page)
+├── index.html                       Main UI
+├── how-to.html                      Teacher-facing recipe guide
 ├── favicon.svg
 ├── lib/
 │   └── raider-quiz-builder.js       Parser, QTI generator, ZIP bundler
 ├── docs/
-│   ├── how-to.md                    Recipe-style guides (start here)
 │   ├── format-reference.md          Full syntax for every question type
+│   ├── for-your-ai.md               Drop into any AI to write quiz files
 │   ├── ai-prompt.md                 Paste-ready prompt for LLMs
 │   └── ai-deployment.md             Setup instructions for the GPT and Flint Activity
 ├── templates/                       Starter files (txt, docx, GROUP example)
