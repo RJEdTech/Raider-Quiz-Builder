@@ -832,7 +832,7 @@ c) 4
     <p class="section-lead">Random-draw question pools, comments, Markdown, and multi-bank workflows.</p>
 
     <details id="question-groups">
-      <summary>Question groups (random draw)</summary>
+      <summary>Question Groups (randomized question pools)</summary>
       <div class="accordion-body">
         <p>A <code>GROUP</code> block tells Canvas to randomly select N questions from a pool every time a student takes the quiz. Use this to build a single quiz that draws, for example, 9 random questions from a Recall pool plus 3 from an Application pool &mdash; without writing the same quiz multiple times.</p>
 <pre><code>GROUP
@@ -877,6 +877,43 @@ END_GROUP</code></pre>
           <li>Every question inside one group must be worth the same number of points.</li>
           <li>You can mix GROUP blocks and standalone questions in the same file. Standalone questions appear in every attempt; group questions are randomized.</li>
         </ul>
+
+        <h4>Common patterns</h4>
+        <p>GROUP blocks aren't just for randomization &mdash; they're how you structure a quiz into named, semantically-meaningful item pools. Patterns teachers actually use:</p>
+
+        <p><strong>Stratified by cognitive demand (Bloom's / DOK).</strong> One pool per cognitive level. A typical mid-chapter check: 9 random from a Recall pool of 25, 6 from an Application pool of 15, 2 from an Analysis pool of 6. Every student sees the same exam <em>structure</em> (same mix of thinking levels) but different specific questions.</p>
+
+        <p><strong>One pool per topic, text, or source.</strong> For exams covering multiple specific readings (4 poems, 5 primary documents, 3 case studies), make one pool per source. Random draws guarantee every student answers questions about every source, just different ones. Example for a Romantic poetry exam:</p>
+<pre><code>GROUP            % The Raven pool
+pick: 2
+points per question: 2
+[10 questions about The Raven]
+END_GROUP
+
+GROUP            % Mending Wall pool
+pick: 2
+points per question: 2
+[10 questions about Mending Wall]
+END_GROUP
+
+GROUP            % Sonnet 18 pool
+pick: 2
+points per question: 2
+[10 questions about Sonnet 18]
+END_GROUP</code></pre>
+
+        <p><strong>One pool per chapter or section.</strong> For unit finals or comprehensive exams. One pool per chapter, drawing a few from each to guarantee coverage of all material taught without writing a specific 60-question test.</p>
+
+        <p><strong>Skill pools (math, world languages).</strong> For repeated-practice quizzes. One pool per discrete skill: "Solving for X," "Factoring quadratics," "Word problems." For languages: "Present tense conjugation," "Past tense," "Subjunctive." Mix and match to build different practice sets across the unit.</p>
+
+        <p><strong>Difficulty pools within one topic.</strong> Easy, medium, and hard banks on the same topic. Drawing some from each guarantees a mixed-difficulty exam regardless of which specific questions get picked. Useful when you want every student to encounter some accessible questions and some stretch questions.</p>
+
+        <p><strong>Source-based pools for primary documents.</strong> For history and social studies. One pool per primary source: "Document A questions," "Document B questions," "Document C questions." Random draws ensure every student engages with each source, varying which specific aspects they're asked about.</p>
+
+        <p>The shared idea: pools become reusable, semantically-meaningful units &mdash; not just buckets for randomization. Pick the pattern that matches the way you already think about your unit.</p>
+        <div class="callout">
+          <p>After import, Canvas presents these as <strong>Question Groups</strong> inside the imported quiz. To see how to edit or fine-tune them in Canvas after import, see Canvas's official guide: <a href="https://community.instructure.com/en/kb/articles/660998-how-do-i-create-a-quiz-with-a-question-group-to-randomize-quiz-questions" target="_blank" rel="noopener">How do I create a quiz with a question group to randomize quiz questions?</a></p>
+        </div>
       </div>
     </details>
 
@@ -931,7 +968,7 @@ END_COMMENT
       <summary>Multiple question banks</summary>
       <div class="accordion-body">
         <p>Raider Quiz Builder converts one source file into one quiz, which lands in one question bank on Canvas import. Canvas's QTI workflow is fundamentally one-file-one-bank.</p>
-        <p>For most "stratified by taxonomy" use cases, <strong>GROUP blocks are the right tool</strong> &mdash; write all your Recall, Application, and Analysis questions in one file, each in their own GROUP block, and Canvas does the random draw at quiz time within a single quiz.</p>
+        <p>For most "categorized by taxonomy" use cases, <strong>GROUP blocks are the right tool</strong> &mdash; write all your Recall, Application, and Analysis questions in one file, each in their own GROUP block, and Canvas does the random draw at quiz time within a single quiz.</p>
         <p>If you want <strong>reusable banks</strong> (a Recall bank that several different quizzes draw from across a semester), write each bank as its own source file and run the converter once per bank. After importing each into Canvas, build the quiz manually:</p>
         <ul>
           <li><em>Classic Quizzes:</em> New Quiz &rarr; New Question Group &rarr; Link to Question Bank &rarr; "9 questions, randomly selected"</li>

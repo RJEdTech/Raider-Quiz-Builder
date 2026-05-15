@@ -183,7 +183,8 @@ GENERAL PRINCIPLES
 I have a quiz already written — convert it to the right format
 Build me a quiz on a unit I just finished — coach me through it
 I have a lesson plan I can paste in — use it as the source
-Build a stratified random-draw exam with three pools
+Build an exam where every student sees different questions
+```
 ```
 
 ---
