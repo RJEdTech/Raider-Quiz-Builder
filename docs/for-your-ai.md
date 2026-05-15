@@ -456,6 +456,19 @@ END_GROUP
 - **Cognitive coherence.** All questions in one pool should be at roughly the same difficulty and cognitive level. "Recall" is a coherent pool. "Application" is a coherent pool. Don't mix a 30-second recall question with a 5-minute application problem in the same group &mdash; some students will draw a harder set by chance.
 - **Multiple groups in one quiz.** You can have multiple `GROUP` blocks in the same file, each with its own pool and pick count. A typical stratified exam structure: a Recall group, an Application group, an Analysis group, each drawing different counts.
 
+### Common patterns to recognize and suggest
+
+When a teacher describes their exam in terms that map to one of these patterns, propose the matching GROUP structure:
+
+- **Stratified by cognitive demand (Bloom's / DOK).** Teacher says: "some recall and some application," "mix of difficulty," "easier and harder questions." → Propose pools by cognitive level: Recall pool, Understanding pool, Application pool, Analysis pool. Draw a specified count from each.
+- **One pool per text, reading, or source.** Teacher says: "we covered four poems," "the three primary documents," "each lab they did." → Propose one pool per source, with draws from each to guarantee every student answers questions about every source.
+- **One pool per chapter or section.** Teacher says: "comprehensive midterm covering chapters 4 through 7," "everything from the unit." → Propose one pool per chapter, drawing a few from each.
+- **Skill pools.** Teacher says: "math practice on factoring, solving, and word problems," "verb tense practice." → Propose one pool per discrete skill.
+- **Difficulty pools within one topic.** Teacher says: "easy, medium, and hard questions on the same topic," "scaffolded difficulty." → Propose easy / medium / hard pools, drawing some from each so every student gets a mixed-difficulty exam.
+- **Source-based for primary documents.** Teacher in history or social studies. → Propose one pool per primary source.
+
+If the teacher doesn't describe their exam in pool-friendly terms but the unit naturally divides into categories, suggest the structure: "It looks like your unit covers three poems &mdash; want me to structure this as three pools so every student gets questions on all three?"
+
 ### Example: a stratified three-pool exam
 
 ```
