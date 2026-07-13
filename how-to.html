@@ -501,9 +501,24 @@
 
     <h2 id="recipe-1"><span class="recipe-badge">Recipe 1</span>Convert a Word doc you already have</h2>
 
-    <p>You have quiz questions already written somewhere &mdash; Word, PDF, a scanned test bank, a list in OneNote. You want them in Canvas without retyping anything. Two paths: let an AI do the format conversion for you (easiest), or format the doc yourself (more control, no AI needed).</p>
+    <p>You have quiz questions already written somewhere &mdash; Word, PDF, a scanned test bank, a list in OneNote. You want them in Canvas without retyping anything. Which path you take depends on one question: is your file <em>already</em> marked up in the format &mdash; asterisks on the correct answers, questions numbered, choices lettered? If so, there's nothing to format &mdash; skip straight to converting.</p>
 
-    <h3>The easy path &middot; have AI convert it for you</h3>
+    <h3>Already in the format &middot; just convert it</h3>
+
+    <p>Best when your file already uses the markers &mdash; you wrote it that way, a colleague shared one, or an AI (like the <a href="#recipe-2">Assistant in Recipe 2</a>) produced it. There's no formatting step here; you're only converting and importing.</p>
+
+    <ol>
+      <li><strong>Open Raider Quiz Builder</strong> and drop your file (<code>.docx</code>, <code>.txt</code>, or <code>.md</code>) onto the page.</li>
+      <li><strong>Read the validation results.</strong> Errors come with line numbers so you can locate them in your source file. Fix and re-drop, or proceed if the only flags are advisory notes.</li>
+      <li><strong>Click "Convert to Canvas quiz"</strong> and download the <code>.zip</code>.</li>
+      <li><strong>Import into Canvas:</strong> Settings &rarr; Import Course Content &rarr; QTI .zip file &rarr; choose your file &rarr; Import. For the step-by-step, see Canvas's <a href="https://community.instructure.com/en/kb/articles/660996-how-do-i-import-quizzes-from-qti-packages" target="_blank" rel="noopener">official QTI import guide</a>.</li>
+    </ol>
+
+    <div class="callout">
+      <p><strong>Not sure whether your file is formatted?</strong> Drop it in anyway &mdash; the validator tells you immediately. If it comes back with errors because the markers aren't there yet, use one of the two paths below to add them. The manual path includes an <a href="#recipe-1-example">example</a> of exactly what a formatted file should look like.</p>
+    </div>
+
+    <h3>Not marked up yet &middot; have AI convert it for you</h3>
 
     <p>Best for teachers who don't want to learn the marker syntax. The AI handles the format translation.</p>
 
@@ -522,9 +537,9 @@
       <p><strong>The AI handles whatever format your Word doc uses</strong> &mdash; answer key at the bottom, inline <code>(Answer: B)</code> markers, bolded correct answers, table format, scanned-text exports. You don't need to learn any syntax. If you also want the AI to add more questions in the same style on top of converting, just ask &mdash; it'll convert what you have and then offer to expand.</p>
     </div>
 
-    <h3>The manual path &middot; format it yourself</h3>
+    <h3>Not marked up yet &middot; format it by hand</h3>
 
-    <p>Best for teachers who want full control, or whose Word doc is already close to the format, or who prefer not to use AI.</p>
+    <p>Best for teachers who want full control, whose Word doc is close to the format already, or who prefer not to use AI. (If your file is <em>fully</em> marked up already, you don't need this section &mdash; use "Already in the format" above.)</p>
 
     <ol>
       <li><strong>Open your Word doc.</strong> Each question on its own line, numbered <code>1. </code>, <code>2. </code>, etc. Answer choices on separate lines, lettered <code>a)</code>, <code>b)</code>, <code>c)</code>, <code>d)</code>.</li>
@@ -536,7 +551,7 @@
       <li><strong>Import into Canvas:</strong> Settings &rarr; Import Course Content &rarr; QTI .zip file &rarr; choose your file &rarr; Import. For the step-by-step, see Canvas's <a href="https://community.instructure.com/en/kb/articles/660996-how-do-i-import-quizzes-from-qti-packages" target="_blank" rel="noopener">official QTI import guide</a>.</li>
     </ol>
 
-    <h4>Example of how your Word doc should look</h4>
+    <h4 id="recipe-1-example">Example of how your Word doc should look</h4>
 
 <pre><code>1. What is the capital of Japan?
 a) Beijing
@@ -622,7 +637,7 @@ b) False</code></pre>
 
     <h3>Step 5 &middot; Convert and import</h3>
 
-    <p>Once the file looks right, download or copy it into a <code>.txt</code> file, drop it into Raider Quiz Builder, and import to Canvas as in <a href="#recipe-1">Recipe 1</a>.</p>
+    <p>Once the file looks right, download or copy it into a <code>.txt</code> file. It's already in the format, so follow Recipe 1's <a href="#recipe-1">"Already in the format"</a> path &mdash; drop it into Raider Quiz Builder, convert, and import to Canvas.</p>
 
     <h2 id="recipe-3"><span class="recipe-badge">Recipe 3</span>Expand a few existing questions into a full bank</h2>
 
