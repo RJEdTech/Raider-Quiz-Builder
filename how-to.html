@@ -465,7 +465,7 @@
     <ul>
       <li><a href="#before-you-start">Before you start &middot; Canvas basics</a></li>
       <li><a href="#recipe-1">Recipe 1 &middot; Convert a Word doc</a></li>
-      <li><a href="#recipe-2">Recipe 2 &middot; AI from a unit brief</a></li>
+      <li><a href="#recipe-2">Recipe 2 &middot; AI from a unit summary</a></li>
       <li><a href="#recipe-3">Recipe 3 &middot; Expand a few questions</a></li>
       <li><a href="#recipe-4">Recipe 4 &middot; Randomized exam</a></li>
       <li><a href="#common-issues">Common issues</a></li>
@@ -573,20 +573,20 @@ b) False</code></pre>
     </div>
 
 
-    <h2 id="recipe-2"><span class="recipe-badge">Recipe 2</span>Have AI write the quiz from a unit brief</h2>
+    <h2 id="recipe-2"><span class="recipe-badge">Recipe 2</span>Have AI write the quiz from a unit summary</h2>
 
     <div class="callout">
-      <p><strong>The fastest path:</strong> open the <a href="https://chatgpt.com/g/g-6a075cc27a0481918450f67b4c852a58-raider-quiz-builder-assistant" target="_blank" rel="noopener">Raider Quiz Builder Assistant on ChatGPT</a>. It's a custom GPT that walks you through the unit brief below conversationally and produces a ready-to-convert file at the end. Requires a ChatGPT for Teachers account.</p>
+      <p><strong>The fastest path:</strong> open the <a href="https://chatgpt.com/g/g-6a075cc27a0481918450f67b4c852a58-raider-quiz-builder-assistant" target="_blank" rel="noopener">Raider Quiz Builder Assistant on ChatGPT</a>. It's a custom GPT that walks you through the unit summary below conversationally and produces a ready-to-convert file at the end. Requires a ChatGPT for Teachers account.</p>
       <p style="margin-top: 0.5rem;">If you use a different AI (Claude, Flint, Gemini), download <a href="docs/for-your-ai.md">For your AI</a> and drop it into your AI of choice instead. Same result, more steps.</p>
     </div>
 
-    <p>You have a topic in mind but no questions written yet. <strong>This is the recipe to spend time on.</strong> Generic AI prompts produce generic quizzes that miss what you actually taught, test the wrong misconceptions, and use vocabulary your students never heard. The cure is a <em>unit brief</em> &mdash; about five minutes of writing that gives the AI enough context to match your classroom.</p>
+    <p>You have a topic in mind but no questions written yet. <strong>This is the recipe to spend time on.</strong> Generic AI prompts produce generic quizzes that miss what you actually taught, test the wrong misconceptions, and use vocabulary your students never heard. The cure is a <em>unit summary</em>: about five minutes of notes on what you actually taught &mdash; the same kind of thing you'd write up for a substitute covering your class &mdash; so the AI has enough context to match your classroom instead of the internet's version of your subject.</p>
 
-    <p><strong>You'll need:</strong> five to ten minutes to assemble a unit brief. The AI does the rest.</p>
+    <p><strong>You'll need:</strong> five to ten minutes to put together a unit summary. The AI does the rest.</p>
 
-    <h3>Step 1 &middot; Write a unit brief</h3>
+    <h3>Step 1 &middot; Write a unit summary</h3>
 
-    <p>Pull together six pieces of context before you open the AI. The brief can live in a sticky note, an email draft, or a section of your unit plan &mdash; the AI doesn't care about formatting, just the substance.</p>
+    <p>Pull together six pieces of context before you open the AI. The summary can live in a sticky note, an email draft, or a section of your unit plan &mdash; the AI doesn't care about formatting, just the substance.</p>
 
     <ol>
       <li><strong>Scope.</strong> Not "the French Revolution" &mdash; "the French Revolution, causes through the storming of the Bastille (1770 to July 1789)." Tight scope = focused questions.</li>
@@ -599,7 +599,7 @@ b) False</code></pre>
 
     <h3>Step 2 &middot; Write the prompt</h3>
 
-    <p>Open the Raider Quiz Builder Assistant (or paste the <a href="docs/ai-prompt.md">AI prompt</a> into Claude, ChatGPT, or Flint) and write the prompt. Treat it like a memo to a TA who'll write the quiz for you.</p>
+    <p>Open the Raider Quiz Builder Assistant (or paste the <a href="docs/ai-prompt.md">AI prompt</a> into Claude, ChatGPT, or Flint) and write the prompt. Treat it like the notes you'd leave a substitute who has to teach the quiz for you.</p>
 
     <p>A full worked example:</p>
 
@@ -643,17 +643,17 @@ b) False</code></pre>
 
     <p>You have three to five questions you wrote yourself. You'd like thirty.</p>
 
-    <p>This is Recipe 2 with a head start: your existing questions serve as the style and difficulty anchor. The same unit brief still matters &mdash; without it, the AI copies the <em>form</em> of your questions but drifts on substance.</p>
+    <p>This is Recipe 2 with a head start: your existing questions serve as the style and difficulty anchor. The same unit summary still matters &mdash; without it, the AI copies the <em>form</em> of your questions but drifts on substance.</p>
 
     <h3>Steps</h3>
 
     <ol>
-      <li><strong>Write the same brief</strong> as Recipe 2 (scope, source materials, key terms, out-of-scope, cognitive mix, misconceptions). Even with example questions, the AI needs this context to stay aligned.</li>
-      <li><strong>Paste your existing questions</strong> as part of the prompt, along with the brief:
+      <li><strong>Write the same summary</strong> as Recipe 2 (scope, source materials, key terms, out-of-scope, cognitive mix, misconceptions). Even with example questions, the AI needs this context to stay aligned.</li>
+      <li><strong>Paste your existing questions</strong> as part of the prompt, along with the summary:
         <blockquote>
           <p>I have these 4 questions already. Build 26 more in the same style, difficulty, and tone, then return all 30 as one quiz file.</p>
           <p>[paste your 4 questions here, exactly as you wrote them]</p>
-          <p>[then paste the unit brief from Recipe 2]</p>
+          <p>[then paste the unit summary from Recipe 2]</p>
         </blockquote>
       </li>
       <li><strong>Review the output as in Recipe 2.</strong> Pay extra attention to:
@@ -668,7 +668,7 @@ b) False</code></pre>
     </ol>
 
     <div class="callout">
-      <p><strong>Why this works better than "just make 27 more":</strong> your existing questions give the AI a stylistic target. The brief gives it a substantive target. Without both, you get 27 generic questions in the AI's default voice that may or may not match your unit.</p>
+      <p><strong>Why this works better than "just make 27 more":</strong> your existing questions give the AI a stylistic target. The summary gives it a substantive target. Without both, you get 27 generic questions in the AI's default voice that may or may not match your unit.</p>
     </div>
 
     <h2 id="recipe-4"><span class="recipe-badge">Recipe 4</span>Build a randomized exam from question pools</h2>
@@ -731,15 +731,15 @@ b) False</code></pre>
     <h3>Steps using AI</h3>
 
     <ol>
-      <li><strong>Write a unit brief</strong> as in Recipe 2.</li>
-      <li><strong>Add pool specifications to the brief:</strong>
+      <li><strong>Write a unit summary</strong> as in Recipe 2.</li>
+      <li><strong>Add pool specifications to the summary:</strong>
         <blockquote>
           <p>Build a randomized exam from question pools on [topic]. Structure it as three pools:</p>
           <p>Recall pool: 20 questions, each worth 1 point. Draws 9.<br>
           Application pool: 10 questions, each worth 2 points. Draws 3.<br>
           Analysis pool: 4 essay questions, each worth 5 points. Draws 1.</p>
           <p>Each student attempt sees a different random selection: 9 + 3 + 1 = 13 questions, worth 24 points total.</p>
-          <p>[full unit brief from Recipe 2 follows]</p>
+          <p>[full unit summary from Recipe 2 follows]</p>
         </blockquote>
       </li>
       <li><strong>Review pool by pool.</strong> When the AI returns the file, check each <code>GROUP</code> block independently:
@@ -806,8 +806,8 @@ b) False</code></pre>
     </ul>
 
     <h3>"AI quiz feels generic and off-topic"</h3>
-    <p><strong>Cause:</strong> You skipped or rushed the unit brief. The AI defaulted to generic Wikipedia-flavored content.</p>
-    <p><strong>Fix:</strong> Go back to <a href="#recipe-2">Recipe 2</a>, write a real unit brief with key terms and out-of-scope items, and regenerate. The difference between a 30-second prompt and a 5-minute brief is night and day for output quality.</p>
+    <p><strong>Cause:</strong> You skipped or rushed the unit summary. The AI defaulted to generic Wikipedia-flavored content.</p>
+    <p><strong>Fix:</strong> Go back to <a href="#recipe-2">Recipe 2</a>, write a real unit summary with key terms and out-of-scope items, and regenerate. The difference between a 30-second prompt and a 5-minute summary is night and day for output quality.</p>
 
     <h3>Still stuck?</h3>
     <p>The full <a href="docs/format-reference.html">format reference</a> covers every syntax detail. Or open the AI Assistant, paste your file in, and ask it to identify what's wrong &mdash; it can usually spot formatting issues faster than you can.</p>
