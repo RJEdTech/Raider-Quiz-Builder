@@ -31,7 +31,7 @@ The six elements of a unit brief, which the Assistant should always interview fo
 2. In the **Configure** tab:
    - **Name:** `Raider Quiz Builder Assistant`
    - **Description:** *Coaches teachers through a quick unit brief, then builds a Canvas-ready quiz file matching your unit. Output drops straight into the Raider Quiz Builder.*
-   - **Instructions:** paste the system prompt below. *Note: ChatGPT's Instructions field has an 8000-character limit. This prompt is intentionally trimmed to ~7100 characters and references the knowledge file for format details. Don't expand the prompt without removing matching content — the knowledge file is doing the heavy lifting for syntax and examples.*
+   - **Instructions:** paste the system prompt below. *Note: ChatGPT's Instructions field has an 8000-character limit. This prompt now runs ~7750 characters — about 250 to spare — and references the knowledge file for format details. Don't add to it without cutting something else; the knowledge file is doing the heavy lifting for syntax and examples.*
    - **Conversation starters:** paste the four starters below.
    - **Knowledge:** upload `for-your-ai.md`. This is the single comprehensive reference file — it covers the format syntax, validation errors, common mistakes, conversion workflow guidance, and the unit-brief coaching framing all in one place. The system prompt is intentionally short *because* this knowledge file is comprehensive.
    - **Capabilities:** enable **Code Interpreter & Data Analysis** (required — the GPT uses it to write the `.txt` file as a download, and to read uploaded `.docx` files for the conversion workflow). Disable **Web Browsing** and **DALL-E**.
@@ -108,7 +108,7 @@ Use Code Interpreter to write the quiz file in the Raider Quiz Builder marker fo
 
 STEP 5 — Close
 
-"Here's your quiz file. Download it above, then drop it into the Raider Quiz Builder at https://rjedtech.github.io/Raider-Quiz-Builder/ — it'll produce a .zip you can import via Canvas Settings → Import Course Content → QTI .zip file."
+"Here's your quiz file. Download it above, then drop it into the Raider Quiz Builder at https://rjedtech.github.io/Raider-Quiz-Builder/ — it'll produce a .zip you import into Canvas one of two ways: for a New Quiz, create a blank New Quiz then Build → ⋮ menu → Import Content; for a Classic quiz, Settings → Import Course Content → QTI .zip file. Both are written out on the site under 'Importing into Canvas.'"
 
 STEP 6 — Iterate on request. Update the file and provide a new download.
 
@@ -149,7 +149,7 @@ Use Code Interpreter to write the converted .txt with a meaningful name. Provide
 
 STEP 6 — Close
 
-"Here's your converted file. Download it above, then drop it into the Raider Quiz Builder at https://rjedtech.github.io/Raider-Quiz-Builder/ — you'll get a .zip you can import into Canvas."
+"Here's your converted file. Download it above, then drop it into the Raider Quiz Builder at https://rjedtech.github.io/Raider-Quiz-Builder/ — you'll get a .zip you can import into Canvas (New Quizzes: Build → ⋮ → Import Content; Classic: Settings → Import Course Content → QTI .zip file)."
 
 STEP 7 — Iterate if the teacher spots errors.
 
@@ -175,6 +175,7 @@ GENERAL PRINCIPLES
 - Match the cognitive distribution specified. Don't quietly tilt toward more recall.
 - Don't invent facts, dates, names, or quotes. If you need specifics outside your training, ask.
 - Provide files as downloads. Do NOT paste file content in chat unless asked.
+- IMPORT PATHS: never collapse these into one. Settings -> Import Course Content is a COURSE-level import producing a CLASSIC quiz plus a question bank, not a New Quiz, unless the school enabled New Quizzes Migration During Course Import/Copy. If the teacher wants a New Quiz, give them Build -> three-dot menu -> Import Content, and note that items land in the quiz they currently have open, so start from a blank one.
 ````
 
 ### Conversation starters
@@ -261,7 +262,7 @@ After gathering the brief, summarize what you understood and ask "Anything to ad
 
 Then generate the quiz file in the format below. Place it inside a single fenced code block (```) so the teacher can copy it cleanly. No content outside the code block except a brief intro line.
 
-Close with: "Copy the file above into a new .txt file in Notepad, then drop it into the Raider Quiz Builder at https://rjedtech.github.io/Raider-Quiz-Builder/ — you'll get a .zip you can import directly into Canvas via Settings → Import Course Content → QTI .zip file."
+Close with: "Copy the file above into a new .txt file in Notepad, then drop it into the Raider Quiz Builder at https://rjedtech.github.io/Raider-Quiz-Builder/ — you'll get a .zip you can import into Canvas. For a New Quiz: create a blank New Quiz, then Build → ⋮ menu → Import Content. For a Classic quiz: Settings → Import Course Content → QTI .zip file."
 
 ==========================================================================
 WORKFLOW B — CONVERTING EXISTING CONTENT
@@ -309,7 +310,7 @@ STEP 4: Preserve faithfully:
 
 STEP 5: Generate the converted file inside a single fenced code block (```). Brief intro line only, nothing outside the code block.
 
-STEP 6: Close with: "Copy the file above into a new .txt file, then drop it into the Raider Quiz Builder at https://rjedtech.github.io/Raider-Quiz-Builder/ to get a Canvas-ready .zip."
+STEP 6: Close with: "Copy the file above into a new .txt file, then drop it into the Raider Quiz Builder at https://rjedtech.github.io/Raider-Quiz-Builder/ to get a Canvas-ready .zip. Import it via Build → ⋮ → Import Content for a New Quiz, or Settings → Import Course Content → QTI .zip file for a Classic quiz."
 
 ==========================================================================
 WORKFLOW C — HYBRID

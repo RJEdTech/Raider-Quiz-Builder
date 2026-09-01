@@ -30,7 +30,12 @@ You already wrote quiz questions in Word. You want them in Canvas without retypi
 
 6. **Click "Convert to Canvas quiz"** and download the `.zip`.
 
-7. **Import into Canvas:** Settings → Import Course Content → QTI .zip file → select your file → Import. The quiz appears in your course's Quizzes list.
+7. **Import into Canvas.** Two routes, and they land in different places:
+
+   - **New Quizzes:** Quizzes → **+ Quiz** → **New Quizzes** → Save. On the **Build** page, open the **⋮** menu (top right) → **Import Content** → drag the `.zip` in (or Browse) → **Import**. Items land in the quiz you have open, so start from a blank one.
+   - **Classic Quizzes:** **Settings → Import Course Content**, Content Type **QTI .zip file** → select your file → **Import**. The quiz appears in your Quizzes list and its questions in a question bank.
+
+   Either way, **preview before publishing**.
 
 **Example of how your Word doc should look before conversion:**
 
@@ -137,7 +142,7 @@ This is what `GROUP` blocks do.
 
 2. **Review the file.** Look for the `GROUP / END_GROUP` blocks — there should be one for each pool.
 
-3. **Convert and import.** Canvas creates Question Groups inside the imported quiz that draw randomly each time a student starts an attempt.
+3. **Convert and import.** On the **Classic** route Canvas creates Question Groups inside the imported quiz, drawing randomly each time a student starts an attempt. On the **New Quizzes** route, check that the draw came through — if it didn't, import the `.zip` into an item bank and use **Add from Item Bank → Randomized** instead.
 
 **Steps writing by hand:**
 
@@ -201,12 +206,24 @@ END_GROUP
 
 **Fix:** Use a plain text editor for files with numerical answers, or disable Word's symbol AutoCorrect. The validator normalizes `±` to `+-` automatically, but it's worth knowing.
 
+### "I imported it but I wanted a New Quiz, and I got a Classic one"
+
+**Cause:** You used **Settings → Import Course Content**. That's a course-level import, and unless your Canvas admin has enabled *New Quizzes Migration During Course Import/Copy*, it always produces a Classic quiz plus a question bank.
+
+**Fix:** Use the New Quizzes route instead. Create a blank New Quiz (Quizzes → **+ Quiz** → **New Quizzes** → Save), then on the **Build** page: **⋮** menu → **Import Content** → drop in the same `.zip`. Nothing about the file changes — only the door you go in through. Delete the Classic quiz the first import created if you don't want it.
+
+### "My random draw (GROUP blocks) didn't survive the import"
+
+**Cause:** `GROUP` blocks become Canvas **Question Groups**, which is a Classic Quizzes construct. They import cleanly on the Classic route. On the New Quizzes route, the draw doesn't always come through.
+
+**Fix:** Check the imported New Quiz first — if the group is there, you're fine. If it isn't, import the same `.zip` into an **item bank** instead, then build the quiz with **Add from Item Bank → Randomized, N questions**. Same questions, same random draw, assembled on the New Quizzes side.
+
 ### "Canvas import says the file isn't valid"
 
 **Cause:** Either the QTI file wasn't generated correctly (rare), or the .zip you uploaded isn't a QTI .zip (more common — make sure you imported as "QTI .zip file" not "Common Cartridge").
 
 **Fix:** 
-1. In Canvas import settings, **Content Type** must be set to **QTI .zip file**, not Common Cartridge or any other option.
+1. On the Classic route, **Content Type** must be set to **QTI .zip file**, not Common Cartridge or any other option. (The New Quizzes **Import Content** dialog has no content-type picker — it only takes QTI.)
 2. If that's set correctly and import still fails, try one of the [sample files](../samples/) first — if the samples import successfully and your file doesn't, the issue is in the source file.
 
 ### "My multiple choice question shows two correct answers"

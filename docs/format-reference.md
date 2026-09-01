@@ -309,6 +309,8 @@ Rules:
 - Every question inside one group must be worth the same number of points.
 - You can mix GROUP blocks and standalone questions in the same file. Standalone questions appear in every attempt; group questions are randomized.
 
+**Question Groups are a Classic Quizzes construct.** They import cleanly through *Settings → Import Course Content*. If you import the same `.zip` into a **New Quiz** (Build → ⋮ → Import Content), open the quiz afterwards and confirm the random draw came through. If it didn't, import the `.zip` into an item bank instead and build the quiz with **Add from Item Bank → Randomized**.
+
 ---
 
 ## Per-question metadata
@@ -389,7 +391,7 @@ For most "stratified by taxonomy" use cases, **GROUP blocks are the right tool**
 If you want **reusable banks** (a Recall bank that several different quizzes draw from across a semester), write each bank as its own source file and run the converter once per bank. After importing each into Canvas, build the quiz manually:
 
 - *Classic Quizzes:* New Quiz → New Question Group → Link to Question Bank → "9 questions, randomly selected"
-- *New Quizzes:* New Quiz → Add from Item Bank → "Randomized, 9 questions"
+- *New Quizzes:* import the `.zip` into an item bank, then New Quiz → Add from Item Bank → "Randomized, 9 questions"
 
 This is the same approach publisher test banks use (Pearson, McGraw-Hill, etc. ship one ZIP per chapter).
 

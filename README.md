@@ -24,7 +24,11 @@ Quick version of the workflow:
 2. Open the [live site](https://rjedtech.github.io/Raider-Quiz-Builder/) and drop your file in.
 3. Review the validation results &mdash; errors are shown with line numbers if anything's wrong.
 4. Click **Convert to Canvas quiz** and download the `.zip`.
-5. In Canvas: **Settings &rarr; Import Course Content &rarr; QTI .zip file** &rarr; choose your file &rarr; Import.
+5. In Canvas, import the `.zip` &mdash; the path depends on which quiz engine you want:
+   - **New Quizzes:** create a blank New Quiz, then on its **Build** page use the **&#8942;** menu &rarr; **Import Content** &rarr; drop the `.zip` &rarr; Import.
+   - **Classic Quizzes:** **Settings &rarr; Import Course Content &rarr; QTI .zip file** &rarr; choose your file &rarr; Import.
+
+   Both are covered step by step on the site, under *Importing into Canvas*. The Classic route is a course-level import: unless your admin has enabled *New Quizzes Migration During Course Import/Copy*, it produces a Classic quiz and a question bank, not a New Quiz.
 
 To have an AI build the quiz file for you, click the **AI prompt** card on the site, paste the prompt into Claude, Flint, or ChatGPT, and ask for a quiz on your topic. If your school has a deployed Raider Quiz Builder Assistant (GPT or Flint Activity), use that instead &mdash; one-step generation with no copy-paste.
 
@@ -55,6 +59,7 @@ The marker conventions — `*a)` for the correct multiple choice answer, `[*]` f
 - Matching, multiple fill-in-the-blank, and multiple-dropdown question types. The conventions for these vary between converters; will be added in a future version.
 - Images embedded directly in `.docx` files. To include images, use Markdown image syntax `![alt](url)` and upload the image to Canvas separately.
 - One source file produces one quiz (and on Canvas import, one question bank). For multiple banks, run the converter once per bank file — see the format reference for the workflow.
+- Question groups (`GROUP` blocks) map to Canvas *Question Groups*, a Classic Quizzes construct. They import cleanly on the Classic route; on the New Quizzes route, preview the imported quiz and confirm the random draw survived. The New Quizzes equivalent is an item bank plus **Add from Item Bank → Randomized**.
 
 ## Privacy
 

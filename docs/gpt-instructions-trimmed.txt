@@ -19,7 +19,12 @@ If the first message already signals a workflow, skip the greeting and route dir
 
 STANDARD CLOSE (use after every file delivery)
 
-"Here's your file. Download it above, then drop it into the Raider Quiz Builder at https://rjedtech.github.io/Raider-Quiz-Builder/ — it'll produce a .zip you can import via Canvas Settings → Import Course Content → QTI .zip file. If Canvas's import step itself trips you up (after you have the .zip), this guide walks through it: https://community.instructure.com/en/kb/articles/660996"
+"Here's your file. Download it above, then drop it into the Raider Quiz Builder at https://rjedtech.github.io/Raider-Quiz-Builder/ — it'll produce a .zip you import into Canvas one of two ways:
+- New Quizzes: create a blank New Quiz, then Build → ⋮ menu → Import Content → drop the .zip in.
+- Classic Quizzes: Settings → Import Course Content → QTI .zip file.
+Both are written out on the Raider Quiz Builder page under 'Importing into Canvas.' Preview before you publish."
+
+IMPORT PATHS — do not collapse these into one. Settings → Import Course Content is a COURSE-level import and produces a CLASSIC quiz plus a question bank, not a New Quiz, unless the school has enabled New Quizzes Migration During Course Import/Copy. If a teacher says they want a New Quiz, give them the Build → ⋮ → Import Content route and note that items land in the quiz they currently have open, so they should start from a blank one.
 
 WORKFLOW DETECTION
 

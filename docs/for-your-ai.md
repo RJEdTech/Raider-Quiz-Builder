@@ -205,7 +205,7 @@ When converting:
 
 Output the converted file in the marker format described in the rest of this document. If you have file-output capabilities (Code Interpreter, downloadable files), provide it as a download. Otherwise, place the entire converted file inside a single fenced code block.
 
-Close with: "Here's your converted file. Download it (or copy from the code block) and drop it into Raider Quiz Builder at https://rjedtech.github.io/Raider-Quiz-Builder/ &mdash; you'll get a .zip you can import directly into Canvas."
+Close with: "Here's your converted file. Download it (or copy from the code block) and drop it into Raider Quiz Builder at https://rjedtech.github.io/Raider-Quiz-Builder/ &mdash; you'll get a .zip you can import into Canvas. For a **New Quiz**: create a blank New Quiz, then **Build &rarr; the three-dot menu &rarr; Import Content**. For a **Classic quiz**: **Settings &rarr; Import Course Content &rarr; QTI .zip file**."
 
 ### Step 6: Iterate on request
 
@@ -648,13 +648,16 @@ The parser uses blank lines to separate questions. A blank line inside what you 
 When a teacher reports a problem, work through this list:
 
 1. **Conversion failed entirely.** Check for errors in the validation panel &mdash; the converter shouldn't proceed if there are errors. The line numbers will pinpoint the problem.
-2. **Conversion succeeded but Canvas import failed.** Check that the teacher selected "QTI .zip file" as the Content Type in Canvas, not Common Cartridge or another option.
+2. **Conversion succeeded but Canvas import failed.** On the Classic route, check that the teacher selected "QTI .zip file" as the Content Type, not Common Cartridge or another option. On the New Quizzes route there is no content-type picker &mdash; but the teacher must have a quiz already open, since **Import Content** adds items to the quiz they're currently in.
 3. **Sample file imports but theirs doesn't.** The problem is in the source file. Re-examine the validation output for advisory notes that may indicate the actual issue.
 4. **Questions are missing after import.** The teacher may have used GROUP blocks; Canvas Question Groups show only the picked subset per attempt, not all pool questions. Have them check the Question Groups view in the imported quiz.
+
+   *(New Quizzes only)* Question Groups are a Classic Quizzes construct and don't always survive the New Quizzes import. If the draw is gone, have the teacher import the same .zip into an **item bank**, then build the quiz with **Add from Item Bank &rarr; Randomized, N questions**.
 5. **Some questions look weird in Canvas.** Check for unsupported feedback (numerical/short-answer with feedback), images that didn't upload, or smart quotes in answer text that may not have been normalized cleanly.
 6. **"My multiple choice has two correct answers in Canvas."** Two `*` markers in the source file. Each multiple-choice question must have exactly one.
 7. **GROUP block isn't randomizing.** Check that `pick:` is less than the pool size. If `pick: 9` from a pool of 9, all 9 are shown to every student.
 8. **AI quiz feels generic, off-topic, or wrong.** The teacher likely skipped the unit brief. Go back to *Best practice: bring a unit brief* and walk them through it.
+9. **Teacher wanted a New Quiz but got a Classic one.** They used Settings &rarr; Import Course Content, which is a course-level import. Unless the school has enabled *New Quizzes Migration During Course Import/Copy*, it always produces a Classic quiz plus a question bank. Point them to the New Quizzes route instead: create a blank New Quiz, then **Build &rarr; three-dot menu &rarr; Import Content**. The .zip is the same; only the door changes.
 
 ---
 
@@ -697,7 +700,7 @@ Before you finalize the file, verify:
 After producing the file:
 
 1. If you can attach files (Code Interpreter, downloadable file features), provide the file as a download with a meaningful name (e.g., `french-revolution-causes-check.txt`).
-2. Tell the teacher what to do next: *"Download this file, then drop it into Raider Quiz Builder at https://rjedtech.github.io/Raider-Quiz-Builder/ &mdash; you'll get a .zip you can import directly into Canvas via Settings → Import Course Content → QTI .zip file."*
+2. Tell the teacher what to do next: *"Download this file, then drop it into Raider Quiz Builder at https://rjedtech.github.io/Raider-Quiz-Builder/ &mdash; you'll get a .zip you can import into Canvas. For a New Quiz: create a blank New Quiz, then Build → ⋮ menu → Import Content. For a Classic quiz: Settings → Import Course Content → QTI .zip file. Both routes are written out on the site under 'Importing into Canvas.'"*
 3. Offer to iterate. If the teacher wants revisions ("question 7 is too easy," "add 3 more on the Tennis Court Oath," "fix the correct answer on question 12"), update the file and provide a new version.
 
 Do not summarize, recap, or explain the file unless the teacher specifically asks.

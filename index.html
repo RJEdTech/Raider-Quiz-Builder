@@ -444,6 +444,121 @@
     font-size: 0.9rem;
   }
 
+
+  /* ===== Import paths (Classic vs New Quizzes) ===== */
+  .import-paths {
+    margin-bottom: 2rem;
+  }
+
+  .import-paths h2 {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.01em;
+    color: var(--text);
+  }
+
+  .import-paths .section-lead {
+    color: var(--text-mute);
+    font-size: 0.95rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .import-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+  }
+
+  .import-card {
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 1.25rem 1.25rem 1.1rem;
+  }
+
+  .import-card.is-recommended {
+    border-color: var(--raider);
+    border-left-width: 4px;
+  }
+
+  .import-badge {
+    font-family: "IBM Plex Mono", "Consolas", "Courier New", monospace;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 0.45rem;
+  }
+
+  .import-card.is-recommended .import-badge { color: var(--raider); }
+
+  .import-path {
+    font-weight: 500;
+    font-size: 0.98rem;
+    color: var(--text);
+    line-height: 1.35;
+    margin-bottom: 0.85rem;
+  }
+
+  .import-path code {
+    background: var(--bg-card);
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-size: 0.86em;
+  }
+
+  .import-steps {
+    margin: 0 0 0.85rem 1.1rem;
+    padding: 0;
+    color: var(--text-mute);
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  .import-steps li { margin-bottom: 0.3rem; }
+  .import-steps strong { color: var(--text); font-weight: 500; }
+
+  .import-note {
+    font-size: 0.85rem;
+    color: var(--text-mute);
+    line-height: 1.45;
+    border-top: 1px solid var(--border);
+    padding-top: 0.7rem;
+  }
+
+  .import-note strong { color: var(--text); font-weight: 500; }
+
+  .import-mock {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 0 0.85rem;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+  }
+
+  .import-caveats {
+    margin-top: 1rem;
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--text-mute);
+    border-radius: 0 3px 3px 0;
+    padding: 0.9rem 1.15rem;
+    font-size: 0.88rem;
+    color: var(--text-mute);
+    line-height: 1.5;
+  }
+
+  .import-caveats strong { color: var(--text); font-weight: 500; }
+
+  .import-caveats a, .import-note a, .import-card a { color: var(--raider); }
+  .import-caveats a:hover, .import-note a:hover, .import-card a:hover { color: var(--raider-hot); }
+
+  .import-caveats ul { margin: 0.5rem 0 0 1.1rem; padding: 0; }
+  .import-caveats li { margin-bottom: 0.3rem; }
+
   /* ===== Resources section ===== */
   .resources {
     margin-top: 3rem;
@@ -976,7 +1091,7 @@
         <div class="step-num">3</div>
         <div class="step-content">
           <div class="step-title">Import into Canvas</div>
-          <div class="step-detail">Settings &rarr; Import Course Content &rarr; QTI .zip file</div>
+          <div class="step-detail">New Quizzes or Classic &mdash; steps for both below</div>
         </div>
       </div>
     </div>
@@ -1036,10 +1151,88 @@
   <div class="download-panel hidden" id="download-panel">
     <div class="download-info">
       <div class="download-title">Quiz package ready</div>
-      <div class="download-desc">Import into Canvas via Settings &rarr; Import Course Content &rarr; QTI .zip file. <a href="https://community.instructure.com/en/kb/articles/660996-how-do-i-import-quizzes-from-qti-packages" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline;">First time? See Canvas's import guide.</a></div>
+      <div class="download-desc">Two ways in: <strong>New Quizzes</strong> &mdash; open a blank New Quiz, then Build &rarr; &#8942; &rarr; Import Content. <strong>Classic</strong> &mdash; Settings &rarr; Import Course Content &rarr; QTI .zip file. <a href="#import-paths" style="color: inherit; text-decoration: underline;">Steps for both, just below.</a></div>
     </div>
     <a class="btn" id="download-link" download>Download .zip</a>
   </div>
+
+  <section class="import-paths" id="import-paths">
+    <h2>Importing into Canvas</h2>
+    <p class="section-lead">Two doors, and they land in two different places. Pick the one that matches the quiz engine you want.</p>
+    <div class="import-grid">
+
+      <div class="import-card is-recommended">
+        <div class="import-badge">New Quizzes</div>
+        <div class="import-path">Build &rarr; <code>&#8942;</code> &rarr; Import Content</div>
+        <svg class="import-mock" viewBox="0 0 560 182" role="img" aria-label="The New Quizzes Build page with the three-dot menu open and Import Content highlighted">
+          <rect x="0" y="0" width="560" height="182" fill="#ffffff"/>
+          <rect x="0" y="0" width="560" height="40" fill="#f5f5f5"/>
+          <line x1="0" y1="40" x2="560" y2="40" stroke="#dcdcdc" stroke-width="1"/>
+          <g font-family="Segoe UI, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" fill="#4a4a4a">
+            <text x="22" y="25" font-weight="600" fill="#1a1a1a">Build</text>
+            <rect x="18" y="35" width="38" height="3" fill="#C11430"/>
+            <text x="76" y="25">Settings</text>
+            <text x="140" y="25">Moderate</text>
+            <text x="212" y="25">Reports</text>
+            <text x="270" y="25">Exports</text>
+          </g>
+          <rect x="432" y="10" width="62" height="22" rx="3" fill="#ffffff" stroke="#b8b8b8"/>
+          <text x="463" y="25" font-family="Segoe UI, -apple-system, sans-serif" font-size="12" fill="#4a4a4a" text-anchor="middle">Return</text>
+          <rect x="504" y="8" width="26" height="26" rx="3" fill="#eaeaea" stroke="#b8b8b8"/>
+          <g fill="#1a1a1a"><circle cx="517" cy="15" r="1.9"/><circle cx="517" cy="21" r="1.9"/><circle cx="517" cy="27" r="1.9"/></g>
+          <rect x="349" y="46" width="181" height="124" rx="3" fill="#ffffff" stroke="#c8c8c8"/>
+          <g font-family="Segoe UI, -apple-system, sans-serif" font-size="12.5" fill="#3a3a3a">
+            <text x="384" y="66">SpeedGrader</text>
+            <rect x="350" y="74" width="179" height="24" fill="#C11430"/>
+            <text x="384" y="90" fill="#ffffff" font-weight="600">Import Content</text>
+            <text x="384" y="114">Export Content</text>
+            <text x="384" y="138">Manage Item Banks</text>
+            <text x="384" y="160" fill="#a8a8a8">Print Blank Quiz</text>
+          </g>
+          <g stroke="#6a6a6a" stroke-width="1.3" fill="none">
+            <rect x="363" y="56" width="11" height="9" rx="1.5"/>
+            <rect x="363" y="104" width="11" height="9" rx="1.5"/>
+            <rect x="363" y="128" width="11" height="9" rx="1.5"/>
+          </g>
+          <g stroke="#ffffff" stroke-width="1.4" fill="none">
+            <rect x="363" y="80" width="11" height="9" rx="1.5"/>
+            <path d="M368.5 87.5v-6M366 84l2.5-2.5 2.5 2.5"/>
+          </g>
+          <text x="22" y="80" font-family="Segoe UI, -apple-system, sans-serif" font-size="20" font-weight="600" fill="#1a1a1a">Build</text>
+          <rect x="22" y="100" width="300" height="9" rx="2" fill="#ededed"/>
+          <rect x="22" y="118" width="220" height="9" rx="2" fill="#f2f2f2"/>
+        </svg>
+        <ol class="import-steps">
+          <li>Quizzes &rarr; <strong>+ Quiz</strong> &rarr; <strong>New Quizzes</strong> &rarr; Save. You need a quiz open before you can import into it.</li>
+          <li>On the <strong>Build</strong> page, open the <strong>&#8942;</strong> menu (top right) &rarr; <strong>Import Content</strong>.</li>
+          <li>Drag the <code>.zip</code> in, or <strong>Browse</strong> &rarr; <strong>Import</strong>.</li>
+          <li>Wait for the status bar, then <strong>preview before publishing</strong>.</li>
+        </ol>
+        <div class="import-note">Items land in the quiz you currently have open &mdash; so start from a blank one, not a quiz you care about. New Quizzes accepts QTI 1.2, which is what this tool produces.</div>
+      </div>
+
+      <div class="import-card">
+        <div class="import-badge">Classic Quizzes</div>
+        <div class="import-path">Settings &rarr; Import Course Content</div>
+        <ol class="import-steps">
+          <li>In your course, <strong>Settings</strong> &rarr; <strong>Import Course Content</strong> (right sidebar).</li>
+          <li>Content Type: <strong>QTI .zip file</strong> &mdash; not Common Cartridge.</li>
+          <li>Choose your <code>.zip</code> &rarr; <strong>Import</strong>.</li>
+          <li>The quiz appears in Quizzes, and its questions in a question bank.</li>
+        </ol>
+        <div class="import-note"><strong>This is a course-level import, not a New Quiz.</strong> Unless your Canvas admin has turned on <em>New Quizzes Migration During Course Import/Copy</em>, you get a Classic quiz plus a question bank &mdash; which is the right answer if you use LockDown Browser's Classic workflow, and the wrong one if you wanted a New Quiz.</div>
+      </div>
+
+    </div>
+    <div class="import-caveats">
+      <strong>Either way, preview before you publish.</strong> A few things convert differently between the two engines:
+      <ul>
+        <li><strong>Feedback.</strong> Multiple-choice and true/false feedback works in both. Feedback on multiple-answer, essay, and file-upload questions renders in Classic only &mdash; New Quizzes drops it silently.</li>
+        <li><strong>Numerical tolerance.</strong> Margin-of-error (<code>= 3.142 +- 0.001</code>) doesn't reliably round-trip into New Quizzes. Use the range form (<code>= [99, 101]</code>) if you're targeting New Quizzes.</li>
+        <li><strong>GROUP blocks.</strong> Random draws are a Canvas <em>Question Group</em>, a Classic Quizzes construct. Check the imported New Quiz to confirm the draw survived; if it didn't, import the same <code>.zip</code> into an <a href="https://community.instructure.com/en/kb/articles/661079-how-do-i-import-questions-from-a-qti-package-into-an-item-bank-in-new-quizzes" target="_blank" rel="noopener">item bank</a> instead and use <strong>Add from Item Bank &rarr; Randomized</strong>.</li>
+      </ul>
+    </div>
+  </section>
 
   <section class="resources">
     <h2>Resources</h2>

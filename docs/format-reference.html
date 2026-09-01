@@ -914,6 +914,9 @@ END_GROUP</code></pre>
         <div class="callout">
           <p>After import, Canvas presents these as <strong>Question Groups</strong> inside the imported quiz. To see how to edit or fine-tune them in Canvas after import, see Canvas's official guide: <a href="https://community.instructure.com/en/kb/articles/660998-how-do-i-create-a-quiz-with-a-question-group-to-randomize-quiz-questions" target="_blank" rel="noopener">How do I create a quiz with a question group to randomize quiz questions?</a></p>
         </div>
+        <div class="callout warn">
+          <p><strong>Question Groups are a Classic Quizzes construct.</strong> They import cleanly through <em>Settings &rarr; Import Course Content</em>. If you import the same <code>.zip</code> into a <strong>New Quiz</strong> (Build &rarr; &#8942; &rarr; Import Content), open the quiz afterwards and confirm the random draw actually came through. If it didn't, import the <code>.zip</code> into an <a href="https://community.instructure.com/en/kb/articles/661079-how-do-i-import-questions-from-a-qti-package-into-an-item-bank-in-new-quizzes" target="_blank" rel="noopener">item bank</a> instead and build the quiz with <strong>Add from Item Bank &rarr; Randomized</strong>.</p>
+        </div>
       </div>
     </details>
 
@@ -972,7 +975,7 @@ END_COMMENT
         <p>If you want <strong>reusable banks</strong> (a Recall bank that several different quizzes draw from across a semester), write each bank as its own source file and run the converter once per bank. After importing each into Canvas, build the quiz manually:</p>
         <ul>
           <li><em>Classic Quizzes:</em> New Quiz &rarr; New Question Group &rarr; Link to Question Bank &rarr; "9 questions, randomly selected"</li>
-          <li><em>New Quizzes:</em> New Quiz &rarr; Add from Item Bank &rarr; "Randomized, 9 questions"</li>
+          <li><em>New Quizzes:</em> import the <code>.zip</code> into an <a href="https://community.instructure.com/en/kb/articles/661079-how-do-i-import-questions-from-a-qti-package-into-an-item-bank-in-new-quizzes" target="_blank" rel="noopener">item bank</a>, then New Quiz &rarr; Add from Item Bank &rarr; "Randomized, 9 questions"</li>
         </ul>
         <p>This is the same approach publisher test banks use (Pearson, McGraw-Hill, etc. ship one ZIP per chapter).</p>
       </div>
