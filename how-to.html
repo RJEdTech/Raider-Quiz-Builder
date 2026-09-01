@@ -364,6 +364,32 @@
     text-transform: uppercase;
   }
 
+
+  /* ===== Import route mock ===== */
+  .import-mock {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 1.25rem 0;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+  }
+
+  .route-label {
+    display: inline-block;
+    font-family: "IBM Plex Mono", "Consolas", monospace;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--raider);
+    border: 1px solid var(--raider);
+    border-radius: 10px;
+    padding: 0.1rem 0.5rem;
+    margin-right: 0.6rem;
+    vertical-align: middle;
+  }
+
   /* ===== Callout ===== */
   .callout {
     background: var(--bg-elev);
@@ -481,21 +507,100 @@
 
     <ul>
       <li>Canvas can import quizzes from a standard file format called <strong>QTI</strong> (a <code>.zip</code> file containing the quiz structure as XML). This isn't a third-party tool or an add-on &mdash; it's a built-in Canvas feature that every Canvas course has.</li>
-      <li>Importing happens through <strong>Course Settings &rarr; Import Course Content &rarr; QTI .zip file</strong>. You don't need admin permissions; any teacher with edit access to a Canvas course can do this.</li>
+      <li><strong>There are two ways in, and they produce different things.</strong> Which one you use depends on whether you want a <strong>New Quiz</strong> or a <strong>Classic</strong> quiz. Both are spelled out below. Neither needs admin permissions &mdash; any teacher with edit access to the course can do either.</li>
       <li>After importing, the quiz appears in your <strong>Quizzes</strong> page in Canvas. You can edit, preview, add to a module, and assign it the same way you would a quiz you wrote by hand.</li>
     </ul>
 
     <p>So the full pipeline this tool is part of:</p>
     <ol>
       <li>You produce a Canvas QTI <code>.zip</code> here in Raider Quiz Builder (from a Word doc, an AI-generated file, or by hand).</li>
-      <li>You import that <code>.zip</code> into Canvas via the built-in import tool.</li>
+      <li>You import that <code>.zip</code> into Canvas, through one of the two routes below.</li>
       <li>The questions appear as a quiz in your course. Tweak settings, due dates, point values, or wording from there.</li>
     </ol>
 
+    <h3><span class="route-label">Route A</span>New Quizzes</h3>
+
+    <p>The import drops questions into a quiz you <em>already have open</em> &mdash; so the first step is making an empty one.</p>
+
+        <svg class="import-mock" viewBox="0 0 560 182" role="img" aria-label="The New Quizzes Build page with the three-dot menu open and Import Content highlighted">
+          <rect x="0" y="0" width="560" height="182" fill="#ffffff"/>
+          <rect x="0" y="0" width="560" height="40" fill="#f5f5f5"/>
+          <line x1="0" y1="40" x2="560" y2="40" stroke="#dcdcdc" stroke-width="1"/>
+          <g font-family="Segoe UI, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12.5" fill="#4a4a4a">
+            <text x="22" y="25" font-weight="600" fill="#1a1a1a">Build</text>
+            <rect x="18" y="35" width="38" height="3" fill="#C11430"/>
+            <text x="76" y="25">Settings</text>
+            <text x="140" y="25">Moderate</text>
+            <text x="212" y="25">Reports</text>
+            <text x="270" y="25">Exports</text>
+          </g>
+          <rect x="432" y="10" width="62" height="22" rx="3" fill="#ffffff" stroke="#b8b8b8"/>
+          <text x="463" y="25" font-family="Segoe UI, -apple-system, sans-serif" font-size="12" fill="#4a4a4a" text-anchor="middle">Return</text>
+          <rect x="504" y="8" width="26" height="26" rx="3" fill="#eaeaea" stroke="#b8b8b8"/>
+          <g fill="#1a1a1a"><circle cx="517" cy="15" r="1.9"/><circle cx="517" cy="21" r="1.9"/><circle cx="517" cy="27" r="1.9"/></g>
+          <rect x="349" y="46" width="181" height="124" rx="3" fill="#ffffff" stroke="#c8c8c8"/>
+          <g font-family="Segoe UI, -apple-system, sans-serif" font-size="12.5" fill="#3a3a3a">
+            <text x="384" y="66">SpeedGrader</text>
+            <rect x="350" y="74" width="179" height="24" fill="#C11430"/>
+            <text x="384" y="90" fill="#ffffff" font-weight="600">Import Content</text>
+            <text x="384" y="114">Export Content</text>
+            <text x="384" y="138">Manage Item Banks</text>
+            <text x="384" y="160" fill="#a8a8a8">Print Blank Quiz</text>
+          </g>
+          <g stroke="#6a6a6a" stroke-width="1.3" fill="none">
+            <rect x="363" y="56" width="11" height="9" rx="1.5"/>
+            <rect x="363" y="104" width="11" height="9" rx="1.5"/>
+            <rect x="363" y="128" width="11" height="9" rx="1.5"/>
+          </g>
+          <g stroke="#ffffff" stroke-width="1.4" fill="none">
+            <rect x="363" y="80" width="11" height="9" rx="1.5"/>
+            <path d="M368.5 87.5v-6M366 84l2.5-2.5 2.5 2.5"/>
+          </g>
+          <text x="22" y="80" font-family="Segoe UI, -apple-system, sans-serif" font-size="20" font-weight="600" fill="#1a1a1a">Build</text>
+          <rect x="22" y="100" width="300" height="9" rx="2" fill="#ededed"/>
+          <rect x="22" y="118" width="220" height="9" rx="2" fill="#f2f2f2"/>
+        </svg>
+
+    <ol>
+      <li><strong>Make a blank New Quiz.</strong> Quizzes &rarr; <strong>+ Quiz</strong> &rarr; <strong>New Quizzes</strong> &rarr; Save.</li>
+      <li><strong>Open the &#8942; menu</strong> at the top right of the <strong>Build</strong> page &rarr; <strong>Import Content</strong>.</li>
+      <li><strong>Drag the <code>.zip</code> in</strong>, or Browse to it, then <strong>Import</strong>.</li>
+      <li><strong>Watch the status bar</strong>, then preview the quiz before you publish it.</li>
+    </ol>
+
+    <div class="callout">
+      <p><strong>Items land in the quiz you currently have open.</strong> Start from a blank New Quiz, not one you've already built &mdash; the import adds to whatever is there. New Quizzes accepts QTI 1.2, which is the format this tool produces.</p>
+    </div>
+
+    <h3><span class="route-label">Route B</span>Classic Quizzes</h3>
+
+    <p>A course-level import. Nothing needs to exist first.</p>
+
+    <ol>
+      <li>In your course, <strong>Settings</strong> &rarr; <strong>Import Course Content</strong> (right sidebar).</li>
+      <li>Content Type: <strong>QTI .zip file</strong> &mdash; not Common Cartridge.</li>
+      <li>Choose your <code>.zip</code> &rarr; <strong>Import</strong>.</li>
+      <li>The quiz lands in your Quizzes list, and its questions in a question bank.</li>
+    </ol>
+
+    <div class="callout">
+      <p><strong>This route does not produce a New Quiz.</strong> Unless your Canvas admin has enabled <em>New Quizzes Migration During Course Import/Copy</em>, it gives you a Classic quiz plus a question bank. That's the right answer if you're using LockDown Browser's Classic workflow or you want a reusable question bank &mdash; and the wrong one if you were expecting a New Quiz. If you imported here and got something you didn't want, delete it and use Route A instead. The <code>.zip</code> is the same; only the door changes.</p>
+    </div>
+
+    <h3>Things that convert differently between the two</h3>
+
+    <ul>
+      <li><strong>Feedback.</strong> Multiple-choice and true/false feedback works in both engines. Feedback on multiple-answer, essay, and file-upload questions renders in <em>Classic only</em> &mdash; New Quizzes drops it silently.</li>
+      <li><strong>Numerical tolerance.</strong> Margin-of-error answers (<code>= 3.142 +- 0.001</code>) don't reliably survive the trip into New Quizzes. Use the range form (<code>= [99, 101]</code>) if that's where you're headed.</li>
+      <li><strong>Random draws.</strong> <code>GROUP</code> blocks become Canvas <em>Question Groups</em>, which is a Classic Quizzes construct &mdash; see <a href="#recipe-4">Recipe 4</a>.</li>
+    </ul>
+
     <p>Canvas's official documentation if you want the step-by-step with screenshots:</p>
     <ul>
-      <li><a href="https://community.instructure.com/en/kb/articles/660996-how-do-i-import-quizzes-from-qti-packages" target="_blank" rel="noopener">How do I import quizzes from QTI packages?</a> &mdash; the import workflow itself</li>
-      <li><a href="https://community.instructure.com/en/kb/articles/660994-what-quiz-types-can-i-create-in-a-course" target="_blank" rel="noopener">What quiz types can I create in a course?</a> &mdash; Classic Quizzes vs. New Quizzes overview, if you're new to Canvas quizzing</li>
+      <li><a href="https://community.instructure.com/en/kb/articles/661050" target="_blank" rel="noopener">How do I import a quiz from a QTI package in New Quizzes?</a> &mdash; Route A</li>
+      <li><a href="https://community.instructure.com/en/kb/articles/660996-how-do-i-import-quizzes-from-qti-packages" target="_blank" rel="noopener">How do I import quizzes from QTI packages?</a> &mdash; Route B</li>
+      <li><a href="https://community.instructure.com/en/kb/articles/661079-how-do-i-import-questions-from-a-qti-package-into-an-item-bank-in-new-quizzes" target="_blank" rel="noopener">How do I import questions from a QTI package into an item bank?</a> &mdash; for reusable banks in New Quizzes</li>
+      <li><a href="https://community.instructure.com/en/kb/articles/660994-what-quiz-types-can-i-create-in-a-course" target="_blank" rel="noopener">What quiz types can I create in a course?</a> &mdash; Classic vs. New Quizzes overview, if you're new to Canvas quizzing</li>
       <li><a href="https://community.instructure.com/en/kb/articles/660998-how-do-i-create-a-quiz-with-a-question-group-to-randomize-quiz-questions" target="_blank" rel="noopener">How do I create a quiz with a question group to randomize quiz questions?</a> &mdash; Canvas's documentation of Question Groups (which Raider Quiz Builder's GROUP blocks produce)</li>
     </ul>
 
@@ -511,7 +616,7 @@
       <li><strong>Open Raider Quiz Builder</strong> and drop your file (<code>.docx</code>, <code>.txt</code>, or <code>.md</code>) onto the page.</li>
       <li><strong>Read the validation results.</strong> Errors come with line numbers so you can locate them in your source file. Fix and re-drop, or proceed if the only flags are advisory notes.</li>
       <li><strong>Click "Convert to Canvas quiz"</strong> and download the <code>.zip</code>.</li>
-      <li><strong>Import into Canvas:</strong> Settings &rarr; Import Course Content &rarr; QTI .zip file &rarr; choose your file &rarr; Import. For the step-by-step, see Canvas's <a href="https://community.instructure.com/en/kb/articles/660996-how-do-i-import-quizzes-from-qti-packages" target="_blank" rel="noopener">official QTI import guide</a>.</li>
+      <li><strong>Import into Canvas.</strong> For a <strong>New Quiz</strong>: open a blank New Quiz, then Build &rarr; <strong>&#8942;</strong> &rarr; <strong>Import Content</strong>. For a <strong>Classic</strong> quiz: Settings &rarr; Import Course Content &rarr; QTI .zip file. Both routes are written out <a href="#before-you-start">at the top of this page</a>.</li>
     </ol>
 
     <div class="callout">
@@ -530,7 +635,7 @@
       <li><strong>Answer any clarifying questions.</strong> If your Word doc doesn't clearly mark correct answers (no asterisks, no answer key at the bottom), the AI will ask which letter is correct for each question. Provide an answer key or tell it inline.</li>
       <li><strong>Download the converted file</strong> the AI produces.</li>
       <li><strong>Drop the file into Raider Quiz Builder</strong>, click <strong>Convert to Canvas quiz</strong>, and download the <code>.zip</code>.</li>
-      <li><strong>Import into Canvas:</strong> Settings &rarr; Import Course Content &rarr; QTI .zip file &rarr; choose your file &rarr; Import. For the step-by-step, see Canvas's <a href="https://community.instructure.com/en/kb/articles/660996-how-do-i-import-quizzes-from-qti-packages" target="_blank" rel="noopener">official QTI import guide</a>.</li>
+      <li><strong>Import into Canvas.</strong> For a <strong>New Quiz</strong>: open a blank New Quiz, then Build &rarr; <strong>&#8942;</strong> &rarr; <strong>Import Content</strong>. For a <strong>Classic</strong> quiz: Settings &rarr; Import Course Content &rarr; QTI .zip file. Both routes are written out <a href="#before-you-start">at the top of this page</a>.</li>
     </ol>
 
     <div class="callout">
@@ -548,7 +653,7 @@
       <li><strong>Open Raider Quiz Builder</strong> and drop the file onto the page.</li>
       <li><strong>Read the validation results.</strong> Errors come with line numbers so you can locate them in your source file. Fix and re-drop, or proceed if the only flags are advisory notes.</li>
       <li><strong>Click "Convert to Canvas quiz"</strong> and download the <code>.zip</code>.</li>
-      <li><strong>Import into Canvas:</strong> Settings &rarr; Import Course Content &rarr; QTI .zip file &rarr; choose your file &rarr; Import. For the step-by-step, see Canvas's <a href="https://community.instructure.com/en/kb/articles/660996-how-do-i-import-quizzes-from-qti-packages" target="_blank" rel="noopener">official QTI import guide</a>.</li>
+      <li><strong>Import into Canvas.</strong> For a <strong>New Quiz</strong>: open a blank New Quiz, then Build &rarr; <strong>&#8942;</strong> &rarr; <strong>Import Content</strong>. For a <strong>Classic</strong> quiz: Settings &rarr; Import Course Content &rarr; QTI .zip file. Both routes are written out <a href="#before-you-start">at the top of this page</a>.</li>
     </ol>
 
     <h4 id="recipe-1-example">Example of how your Word doc should look</h4>
@@ -750,7 +855,7 @@ b) False</code></pre>
         </ul>
       </li>
       <li><strong>Iterate by pool.</strong> Easier than iterating per-question: <em>"Replace the three weakest questions in the Recall pool with stronger ones. Most should test specific terminology, not paraphrased general knowledge."</em></li>
-      <li><strong>Convert and import.</strong> Canvas creates Question Groups inside the imported quiz that handle the randomization automatically. For Canvas's documentation of how Question Groups work after import, see <a href="https://community.instructure.com/en/kb/articles/660998-how-do-i-create-a-quiz-with-a-question-group-to-randomize-quiz-questions" target="_blank" rel="noopener">How do I create a quiz with a question group to randomize quiz questions?</a></li>
+      <li><strong>Convert and import.</strong> On the <strong>Classic</strong> route, Canvas creates Question Groups inside the imported quiz that handle the randomization automatically &mdash; see <a href="https://community.instructure.com/en/kb/articles/660998-how-do-i-create-a-quiz-with-a-question-group-to-randomize-quiz-questions" target="_blank" rel="noopener">How do I create a quiz with a question group to randomize quiz questions?</a> On the <strong>New Quizzes</strong> route, open the imported quiz and confirm the draw actually came through before you rely on it &mdash; see the callout below.</li>
     </ol>
 
     <h3>Steps writing by hand</h3>
@@ -760,6 +865,11 @@ b) False</code></pre>
       <li><strong>Write each <code>GROUP</code> block</strong> with your questions. Make sure <code>pick:</code> &le; pool size, and ideally is closer to half.</li>
       <li><strong>Save, drop, convert, import.</strong></li>
     </ol>
+
+    <div class="callout">
+      <p><strong>Question Groups are a Classic Quizzes construct.</strong> They import cleanly through Route B (Settings &rarr; Import Course Content). If you import the same <code>.zip</code> into a New Quiz through Route A, open the quiz afterwards and check that the random draw is actually there.</p>
+      <p style="margin-top: 0.5rem;">If it isn't, you can still get the same result on the New Quizzes side: import the <code>.zip</code> into an <a href="https://community.instructure.com/en/kb/articles/661079-how-do-i-import-questions-from-a-qti-package-into-an-item-bank-in-new-quizzes" target="_blank" rel="noopener">item bank</a> instead, then build the quiz with <strong>Add from Item Bank &rarr; Randomized, N questions</strong>. Same pools, same random draw, assembled in Canvas rather than in the file. This is also the better setup if you want pools you'll reuse across several quizzes this semester.</p>
+    </div>
 
     <h2 id="common-issues">Common issues and how to fix them</h2>
 
@@ -780,12 +890,25 @@ b) False</code></pre>
     <p><strong>Cause:</strong> Word auto-replaces <code>+-</code> with <code>&plusmn;</code> (the actual plus-minus symbol). The parser doesn't recognize <code>&plusmn;</code>.</p>
     <p><strong>Fix:</strong> Use plain text for numerical-heavy files, or disable Word's symbol AutoCorrect. The validator normalizes <code>&plusmn;</code> back to <code>+-</code>, but it's worth knowing.</p>
 
+    <h3>"I wanted a New Quiz but got a Classic one"</h3>
+    <p><strong>Cause:</strong> You used <a href="#before-you-start">Route B</a> &mdash; Settings &rarr; Import Course Content. That's a course-level import, and unless your Canvas admin has enabled <em>New Quizzes Migration During Course Import/Copy</em>, it always produces a Classic quiz plus a question bank.</p>
+    <p><strong>Fix:</strong> Delete what it created if you don't want it, then use <a href="#before-you-start">Route A</a>: make a blank New Quiz, then on its <strong>Build</strong> page, <strong>&#8942;</strong> &rarr; <strong>Import Content</strong> &rarr; drop in the same <code>.zip</code>. Nothing about your file needs to change.</p>
+
+    <h3>"My random draw didn't survive the import"</h3>
+    <p><strong>Cause:</strong> <code>GROUP</code> blocks become Canvas <em>Question Groups</em>, a Classic Quizzes construct. They come through cleanly on Route B; on Route A they don't always.</p>
+    <p><strong>Fix:</strong> Check the imported quiz first &mdash; if the group is there, you're fine. If it isn't, import the same <code>.zip</code> into an <a href="https://community.instructure.com/en/kb/articles/661079-how-do-i-import-questions-from-a-qti-package-into-an-item-bank-in-new-quizzes" target="_blank" rel="noopener">item bank</a> instead, then build the quiz with <strong>Add from Item Bank &rarr; Randomized, N questions</strong>.</p>
+
+    <h3>"My feedback disappeared"</h3>
+    <p><strong>Cause:</strong> You imported into New Quizzes, and the feedback was on a multiple-answer, essay, or file-upload question. Those render in Classic only &mdash; New Quizzes drops them without warning.</p>
+    <p><strong>Fix:</strong> Nothing's wrong with your file. Either import through Route B for a Classic quiz, or accept that the feedback won't show and add it in Canvas by hand. Multiple-choice and true/false feedback works in both engines.</p>
+
     <h3>"Canvas import says the file isn't valid"</h3>
     <p><strong>Cause:</strong> Either the file wasn't generated correctly, or it's being imported as the wrong content type.</p>
     <p><strong>Fix:</strong></p>
     <ul>
-      <li>In Canvas: Settings &rarr; Import Course Content &rarr; <strong>Content Type must be "QTI .zip file"</strong> &mdash; not Common Cartridge or anything else. Canvas's <a href="https://community.instructure.com/en/kb/articles/660996-how-do-i-import-quizzes-from-qti-packages" target="_blank" rel="noopener">official import guide</a> walks through the steps with screenshots.</li>
-      <li>If that's set right and import still fails, try a <a href="samples/">sample file</a> first. If samples import and yours doesn't, the issue is in your source.</li>
+      <li>On <a href="#before-you-start">Route B</a>: Settings &rarr; Import Course Content &rarr; <strong>Content Type must be "QTI .zip file"</strong> &mdash; not Common Cartridge or anything else. Canvas's <a href="https://community.instructure.com/en/kb/articles/660996-how-do-i-import-quizzes-from-qti-packages" target="_blank" rel="noopener">official import guide</a> walks through the steps with screenshots.</li>
+      <li>On <a href="#before-you-start">Route A</a> there's no content-type picker &mdash; but you do need a quiz already open, since <strong>Import Content</strong> adds items to the quiz you're currently in.</li>
+      <li>If all that's right and import still fails, try a <a href="samples/">sample file</a> first. If samples import and yours doesn't, the issue is in your source.</li>
     </ul>
 
     <h3>"My multiple choice shows two correct answers"</h3>
