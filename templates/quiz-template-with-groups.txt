@@ -5,10 +5,15 @@ COMMENT
 This template shows how to use GROUP blocks for stratified random draw.
 
 When a student takes this quiz, Canvas will randomly select:
-  - 9 questions from the Recall pool (worth 1 point each)
-  - 3 questions from the Application pool (worth 2 points each)
-  - 1 question from the Analysis pool (worth 3 points)
-That's a 13-question quiz worth 18 points total.
+  - 3 questions from the Recall pool of 5 (worth 1 point each)
+  - 2 questions from the Application pool of 3 (worth 2 points each)
+  - 1 question from the Analysis pool of 2 (worth 3 points)
+That's a 6-question quiz worth 10 points total.
+
+The pick numbers below are deliberately smaller than each pool so this file
+converts cleanly as-is. As you add your own questions to a pool, raise that
+group's "pick:" to suit. Just keep it below the pool size, or every student
+sees the same questions and nothing is randomized.
 
 GROUP rules:
 - GROUP and END_GROUP must be ALL CAPS, on their own lines, at column 1.
@@ -20,12 +25,12 @@ END_COMMENT
 
 
 % =========================================================================
-% RECALL POOL - draws 9 random questions, 1 point each
-% Add as many recall questions as you want; Canvas picks 9 of them per attempt.
+% RECALL POOL - draws 3 random questions from the pool, 1 point each
+% Add as many recall questions as you want, then raise "pick:" to suit.
 % =========================================================================
 
 GROUP
-pick: 9
+pick: 3
 points per question: 1
 
 1. What does mitosis produce?
@@ -64,11 +69,11 @@ END_GROUP
 
 
 % =========================================================================
-% APPLICATION POOL - draws 3 random questions, 2 points each
+% APPLICATION POOL - draws 2 random questions from the pool, 2 points each
 % =========================================================================
 
 GROUP
-pick: 3
+pick: 2
 points per question: 2
 
 1. A patient's white blood cell count is rising rapidly during an infection. Which cellular process is most directly accelerated in their lymphocyte precursors?
@@ -95,7 +100,7 @@ END_GROUP
 
 
 % =========================================================================
-% ANALYSIS POOL - draws 1 random question, 3 points each
+% ANALYSIS POOL - draws 1 random question from the pool, 3 points each
 % =========================================================================
 
 GROUP
