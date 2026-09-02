@@ -8,7 +8,7 @@ Browser-based tool that converts plain text, Markdown, or Word documents into Ca
 
 - Convert a Word doc quiz into a Canvas `.zip` you can import
 - Expand a small question bank into a comprehensive one with help from the included AI prompt
-- Build a full exam with stratified random draws via `GROUP` blocks (e.g., 9 from a Recall pool + 3 from an Apply pool)
+- Build a full exam with stratified random draws via `GROUP` blocks (e.g., 3 from a Recall pool + 2 from an Apply pool, different for every student)
 - Per-question feedback (general, correct/incorrect, per-answer choice)
 - All 7 Canvas question types: multiple choice, true/false, multiple answer, numerical, short answer, essay, file upload
 - Light and dark themes (preference persists across visits)
@@ -16,11 +16,11 @@ Browser-based tool that converts plain text, Markdown, or Word documents into Ca
 
 ## How to use it
 
-**Most teachers should start with the [how-to guide](how-to.html)** — recipe-style walkthroughs for the most common workflows (convert a Word doc, build with AI, grow a small bank, build random-draw exams, fix common issues).
+**Most teachers should start with the [how-to guide](https://rjedtech.github.io/Raider-Quiz-Builder/how-to.html)** — recipe-style walkthroughs for the most common workflows (convert a Word doc, build with AI, grow a small bank, build random-draw exams, fix common issues).
 
 Quick version of the workflow:
 
-1. Write your quiz in a `.txt`, `.md`, or `.docx` file using the [format reference](docs/format-reference.html) (or start from a [template](templates/)).
+1. Write your quiz in a `.txt`, `.md`, or `.docx` file using the [format reference](https://rjedtech.github.io/Raider-Quiz-Builder/docs/format-reference.html) (or start from a [template](templates/)).
 2. Open the [live site](https://rjedtech.github.io/Raider-Quiz-Builder/) and drop your file in.
 3. Review the validation results &mdash; errors are shown with line numbers if anything's wrong.
 4. Click **Convert to Canvas quiz** and download the `.zip`.
@@ -30,24 +30,27 @@ Quick version of the workflow:
 
    Both are covered step by step on the site, under *Importing into Canvas*. The Classic route is a course-level import: unless your admin has enabled *New Quizzes Migration During Course Import/Copy*, it produces a Classic quiz and a question bank, not a New Quiz.
 
-To have an AI build the quiz file for you, click the **AI prompt** card on the site, paste the prompt into Claude, Flint, or ChatGPT, and ask for a quiz on your topic. If your school has a deployed Raider Quiz Builder Assistant (GPT or Flint Activity), use that instead &mdash; one-step generation with no copy-paste.
+To have an AI build the quiz file for you, click the **AI prompt** card on the site, paste the prompt into Claude, Flint, or ChatGPT, and ask for a quiz on your topic. Or use the [Raider Quiz Builder Assistant](https://chatgpt.com/g/g-6a075cc27a0481918450f67b4c852a58-raider-quiz-builder-assistant), the school's custom GPT &mdash; it interviews you about the unit first and hands back a ready-to-convert file, no copy-paste. Requires a ChatGPT for Teachers account.
 
 ## Repository layout
 
 ```
 ├── README.md
-├── index.html                       Main UI
-├── how-to.html                      Teacher-facing recipe guide
-├── favicon.svg
+├── index.html                          Main UI
+├── how-to.html                         Teacher-facing recipe guide (linked from the site)
+├── favicon.svg, favicon.ico, *.png     Icons and logos
 ├── lib/
-│   └── raider-quiz-builder.js       Parser, QTI generator, ZIP bundler
+│   └── raider-quiz-builder.js          Parser, validator, QTI 1.2 generator, ZIP bundler
 ├── docs/
-│   ├── format-reference.html          Full syntax for every question type
-│   ├── for-your-ai.md               Drop into any AI to write quiz files
-│   ├── ai-prompt.md                 Paste-ready prompt for LLMs
-│   └── ai-deployment.md             Setup instructions for the GPT and Flint Activity
-├── templates/                       Starter files (txt, docx, GROUP example)
-└── samples/                         Ready-to-import sample .zip files
+│   ├── format-reference.html           Full syntax for every question type (linked from the site)
+│   ├── format-reference.md             Earlier Markdown draft of the above — not linked anywhere
+│   ├── for-your-ai.md                  Drop into any AI to write quiz files
+│   ├── ai-prompt.md                    Paste-ready prompt for LLMs
+│   ├── ai-deployment.md                Setup instructions for the GPT and Flint Activity
+│   ├── gpt-instructions-trimmed.txt    The Assistant GPT's live system prompt
+│   └── how-to.md                       Earlier Markdown draft of how-to.html — not linked anywhere
+├── templates/                          Starter files (txt, docx, GROUP example)
+└── samples/                            Ready-to-import sample .zip files
 ```
 
 ## Format origin
@@ -60,6 +63,7 @@ The marker conventions — `*a)` for the correct multiple choice answer, `[*]` f
 - Images embedded directly in `.docx` files. To include images, use Markdown image syntax `![alt](url)` and upload the image to Canvas separately.
 - One source file produces one quiz (and on Canvas import, one question bank). For multiple banks, run the converter once per bank file — see the format reference for the workflow.
 - Question groups (`GROUP` blocks) map to Canvas *Question Groups*, a Classic Quizzes construct. They import cleanly on the Classic route; on the New Quizzes route, preview the imported quiz and confirm the random draw survived. The New Quizzes equivalent is an item bank plus **Add from Item Bank → Randomized**.
+- Feedback on multiple-answer, essay, and file-upload questions renders in Classic Quizzes only — New Quizzes drops it silently. Multiple choice and true/false feedback works in both.
 
 ## Privacy
 
@@ -73,4 +77,4 @@ No analytics, no server, no third-party tracking. The page loads two libraries (
 
 ---
 
-Part of the Raider EdTech family: [Randomizer](https://rjedtech.github.io/raider-randomizer/) · [Timer](https://rjedtech.github.io/raider-timer/) · [Pods](https://rjedtech.github.io/raider-pods/) · [Quiz Studio](https://rjedtech.github.io/raider-quiz-studio/) · Quiz Builder
+Part of the RJ Ed Tech family: [Randomizer](https://rjedtech.github.io/Raider-Randomizer/) · [Timer](https://rjedtech.github.io/Raider-Timer/) · [Pod Generator](https://rjedtech.github.io/Raider-Pods/) · [MyRJ Schedule Cleaner](https://rjedtech.github.io/MyRJScheduleCleaner/) · [Cooperative Learning Toolkit](https://rjedtech.github.io/cooperative-learning-toolkit/) · [EdTech Status](https://rjedtech.github.io/EdTech-Status/) · [Incoming Raider FAQ](https://rjedtech.github.io/Incoming-Raider-FAQ/) · [New Ignatian Educator FAQ](https://rjedtech.github.io/New-Ignatian-Educator-FAQ/) · Quiz Builder
