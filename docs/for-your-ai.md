@@ -420,7 +420,12 @@ round: 1
 - If answers may not be whole numbers, say how to round in the question and add `round: 1` (decimal places). Optional `+- 0.1` accepts answers that close.
 - `[m]` works inside LaTeX: `\(m = [m]\)` shows as \(m = 5\).
 - Choose ranges that keep the problem sensible: no dividing by zero, no negative lengths, answers the student can reach without a calculator if the original was a no-calculator test.
+- **Keep the answers as clean as the original.** If the original answer was a whole number, choose the formula and ranges so every answer is a whole number (work backward if you need to: pick the answer and the divisor, then multiply to get the number shown). Try a few sets of numbers yourself before you finish, including the lowest and highest values.
+- **If an answer can have decimals, the question must say how to round** ("Round to the nearest hundredth"), and `round:` must match.
+- In LaTeX, put a variable used as an exponent in braces: `\([b]^{[n]}\)`.
+- Don't name a variable `e` or `pi`. Money gets `, 2 decimals`.
 - In the question text, write multiplication with `\cdot` or `\times` inside LaTeX, never `*`.
+- The Builder shows the lowest and highest answer for each formula question. If that range looks wrong, fix the ranges.
 
 ### Matching
 
