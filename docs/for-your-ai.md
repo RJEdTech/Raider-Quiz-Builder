@@ -424,6 +424,8 @@ round: 1
 - **If an answer can have decimals, the question must say how to round** ("Round to the nearest hundredth"), and `round:` must match.
 - In LaTeX, put a variable used as an exponent in braces: `\([b]^{[n]}\)`.
 - Don't name a variable `e` or `pi`. Money gets `, 2 decimals`.
+- Canvas can only *show* a variable's value, never arithmetic on it. Don't write `\(y = 3 \cdot [k]\)` or `$39.20 \cdot [l]`: students would see the multiplication. Make the number students see its own variable.
+- Square brackets used as math grouping, like `3[15 - (2^3 - 6)^2]`, are fine; the Builder keeps them from being read as variables.
 - In the question text, write multiplication with `\cdot` or `\times` inside LaTeX, never `*`.
 - The Builder shows the lowest and highest answer for each formula question. If that range looks wrong, fix the ranges.
 
