@@ -51,6 +51,7 @@ The single most common cause of conversion errors is invisible leading whitespac
 | `*a) ` | Correct multiple-choice answer | `*a) Four` |
 | `[*]` or `[ ]` | Multi-answer checkbox | `[*] Mercury` |
 | `= ` | Numerical answer | `= 42` |
+| `= 9.81 +- 2%` | Numerical answer within a percent | `= 6.02e23 +- 1%` |
 | `* ` | Short-answer accepted value | `* Paris` |
 | `____` | Essay response area | `____` |
 | `^^^^` | File upload | `^^^^` |

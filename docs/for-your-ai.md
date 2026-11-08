@@ -210,6 +210,20 @@ Do not stop to ask the teacher which question types to use. Apply these rules, t
 
 If you can't make files, give the quiz in one code block and list the pictures the teacher should add in Canvas (question number and what the picture is).
 
+### Science: units, sig figs, scientific notation, chemistry
+
+Everything in the math section applies. Science adds these rules (tested in Canvas New Quizzes):
+
+- **Units go in the question, never in the answer.** Canvas grades only the number. Write "What is the speed **in m/s**?" and `= 9.8`. If the test asks for a unit conversion, name the unit to answer in.
+- **Measured and rounded answers get a percent margin**, not an exact match: `= 9.81 +- 2%`. For "give your answer to 3 significant figures", use `+- 0.5%` (or a range), and keep the sig-fig instruction in the question.
+- **Very large or very small answers:** prefer asking for the number in front of a power of ten ("How many molecules? Give the number in front of \(10^{23}\)") so students type 3.49. If students must type the whole number, write the answer in e-notation with a percent margin (`= 1.2044e24 +- 1%`) and tell them in the question to type it like `1.2e24`.
+- **Formula questions with constants:** e-notation works in the formula (`formula: n*6.022e23/1e23`). Keep the numbers students see, and the answers, between about 0.001 and 1,000,000; otherwise ask in units of a power of ten. Use `+- 1%` instead of a tight `round:` when the answer comes from measured values.
+- **Chemistry notation:** `\(\ce{H2O}\)`, `\(\ce{CO2}\)`, `\(\ce{Ca^2+}\)` and `\(\ce{2H2 + O2 -> 2H2O}\)` all display correctly in Canvas, in questions and answer choices. Unicode (H₂O, Ca²⁺, →) also works. For a typed formula answer (fill in the blank), accept both forms: `* CaCl2` and `* CaCl₂`.
+- **Labeled diagrams** ("label the parts", "click the mitochondrion"): Canvas Hot Spot can't be imported. Use multiple choice with the picture and lettered labels, or matching (`A -> nucleus`).
+- **Put steps in order** (a process, a procedure): Ordering can't be imported. Use matching with step numbers (`Step 1 -> ...`) or multiple choice.
+- **One data table, graph or lab setup used by several questions:** put the picture in each question that uses it. Same file name, cropped once.
+- **Lab reports, explanations, drawings:** essay `____` or file upload `^^^^`.
+
 ### Step 3: Confirm ambiguities BEFORE generating
 
 **Do not guess.** When the format is unclear, ask. Common cases:
@@ -366,6 +380,8 @@ The three formats:
 - **Exact:** `= 96` &mdash; accepts only that exact value.
 - **Range:** `= [99, 101]` &mdash; accepts any value within the closed interval.
 - **Margin of error:** `= 3.142 +- 0.001` &mdash; accepts the value plus or minus the tolerance.
+- **Percent margin:** `= 9.81 +- 2%` &mdash; accepts anything within 2% of the value. Best for measured or rounded science answers.
+- **Very large or small numbers:** write them in e-notation: `= 6.02e23 +- 1%`, `= -4.8e-19 +- 2%`. Students can type `6.02e23` and Canvas grades it.
 
 ### Short answer / fill in the blank
 
@@ -805,6 +821,7 @@ Before you finalize the file, verify:
 - [ ] Math is in `\( ... \)` LaTeX, never single `$`.
 - [ ] Every `![...](file.png)` has a matching PNG in the `.zip`, cropped from the blank test, not the key.
 - [ ] Every `[name]` in a formula or blank question has its own line under the question, and every formula uses `*` for times.
+- [ ] Science: units are in the question, not the answer; measured answers use a percent margin; huge or tiny numbers use e-notation or a power of ten.
 
 ---
 
