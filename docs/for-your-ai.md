@@ -180,6 +180,33 @@ From the source content, determine the question type:
 
 If the type is ambiguous, ask the teacher.
 
+### Math, science, answer keys and pictures
+
+Many tests arrive as a PDF, often a scan, sometimes with the answers handwritten on a key. Read every page, including handwriting. Then follow these rules. They were tested end to end into Canvas New Quizzes.
+
+**1. Make Canvas grade as much as it can.**
+
+- A question whose answer is **one number** &rarr; numerical: `= 12`. Allow rounding when the test asks for it: `= 7.1 +- 0.05`.
+- A question with **two or more numbers** in the answer (slope *and* y-intercept, x- *and* y-intercepts, the two coordinates of a point) &rarr; one numerical question per number. Repeat the stem and say exactly which number to type: "What is the **slope**?" / "What is the **y-intercept**?"
+- An answer that is **one of a short list** (Quadrant I–IV or "on the x-axis/y-axis", yes/no, increasing/decreasing, function/not a function, true/false) &rarr; multiple choice with the full list as choices.
+- An answer that is an **expression or equation** (y = 2x + 1) &rarr; multiple choice only if the test gave choices; otherwise an essay, because typed expressions can't be matched reliably.
+- **Graph it, sketch it, prove it, show your work, explain** &rarr; essay `____`.
+- Fractions and decimals as numerical answers: use the decimal, and if it repeats, a range: `= [0.33, 0.34]` with "Round to the nearest hundredth" added to the stem.
+
+Do not stop to ask the teacher which question types to use. Apply these rules, then list in one or two lines which questions ended up as essays (Canvas won't grade those). Only ask when a correct answer is missing or unreadable, and name those question numbers.
+
+**2. Write math in LaTeX between `\(` and `\)`.** Canvas New Quizzes draws it as real math in questions *and* answer choices: `Solve \(x^2 + 5x + 6 = 0\).`, `*b) \(2x^2\)`, `Simplify \(\frac{6x^3}{3x}\).` Use `$$ ... $$` for a centered equation. Never use single `$...$` (Canvas shows the dollar signs). Numerical answer lines (`= 12`) stay plain numbers.
+
+**3. Pictures (graphs, diagrams, tables, figures).** Canvas can't see a picture that only exists in the PDF, so:
+
+- Crop each picture out of the page as a PNG with a short file name with no spaces: `q11-car-graph.png`.
+- Put it in the question that needs it: `11. Between what two times is the car not moving? ![distance-time graph of a car](q11-car-graph.png)`. Several questions can use the same picture.
+- Give the teacher **one .zip** that holds the quiz `.txt` file and every PNG. Raider Quiz Builder takes that .zip as it is and puts the pictures into the Canvas quiz.
+- **Crop from the blank test, never from the answer key.** A key's graphs and tables show the answers. If the teacher gave you only a key, say so and crop only pictures that show no answers; for "graph this" questions leave the picture out.
+- A small table can be typed into the stem instead of pictured: `x: −1, 0, 2 → f(x): ?`.
+
+If you can't make files, give the quiz in one code block and list the pictures the teacher should add in Canvas (question number and what the picture is).
+
 ### Step 3: Confirm ambiguities BEFORE generating
 
 **Do not guess.** When the format is unclear, ask. Common cases:
@@ -187,7 +214,6 @@ If the type is ambiguous, ask the teacher.
 - "I see no correct answers marked in your file. Could you send me an answer key, or tell me which letter is correct for each question?"
 - "Question 5 has 'C, D' marked &mdash; should I make this a multi-answer question (where students select all correct), or did you mean only one of those?"
 - "Question 12 looks like it could be a short-answer fill-in-blank or a multiple choice &mdash; what did you intend?"
-- "Some of these look like essays. Should I convert them as essay questions (text-box response) or as short answer (single text input)?"
 
 If you're confident about most of the file but uncertain about a few specific items, list them by number and ask the teacher to clarify those specific ones, then proceed with the rest.
 
@@ -226,7 +252,7 @@ If the teacher provides existing content AND asks for additional questions in th
 
 ## What you should produce
 
-A plain-text file in the format described below. The teacher will save your output as a `.txt` file and drop it into the Raider Quiz Builder converter, which produces a Canvas-importable `.zip`.
+A plain-text file in the format described below. The teacher will save your output as a `.txt` file and drop it into the Raider Quiz Builder converter, which produces a Canvas-importable `.zip`. **If the quiz uses pictures, deliver one `.zip` with the `.txt` and the PNG files together** (see "Math, science, answer keys and pictures"); the converter accepts that `.zip` directly.
 
 **Output rules:**
 
@@ -633,7 +659,7 @@ Don't mix the two styles in one question.
 
 The converter reads Word files as flat text. Tables, images, equations from Word's equation editor, and footnotes don't round-trip cleanly.
 
-**Fix:** write quiz questions as plain numbered paragraphs in Word, not as tables. Reference images using Markdown image syntax (`![alt](url)`) and upload the image to Canvas separately after import.
+**Fix:** write quiz questions as plain numbered paragraphs in Word, not as tables. For pictures, reference each one as `![description](file.png)` and give the teacher a `.zip` with the quiz file and the PNGs; the converter packs them into the Canvas quiz. For equations, write LaTeX between `\(` and `\)`.
 
 ### Empty lines inside a question
 
@@ -692,6 +718,9 @@ Before you finalize the file, verify:
 - [ ] The cognitive distribution matches what the teacher asked for.
 - [ ] If GROUP blocks are used, `pick:` is less than the pool size for each group.
 - [ ] All questions inside a single GROUP block are worth the same point value.
+- [ ] Every one-number answer is a numerical question; two-number answers are split into two questions.
+- [ ] Math is in `\( ... \)` LaTeX, never single `$`.
+- [ ] Every `![...](file.png)` has a matching PNG in the `.zip`, cropped from the blank test, not the key.
 
 ---
 
