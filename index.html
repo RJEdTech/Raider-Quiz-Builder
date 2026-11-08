@@ -909,6 +909,22 @@
     white-space: nowrap;
   }
 
+  .featured-cta-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .featured-cta-btn.secondary {
+    background: #ffffff;
+    color: var(--raider);
+    border: 1px solid var(--raider);
+    cursor: pointer;
+    font: inherit;
+    font-weight: 600;
+    justify-content: center;
+  }
+
   .featured-cta-btn:hover {
     background: var(--raider-hot);
     transform: translateY(-1px);
@@ -1147,13 +1163,18 @@ body.fs .rj-masthead::before{display:none}
 
   <section class="featured-cta">
     <div class="featured-cta-text">
-      <div class="featured-cta-title">Step 1 made easy &middot; Raider Quiz Builder Assistant <span class="badge">Easiest path</span></div>
-      <div class="featured-cta-desc">A custom ChatGPT that coaches you through a quick unit brief and hands you a quiz file. Then come back here for Step 2 (convert) and import the result into Canvas. Requires a ChatGPT for Teachers account.</div>
+      <div class="featured-cta-title">Step 1 made easy &middot; Let your AI format the test <span class="badge">Easiest path</span></div>
+      <div class="featured-cta-desc">Works in ChatGPT for Teachers or Claude for Teachers. Download the <strong>For your AI</strong> file. In a new chat, attach it with your test (Word, PDF or photos) and your answer key, then paste the prompt. You get back a quiz file, or a .zip with the pictures, to drop in Step 2. Math works too: equations, graphs, and questions with different numbers for each student.</div>
     </div>
-    <a class="featured-cta-btn" href="https://chatgpt.com/g/g-6a075cc27a0481918450f67b4c852a58-raider-quiz-builder-assistant" target="_blank" rel="noopener">
-      Open the Assistant
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-    </a>
+    <div class="featured-cta-actions">
+      <a class="featured-cta-btn" href="docs/for-your-ai.md" download>
+        Download For your AI
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v12m0 0l-5-5m5 5l5-5M5 20h14"/></svg>
+      </a>
+      <button class="featured-cta-btn secondary" id="convert-prompt-btn" type="button" data-prompt="Follow the attached For your AI file to turn my test into a Raider Quiz Builder file. Keep my wording. The correct answers are marked with * or are in the answer key I attached. If the test has graphs, tables or pictures, crop them from the blank test and give me one .zip with the quiz file and the pictures. Then offer me the Canvas upgrades that fit this test.">
+        Copy the prompt
+      </button>
+    </div>
   </section>
 
   <section class="getting-started">
@@ -1165,10 +1186,10 @@ body.fs .rj-masthead::before{display:none}
         <div class="path-title">I have questions already</div>
         <div class="path-desc">Word doc, PDF, or scanned bank? Upload to an AI to convert it for you, or format it manually with simple markers.</div>
       </a>
-      <a class="path-card" href="https://chatgpt.com/g/g-6a075cc27a0481918450f67b4c852a58-raider-quiz-builder-assistant" target="_blank" rel="noopener">
+      <a class="path-card" href="docs/for-your-ai.md" download>
         <div class="path-num">2</div>
         <div class="path-title">I want AI to write it</div>
-        <div class="path-desc">Chat with the Raider Quiz Builder Assistant on ChatGPT &mdash; describe your topic, get a ready-to-convert file.</div>
+        <div class="path-desc">Attach the For your AI file in ChatGPT or Claude, describe your topic, and get a ready-to-convert file.</div>
       </a>
       <a class="path-card" href="how-to.html#before-you-start" target="_blank" rel="noopener">
         <div class="path-num">3</div>
@@ -1302,7 +1323,7 @@ body.fs .rj-masthead::before{display:none}
 
       <a class="resource-card" href="docs/format-reference.html" target="_blank" rel="noopener">
         <div class="r-title">Format reference <span class="arrow">&rarr;</span></div>
-        <div class="r-desc">Complete syntax for all 7 question types, question groups, feedback, and edge cases.</div>
+        <div class="r-desc">Complete syntax for all 11 question types, question groups, feedback, and edge cases.</div>
       </a>
 
       <button class="resource-card" id="ai-prompt-btn" type="button">
@@ -1435,6 +1456,30 @@ ____
 File upload — four carets:
 1. Submit your lab report as a PDF.
 ^^^^
+
+Formula — different numbers for each student. Put [name] where each number goes, then a formula line (* for times, ^ for powers) and a low-to-high line per variable:
+1. Evaluate \\(3m - n\\) when \\(m = [m]\\) and \\(n = [n]\\).
+formula: 3*m - n
+[m] 2 to 9
+[n] 1 to 9
+Optional lines: "[x] 1 to 4, 1 decimal", "round: 1" (answer decimal places), "+- 0.1" (accepted error).
+
+Matching — one "left -> right" line per pair; "-> extra" adds a choice that matches nothing:
+1. Match each term with its definition.
+Mitosis -> Makes two identical cells
+Meiosis -> Makes four sex cells
+-> Makes energy
+
+Fill in several blanks — [a], [b] in the question, one answer line each (| between accepted answers):
+1. Water boils at [a] degrees Celsius and freezes at [b].
+[a] = 100
+[b] = 0 | zero
+
+Dropdowns — same, but list the choices and put * before the right one:
+1. A pairing [f] a function when one input has two outputs.
+[f] is | *is not
+
+Math: write it in LaTeX between \\( and \\), never single $.
 
 OPTIONAL PER-QUESTION METADATA (place above any question):
 Title: [shows in Canvas analytics]
@@ -1847,6 +1892,18 @@ copyPromptBtn.addEventListener('click', async () => {
     sel.removeAllRanges();
     sel.addRange(range);
   }
+});
+
+const convertPromptBtn = document.getElementById('convert-prompt-btn');
+convertPromptBtn.addEventListener('click', async () => {
+  const text = convertPromptBtn.dataset.prompt;
+  try {
+    await navigator.clipboard.writeText(text);
+    convertPromptBtn.textContent = 'Copied! Paste it in the chat';
+  } catch (err) {
+    window.prompt('Copy this prompt:', text);
+  }
+  setTimeout(() => { convertPromptBtn.textContent = 'Copy the prompt'; }, 3000);
 });
 
 /* ===========================================================================
