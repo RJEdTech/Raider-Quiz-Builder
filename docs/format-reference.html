@@ -558,6 +558,10 @@
           <li><a href="#type-short-answer">Short answer</a></li>
           <li><a href="#type-essay">Essay</a></li>
           <li><a href="#type-file-upload">File upload</a></li>
+          <li><a href="#type-formula">Formula (different numbers)</a></li>
+          <li><a href="#type-matching">Matching</a></li>
+          <li><a href="#type-blanks">Fill in several blanks</a></li>
+          <li><a href="#type-dropdowns">Dropdowns</a></li>
         </ul>
       </li>
       <li><a href="#feedback">Feedback</a></li>
@@ -613,6 +617,10 @@ d) cytoskeleton</code></pre>
         <tr><td><code>*&nbsp;</code></td><td>Short-answer accepted value</td><td><code>* Paris</code></td></tr>
         <tr><td><code>____</code></td><td>Essay response area</td><td><code>____</code></td></tr>
         <tr><td><code>^^^^</code></td><td>File upload</td><td><code>^^^^</code></td></tr>
+        <tr><td><code>formula:&nbsp;</code> + <code>[x] 1 to 10</code></td><td>Formula question (different numbers for each student)</td><td><code>formula: 3*x + 2</code></td></tr>
+        <tr><td><code>left -&gt; right</code></td><td>Matching pair</td><td><code>Mitosis -&gt; Two identical cells</code></td></tr>
+        <tr><td><code>[a] = answer</code></td><td>Typed blank in the question</td><td><code>[a] = 100</code></td></tr>
+        <tr><td><code>[a] x | *y</code></td><td>Dropdown blank in the question</td><td><code>[a] is | *is not</code></td></tr>
         <tr><td><code>...&nbsp;</code></td><td>General feedback</td><td><code>... Remember to show units.</code></td></tr>
         <tr><td><code>+&nbsp;</code></td><td>Feedback when correct</td><td><code>+ Nicely done.</code></td></tr>
         <tr><td><code>-&nbsp;</code></td><td>Feedback when incorrect</td><td><code>- Take another look.</code></td></tr>
@@ -775,6 +783,60 @@ ____</code></pre>
 <pre><code>1. Submit your completed lab report as a PDF. Be sure your data table and conclusion are on the same page.
 ^^^^</code></pre>
         <p>File uploads also need manual grading. Only general feedback supported.</p>
+      </div>
+    </details>
+
+    <details id="type-formula">
+      <summary>Formula (different numbers for each student)<span class="summary-meta">auto-graded</span></summary>
+      <div class="accordion-body">
+        <p>Put <code>[name]</code> where each changing number goes. Under the question: a <code>formula:</code> line, then one <code>[name] low to high</code> line per variable. The Builder works out 20 sets of numbers and answers; Canvas gives each student one set.</p>
+<pre><code>1. Evaluate \(3m - n\) when \(m = [m]\) and \(n = [n]\).
+formula: 3*m - n
+[m] 2 to 9
+[n] 1 to 9
+
+2. A right triangle has legs \([a]\) cm and \([b]\) cm. How long is the hypotenuse? Round to the nearest hundredth.
+formula: sqrt(a^2 + b^2)
+[a] 3 to 12
+[b] 3 to 12
+round: 2</code></pre>
+        <ul>
+          <li>Variables are whole numbers unless you add <code>, 1 decimal</code>: <code>[x] 1 to 4, 1 decimal</code>.</li>
+          <li>In the formula use <code>*</code> for times, <code>/</code>, <code>^</code> for powers, <code>sqrt( )</code>, <code>abs( )</code>, <code>sin( )</code>, <code>cos( )</code>, <code>tan( )</code>, <code>ln( )</code>, <code>log( )</code>, <code>pi</code>. Write <code>2*x</code>, not <code>2x</code>.</li>
+          <li><code>round: 1</code> sets the answer's decimal places. <code>+- 0.1</code> accepts answers that close.</li>
+          <li><code>[x]</code> works inside LaTeX, like <code>\(x = [x]\)</code>.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details id="type-matching">
+      <summary>Matching<span class="summary-meta">auto-graded</span></summary>
+      <div class="accordion-body">
+        <p>One <code>left -&gt; right</code> line per pair. A line that starts with <code>-&gt;</code> adds an extra choice that matches nothing.</p>
+<pre><code>1. Match each term with its definition.
+Mitosis -&gt; Makes two identical cells
+Meiosis -&gt; Makes four sex cells
+-&gt; Makes energy</code></pre>
+      </div>
+    </details>
+
+    <details id="type-blanks">
+      <summary>Fill in several blanks<span class="summary-meta">auto-graded</span></summary>
+      <div class="accordion-body">
+        <p>Put <code>[a]</code>, <code>[b]</code> where the blanks go, then one <code>[a] = answer</code> line each. Separate extra accepted answers with <code>|</code>.</p>
+<pre><code>1. Water boils at [a] degrees Celsius and freezes at [b].
+[a] = 100
+[b] = 0 | zero</code></pre>
+      </div>
+    </details>
+
+    <details id="type-dropdowns">
+      <summary>Dropdowns (word bank)<span class="summary-meta">auto-graded</span></summary>
+      <div class="accordion-body">
+        <p>Same as fill in the blanks, but list the choices with <code>|</code> and put <code>*</code> before the right one. Don't mix typed blanks and dropdowns in one question.</p>
+<pre><code>1. The pairing {(1,2), (1,3)} [f] a function because the input 1 has [c] outputs.
+[f] is | *is not
+[c] one | *two | three</code></pre>
       </div>
     </details>
 

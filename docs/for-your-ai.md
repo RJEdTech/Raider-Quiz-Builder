@@ -177,6 +177,8 @@ From the source content, determine the question type:
 - **Solve-for / numeric problems** with a number as the answer &rarr; numerical &rarr; output as `= 96` (or `= [99, 101]` for range, `= 3.14 +- 0.01` for margin)
 - **Open-ended response** with no answer choices, expecting a paragraph &rarr; essay &rarr; output `____` on a line by itself
 - **"Upload your..."** / **"Submit a file..."** &rarr; file upload &rarr; output `^^^^` on a line by itself
+- **Matching** (two columns, "match each term with...") &rarr; one matching question &rarr; one `left -> right` line per pair, and `-> extra` for each unused choice in the right column
+- **Several blanks in one sentence**, or a **word bank** &rarr; fill in the blanks &rarr; `[a]`, `[b]` in the sentence and an answer line for each: `[a] = 12` (typed) or `[a] mitosis | *meiosis` (dropdown)
 
 If the type is ambiguous, ask the teacher.
 
@@ -191,6 +193,7 @@ Many tests arrive as a PDF, often a scan, sometimes with the answers handwritten
 - An answer that is **one of a short list** (Quadrant I–IV or "on the x-axis/y-axis", yes/no, increasing/decreasing, function/not a function, true/false) &rarr; multiple choice with the full list as choices.
 - An answer that is an **expression or equation** (y = 2x + 1) &rarr; multiple choice only if the test gave choices; otherwise an essay, because typed expressions can't be matched reliably.
 - **Graph it, sketch it, prove it, show your work, explain** &rarr; essay `____`.
+- A **matching** section (match each term, graph or equation with its partner) &rarr; one matching question with `left -> right` lines. If the right column is pictures, use multiple choice instead.
 - Fractions and decimals as numerical answers: use the decimal, and if it repeats, a range: `= [0.33, 0.34]` with "Round to the nearest hundredth" added to the stem.
 
 Do not stop to ask the teacher which question types to use. Apply these rules, then list in one or two lines which questions ended up as essays (Canvas won't grade those). Only ask when a correct answer is missing or unreadable, and name those question numbers.
@@ -232,6 +235,15 @@ When converting:
 Output the converted file in the marker format described in the rest of this document. If you have file-output capabilities (Code Interpreter, downloadable files), provide it as a download. Otherwise, place the entire converted file inside a single fenced code block.
 
 Close with: "Here's your converted file. Download it (or copy from the code block) and drop it into Raider Quiz Builder at https://rjedtech.github.io/Raider-Quiz-Builder/ &mdash; you'll get a .zip you can import into Canvas. For a **New Quiz**: create a blank New Quiz, then **Build &rarr; the three-dot menu &rarr; Import Content**. For a **Classic quiz**: **Settings &rarr; Import Course Content &rarr; QTI .zip file**."
+
+**Then offer upgrades in one short question.** The file you just gave is a faithful copy of the test. Canvas can do more than paper, so end by offering only the upgrades that fit *this* test, as a short numbered list the teacher can answer with numbers ("1 and 3"):
+
+- **Different numbers for every student.** For computation questions (evaluate, solve, find the area, convert units), offer to make them formula questions so each student gets their own numbers. Name the questions it would apply to.
+- **Matching or word-bank sections** as Canvas matching or dropdown questions, if you kept them as multiple choice.
+- **More versions of each question** in GROUP blocks, so students don't all get the same questions.
+- **Shuffle answer choices**, if the test has no "all of the above" style choices that depend on order.
+
+If the teacher says yes, give a new file (and a new .zip if it has pictures). If they say no or don't answer, they already have what they need. Don't offer upgrades again after that.
 
 ### Step 6: Iterate on request
 
@@ -276,6 +288,10 @@ A plain-text file in the format described below. The teacher will save your outp
 | `* ` (asterisk, space) | Short-answer accepted answer | `* Paris` |
 | `____` (four underscores alone on a line) | Essay response | `____` |
 | `^^^^` (four carets alone on a line) | File upload response | `^^^^` |
+| `formula: ` then `[x] 1 to 10` lines | Formula question: different numbers for each student | `formula: 3*x + 2` |
+| `left -> right` | Matching pair (`-> right` alone adds an extra choice) | `\(2^3\) -> 8` |
+| `[a] = answer` | Typed blank `[a]` in the question (`\|` between accepted answers) | `[a] = 12 \| twelve` |
+| `[a] choice \| *choice` | Dropdown blank `[a]` in the question (`*` marks the right one) | `[a] is \| *is not` |
 | `... ` (three periods, space) | General feedback | `... Remember the order of operations.` |
 | `+ ` (plus, space) | Feedback when correct | `+ Right! Order of operations matters here.` |
 | `- ` (minus, space) | Feedback when incorrect | `- Check the order of operations.` |
@@ -290,7 +306,7 @@ A plain-text file in the format described below. The teacher will save your outp
 
 ## Question types
 
-The format supports seven question types. The parser auto-detects the type from the markers used in the question block.
+The format supports eleven question types. The parser auto-detects the type from the markers used in the question block.
 
 ### Multiple choice (one correct answer)
 
@@ -379,6 +395,66 @@ A single `^^^^` (four carets) on a line by itself, after the question. Students 
 1. Submit your lab report as a PDF.
 ^^^^
 ```
+
+### Formula (different numbers for each student)
+
+Use for computation questions. Put each changing number in the question as `[name]`. Under the question, write the formula on a `formula:` line, then one line per variable with its lowest and highest value. The Builder works out the answers and Canvas gives each student one set of numbers.
+
+```
+1. Evaluate \(3m - n\) when \(m = [m]\) and \(n = [n]\).
+formula: 3*m - n
+[m] 2 to 9
+[n] 1 to 9
+```
+
+```
+2. A box is made by cutting squares of side \(x\) from a 10 in by 15 in sheet. Its volume is \(V = x(10-2x)(15-2x)\). Find \(V\) when \(x = [x]\) inches. Round to the nearest tenth.
+formula: x*(10-2*x)*(15-2*x)
+[x] 1 to 4, 1 decimal
+round: 1
++- 0.1
+```
+
+- Variables are whole numbers unless you add `, 1 decimal` (or `, 2 decimals`).
+- In the `formula:` line use `*` for times, `/` to divide, `^` for powers, and `sqrt( )`, `abs( )`, `sin( )`, `cos( )`, `tan( )`, `ln( )`, `log( )`, `pi`. Write `2*x`, never `2x`.
+- If answers may not be whole numbers, say how to round in the question and add `round: 1` (decimal places). Optional `+- 0.1` accepts answers that close.
+- `[m]` works inside LaTeX: `\(m = [m]\)` shows as \(m = 5\).
+- Choose ranges that keep the problem sensible: no dividing by zero, no negative lengths, answers the student can reach without a calculator if the original was a no-calculator test.
+- In the question text, write multiplication with `\cdot` or `\times` inside LaTeX, never `*`.
+
+### Matching
+
+One line per pair: left side, ` -> `, right side. A line that starts with `-> ` adds an extra right-side choice that matches nothing. Canvas shows each left item with a dropdown of all the right-side choices.
+
+```
+1. Match each expression with its value.
+\(2^3\) -> 8
+\(3^2\) -> 9
+\(4^2\) -> 16
+-> 12
+```
+
+### Fill in several blanks (typed)
+
+Put `[a]`, `[b]` where the blanks go. Under the question, one line per blank: `[a] = answer`. Separate several accepted answers with `|`.
+
+```
+1. The domain of \(\{(1,2),(3,4)\}\) has smallest value [a] and largest value [b].
+[a] = 1
+[b] = 3 | three
+```
+
+### Dropdowns (word bank)
+
+Same as above, but list the choices with `|` and put `*` before the right one.
+
+```
+1. The pairing \(\{(1,2),(1,3)\}\) [f] a function because the input 1 has [c] outputs.
+[f] is | *is not
+[c] one | *two | three
+```
+
+Don't mix typed blanks and dropdowns in one question.
 
 ---
 
@@ -710,7 +786,7 @@ Before you finalize the file, verify:
 
 - [ ] Every marker line starts at column 1 in the file.
 - [ ] Every multiple choice question has exactly one `*` marker.
-- [ ] Numerical and short-answer questions have no feedback markers.
+- [ ] Numerical, short-answer, formula, matching and blank questions have no feedback markers.
 - [ ] Answer text is unique within each question.
 - [ ] One blank line between questions.
 - [ ] Key terms from the teacher's brief appear in the questions in the exact form they provided.
@@ -721,6 +797,7 @@ Before you finalize the file, verify:
 - [ ] Every one-number answer is a numerical question; two-number answers are split into two questions.
 - [ ] Math is in `\( ... \)` LaTeX, never single `$`.
 - [ ] Every `![...](file.png)` has a matching PNG in the `.zip`, cropped from the blank test, not the key.
+- [ ] Every `[name]` in a formula or blank question has its own line under the question, and every formula uses `*` for times.
 
 ---
 
@@ -730,6 +807,7 @@ After producing the file:
 
 1. If you can attach files (Code Interpreter, downloadable file features), provide the file as a download with a meaningful name (e.g., `french-revolution-causes-check.txt`).
 2. Tell the teacher what to do next: *"Download this file, then drop it into Raider Quiz Builder at https://rjedtech.github.io/Raider-Quiz-Builder/ &mdash; you'll get a .zip you can import into Canvas. For a New Quiz: create a blank New Quiz, then Build → ⋮ menu → Import Content. For a Classic quiz: Settings → Import Course Content → QTI .zip file. Both routes are written out on the site under 'Importing into Canvas.'"*
-3. Offer to iterate. If the teacher wants revisions ("question 7 is too easy," "add 3 more on the Tennis Court Oath," "fix the correct answer on question 12"), update the file and provide a new version.
+3. When you converted an existing test, offer the upgrades from Workflow B, Step 5 in one short question.
+4. Offer to iterate. If the teacher wants revisions ("question 7 is too easy," "add 3 more on the Tennis Court Oath," "fix the correct answer on question 12"), update the file and provide a new version.
 
 Do not summarize, recap, or explain the file unless the teacher specifically asks.

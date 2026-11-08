@@ -54,6 +54,10 @@ The single most common cause of conversion errors is invisible leading whitespac
 | `* ` | Short-answer accepted value | `* Paris` |
 | `____` | Essay response area | `____` |
 | `^^^^` | File upload | `^^^^` |
+| `formula: ` + `[x] 1 to 10` | Formula question (different numbers for each student) | `formula: 3*x + 2` |
+| `left -> right` | Matching pair | `Mitosis -> Two identical cells` |
+| `[a] = answer` | Typed blank in the question | `[a] = 100` |
+| `[a] x \| *y` | Dropdown blank in the question | `[a] is \| *is not` |
 | `... ` | General feedback | `... Remember to show units.` |
 | `+ ` | Feedback when correct | `+ Nicely done.` |
 | `- ` | Feedback when incorrect | `- Take another look at section 4.2.` |
@@ -204,6 +208,50 @@ Four carets on a line by themselves:
 ```
 
 File uploads also need manual grading. Only general feedback supported.
+
+### 8. Formula (different numbers for each student)
+
+Put `[name]` where each changing number goes. Under the question: a `formula:` line, then one `[name] low to high` line per variable. The Builder works out 20 sets of numbers and answers; Canvas gives each student one set.
+
+```
+1. Evaluate \(3m - n\) when \(m = [m]\) and \(n = [n]\).
+formula: 3*m - n
+[m] 2 to 9
+[n] 1 to 9
+```
+
+- Variables are whole numbers unless you add `, 1 decimal`: `[x] 1 to 4, 1 decimal`.
+- In the formula use `*` for times, `/`, `^` for powers, `sqrt( )`, `abs( )`, `sin( )`, `cos( )`, `tan( )`, `ln( )`, `log( )`, `pi`. Write `2*x`, not `2x`.
+- `round: 1` sets the answer's decimal places. `+- 0.1` accepts answers that close.
+
+### 9. Matching
+
+```
+1. Match each term with its definition.
+Mitosis -> Makes two identical cells
+Meiosis -> Makes four sex cells
+-> Makes energy
+```
+
+A line that starts with `->` adds an extra choice that matches nothing.
+
+### 10. Fill in several blanks
+
+```
+1. Water boils at [a] degrees Celsius and freezes at [b].
+[a] = 100
+[b] = 0 | zero
+```
+
+### 11. Dropdowns (word bank)
+
+```
+1. The pairing {(1,2), (1,3)} [f] a function because the input 1 has [c] outputs.
+[f] is | *is not
+[c] one | *two | three
+```
+
+Don't mix typed blanks and dropdowns in one question. Formula, matching, blank and dropdown questions take no feedback markers.
 
 ---
 
