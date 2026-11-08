@@ -1183,8 +1183,8 @@ body.fs .rj-masthead::before{display:none}
       <path d="M12 3v14m0-14l-5 5m5-5l5 5M5 21h14"/>
     </svg>
     <div class="primary-text">Drop a quiz file here</div>
-    <div class="secondary-text">or <span class="browse-link">browse to choose a file</span> &middot; .txt, .md, .docx</div>
-    <input type="file" id="file-input" accept=".txt,.md,.docx" hidden>
+    <div class="secondary-text">or <span class="browse-link">browse to choose a file</span> &middot; .txt, .md, .docx, or a .zip with pictures</div>
+    <input type="file" id="file-input" accept=".txt,.md,.docx,.zip,.png,.jpg,.jpeg,.gif" multiple hidden>
   </div>
 
   <div class="validation hidden" id="validation"></div>
@@ -1531,20 +1531,78 @@ dropzone.addEventListener('drop', (e) => {
   e.preventDefault();
   dropzone.classList.remove('drag-over');
   if (currentFile) return;
-  const file = e.dataTransfer.files[0];
-  if (file) handleFile(file);
+  if (e.dataTransfer.files.length) handleFiles(e.dataTransfer.files);
 });
 
 fileInput.addEventListener('change', (e) => {
-  const file = e.target.files[0];
-  if (file) handleFile(file);
+  if (e.target.files.length) handleFiles(e.target.files);
 });
+
+/* ===========================================================================
+ * Pictures: a .zip from an AI (quiz file + pictures), or a quiz file
+ * chosen together with picture files. Pictures referenced in the quiz as
+ * ![description](file.png) are packed into the Canvas .zip.
+ * ========================================================================= */
+
+let currentImages = {};
+const IMAGE_RE = /\.(png|jpe?g|gif|webp)$/i;
+const QUIZ_RE = /\.(txt|md|docx)$/i;
+
+async function handleFiles(fileList) {
+  const files = Array.from(fileList);
+  const images = {};
+  const candidates = [];
+  let zipName = null;
+  try {
+    for (const f of files) {
+      if (/\.zip$/i.test(f.name)) {
+        zipName = f.name;
+        const z = await JSZip.loadAsync(f);
+        for (const [name, entry] of Object.entries(z.files)) {
+          if (entry.dir || /(^|\/)(__MACOSX|\.)/.test(name)) continue;
+          const base = name.split('/').pop();
+          if (IMAGE_RE.test(base)) images[base] = await entry.async('uint8array');
+          else if (/\.docx$/i.test(base)) candidates.push(new File([await entry.async('arraybuffer')], base));
+          else if (/\.(txt|md)$/i.test(base)) candidates.push(new File([await entry.async('string')], base, { type: 'text/plain' }));
+        }
+      } else if (IMAGE_RE.test(f.name)) {
+        images[f.name] = f;
+      } else if (QUIZ_RE.test(f.name)) {
+        candidates.push(f);
+      }
+    }
+  } catch (err) {
+    showValidationError('Could not open the .zip: ' + err.message);
+    return;
+  }
+  if (!candidates.length) {
+    showValidationError(zipName
+      ? 'No quiz file (.txt, .md or .docx) was found inside ' + zipName + '.'
+      : 'Unsupported file type. Use .txt, .md, .docx, or a .zip with your quiz file and pictures.');
+    return;
+  }
+  // More than one text file (an AI may add a notes file): use the one that
+  // looks most like a quiz.
+  let quizFile = candidates[0];
+  if (candidates.length > 1) {
+    let best = -1;
+    for (const c of candidates) {
+      const t = /\.docx$/i.test(c.name) ? '' : await c.text();
+      const score = (t.match(/^\s*\d+\.\s/gm) || []).length + (/^Quiz title:/m.test(t) ? 5 : 0);
+      if (score > best) { best = score; quizFile = c; }
+    }
+  }
+  currentImages = images;
+  await handleFile(quizFile, { zipName, pictureCount: Object.keys(images).length });
+}
 
 /* ===========================================================================
  * File handling
  * ========================================================================= */
 
-async function handleFile(file) {
+async function handleFile(file, info) {
+  info = info || {};
+  if (!info.zipName && info.pictureCount === undefined) currentImages = {};
   const validTypes = /\.(txt|md|docx)$/i;
   if (!validTypes.test(file.name)) {
     showValidationError('Unsupported file type. Use .txt, .md, or .docx.');
@@ -1552,11 +1610,12 @@ async function handleFile(file) {
   }
 
   currentFile = file;
-  renderFileInfo(file);
+  renderFileInfo(file, info);
 
   try {
     const text = await readFileAsText(file);
     parsedResult = await parseAndValidate(text, file.name);
+    addPictureNotes(parsedResult);
     renderValidation(parsedResult);
     renderActionRow(parsedResult);
   } catch (err) {
@@ -1564,20 +1623,36 @@ async function handleFile(file) {
   }
 }
 
-function renderFileInfo(file) {
+function renderFileInfo(file, info) {
+  info = info || {};
+  const pics = info.pictureCount ? ` &middot; ${info.pictureCount} picture${info.pictureCount === 1 ? '' : 's'}` : '';
+  const label = info.zipName ? `${escapeHtml(info.zipName)} &rarr; ${escapeHtml(file.name)}` : escapeHtml(file.name);
   dropzone.classList.add('has-file');
   dropzone.innerHTML = `
     <div class="file-info">
-      <span class="filename">${escapeHtml(file.name)}</span>
-      <span class="file-meta mono">${formatBytes(file.size)}</span>
+      <span class="filename">${label}</span>
+      <span class="file-meta mono">${formatBytes(file.size)}${pics}</span>
       <button class="reset-btn" type="button">Choose different file</button>
     </div>
   `;
   dropzone.querySelector('.reset-btn').addEventListener('click', resetForm);
 }
 
+function addPictureNotes(result) {
+  if (!result || !result.parsed || !window.RaiderQuizBuilder.imageRefs) return;
+  const have = new Set(Object.keys(currentImages).map(n => n.toLowerCase()));
+  const refs = window.RaiderQuizBuilder.imageRefs(result.parsed);
+  const missing = refs.filter(r => !have.has(decodeURIComponent(r).split(/[\\/]/).pop().toLowerCase()));
+  result.warnings = result.warnings || [];
+  if (refs.length && !missing.length) {
+    result.warnings.push({ line: null, message: `${refs.length} picture${refs.length === 1 ? '' : 's'} will be added to the questions that use ${refs.length === 1 ? 'it' : 'them'}.` });
+  }
+  missing.forEach(r => result.warnings.push({ line: null, message: `Picture "${r}" is not in your upload. Upload the .zip that has your quiz file and its pictures, or add this picture to the question in Canvas after you import.` }));
+}
+
 function resetForm() {
   currentFile = null;
+  currentImages = {};
   parsedResult = null;
   fileInput.value = '';
   dropzone.classList.remove('has-file');
@@ -1586,7 +1661,7 @@ function resetForm() {
       <path d="M12 3v14m0-14l-5 5m5-5l5 5M5 21h14"/>
     </svg>
     <div class="primary-text">Drop a quiz file here</div>
-    <div class="secondary-text">or <span class="browse-link">browse to choose a file</span> &middot; .txt, .md, .docx</div>
+    <div class="secondary-text">or <span class="browse-link">browse to choose a file</span> &middot; .txt, .md, .docx, or a .zip with pictures</div>
   `;
   validation.classList.add('hidden');
   actionRow.classList.add('hidden');
@@ -1626,7 +1701,7 @@ async function parseAndValidate(text, filename) {
 
 async function generateQuizZip(parsed) {
   if (window.RaiderQuizBuilder && typeof window.RaiderQuizBuilder.generate === 'function') {
-    return await window.RaiderQuizBuilder.generate(parsed);
+    return await window.RaiderQuizBuilder.generate(parsed, { images: currentImages });
   }
   throw new Error('Generator library not loaded.');
 }
@@ -1711,7 +1786,7 @@ async function runConvert() {
   try {
     const blob = await generateQuizZip(parsedResult);
     const url = URL.createObjectURL(blob);
-    const filename = (currentFile.name.replace(/\.(txt|md|docx)$/i, '') || 'quiz') + '.zip';
+    const filename = (currentFile.name.replace(/\.(txt|md|docx)$/i, '') || 'quiz') + ' - Canvas.zip';
     downloadLink.href = url;
     downloadLink.setAttribute('download', filename);
     downloadPanel.classList.remove('hidden');
