@@ -79,3 +79,7 @@ No analytics, no server, no third-party tracking. The page loads two libraries (
 
 Part of the RJ Ed Tech family: [Randomizer](https://rjedtech.github.io/Raider-Randomizer/) · [Timer](https://rjedtech.github.io/Raider-Timer/) · [Pod Generator](https://rjedtech.github.io/Raider-Pods/) · [MyRJ Schedule Cleaner](https://rjedtech.github.io/MyRJScheduleCleaner/) · [Cooperative Learning Toolkit](https://rjedtech.github.io/cooperative-learning-toolkit/) · [EdTech Status](https://rjedtech.github.io/EdTech-Status/) · [Incoming Raider FAQ](https://rjedtech.github.io/Incoming-Raider-FAQ/) · [New Ignatian Educator FAQ](https://rjedtech.github.io/New-Ignatian-Educator-FAQ/) · Quiz Builder
 
+
+## License
+
+© 2026 Jason Beyer, RJ Ed Tech. Licensed under [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/): free to share and adapt for non-commercial use with credit. See [LICENSE](LICENSE) for what the license does not cover.
