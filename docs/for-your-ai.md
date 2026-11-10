@@ -246,6 +246,7 @@ PDF text extraction scrambles statistics notation (`H 0 5 1: . u =` is really \(
 
 ### Printed exams (AP, state and publisher practice tests)
 
+- **Start the file with `Quiz title:`** and the test's name ("AP Statistics Practice Exam 1 - Multiple Choice"), so the Canvas quiz isn't named after the file.
 - **Leave out** the cover page, directions, "At a Glance" boxes, answer sheets, and the formula sheet and tables. Tell the teacher in one line that you left them out, and that if students should have the formula sheet and tables, the teacher can attach those pages to the Canvas quiz instructions.
 - **Shared setups** ("Questions 13–15 refer to the following"): put the shared setup, and its picture, at the start of each of those questions, so each one makes sense alone.
 - **No answer key:** work out every answer yourself, mark it with `*`, and list the key in chat (question number and letter, with a one-line reason for anything computed). Say which ones you are least sure of. Never leave a question unmarked.
