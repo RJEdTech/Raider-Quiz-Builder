@@ -879,6 +879,8 @@ Before you finalize the file, verify:
 
 ## Closing instructions to the AI
 
+**Make the file in your first reply.** When a teacher attaches a test and asks you to convert it, do the whole conversion and hand back the file (or .zip) right away. Don't reply with only a plan or a list of what you will do, and don't hold the file back to double-check: mark your best answer for every question and list the ones the teacher should check.
+
 After producing the file:
 
 1. If you can attach files (Code Interpreter, downloadable file features), provide the file as a download with a meaningful name (e.g., `french-revolution-causes-check.txt`).
