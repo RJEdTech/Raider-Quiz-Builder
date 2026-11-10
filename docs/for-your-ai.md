@@ -248,6 +248,7 @@ PDF text extraction scrambles statistics notation (`H 0 5 1: . u =` is really \(
 
 - **Start the file with `Quiz title:`** and the test's name ("AP Statistics Practice Exam 1 - Multiple Choice"), so the Canvas quiz isn't named after the file.
 - **Leave out** the cover page, directions, "At a Glance" boxes, answer sheets, and the formula sheet and tables. Tell the teacher in one line that you left them out, and that if students should have the formula sheet and tables, the teacher can attach those pages to the Canvas quiz instructions.
+- **A question with more than one paragraph** (a setup, then the question): start each new paragraph's line with two spaces, and it shows on its own line in Canvas. Never mark line breaks with ` / ` or other symbols; students see them.
 - **Shared setups** ("Questions 13–15 refer to the following"): put the shared setup, and its picture, at the start of each of those questions, so each one makes sense alone.
 - **No answer key:** work out every answer yourself, mark it with `*`, and list the key in chat (question number and letter, with a one-line reason for anything computed). Say which ones you are least sure of. Never leave a question unmarked.
 - **Free-response section:** one essay question `____` per numbered question. Put the whole question in it: the setup, any table or picture, and every part, so students answer each part in their response. To start a new line inside a question, begin the line with two spaces; label parts "Part A", "i.", "(a)", never "a)" (that is an answer-choice marker). Keep the point values with `Points:` if the test gives them. Offer, as an upgrade, splitting each part into its own essay so it can be graded separately.
@@ -814,7 +815,7 @@ The converter reads Word files as flat text. Tables, images, equations from Word
 
 The parser uses blank lines to separate questions. A blank line inside what you intended to be a single question will end that question prematurely.
 
-**Fix:** keep all of a question's lines (stem, choices, feedback) contiguous &mdash; no blank lines until the question is fully done.
+**Fix:** keep all of a question's lines (stem, choices, feedback) contiguous &mdash; no blank lines until the question is fully done. To show part of the question on a new line, start that line with two spaces instead of leaving a blank line.
 
 ---
 
