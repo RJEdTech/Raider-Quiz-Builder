@@ -202,6 +202,7 @@ Do not stop to ask the teacher which question types to use. Apply these rules, t
 
 **3. Pictures (graphs, diagrams, tables, figures).** Canvas can't see a picture that only exists in the PDF, so:
 
+- **Pictures are only for graphs, plots, diagrams and tables. Type every question and every answer choice as text, even when the math is hard.** Never put a picture of a whole question in place of its words, and never make the answer choices just "A, B, C, D" pointing at a picture: students can't zoom or search it, screen readers can't read it, and Canvas can't shuffle it. If the PDF's text comes out scrambled, read the page image and type it.
 - Crop each picture out of the page as a PNG with a short file name with no spaces: `q11-car-graph.png`.
 - Put it in the question that needs it: `11. Between what two times is the car not moving? ![distance-time graph of a car](q11-car-graph.png)`. Several questions can use the same picture.
 - Give the teacher **one .zip** that holds the quiz `.txt` file and every PNG. Raider Quiz Builder takes that .zip as it is and puts the pictures into the Canvas quiz.
@@ -224,11 +225,50 @@ Everything in the math section applies. Science adds these rules (tested in Canv
 - **One data table, graph or lab setup used by several questions:** put the picture in each question that uses it. Same file name, cropped once.
 - **Lab reports, explanations, drawings:** essay `____` or file upload `^^^^`.
 
+### Statistics notation
+
+PDF text extraction scrambles statistics notation (`H 0 5 1: . u =` is really \(H_0: \mu = 5.1\); `(- -3 7. , 0 4.)` is \((-3.7, -0.4)\)). Read the page image for every symbol, then write it in LaTeX inside `\(` `\)`. Tested in Canvas New Quizzes:
+
+| On the test | Write |
+|---|---|
+| x-bar, p-hat, y-hat | `\(\bar{x}\)`, `\(\hat{p}\)`, `\(\hat{y} = 12.73 + 0.74x\)` |
+| subscripts | `\(p_S\)`, `\(\hat{p}_S - \hat{p}_J\)`, `\(\mu_d\)`, `\(\mu_B - \mu_A\)` |
+| hypotheses | `\(H_0: \mu = 5.1\)` and `\(H_a: \mu > 5.1\)`; `\(\neq\)`, `\(\le\)`, `\(\ge\)` |
+| Greek letters | `\(\mu\)`, `\(\sigma\)`, `\(\alpha\)`, `\(\chi^2\)` |
+| probability | `\(P(D \cap V) = 0\)`, `\(P(A \cup B)\)`, `\(P(A \mid B)\)` |
+| critical values, r-squared | `\(t^*\)`, `\(z^*\)`, `\(r^2 = 0.234\)` |
+| intervals and points | `\((-2.3,\ 6.5)\)`, `\((x, y)\)` |
+| formulas | `\(1{,}022 \pm 2.228\left(\frac{125}{\sqrt{11}}\right)\)`, `\(\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}\)` |
+
+- A comma inside a number in LaTeX needs braces: `1{,}022`. Outside LaTeX, type numbers and dollar amounts as plain text: `$57,450`.
+- Keep the test's own letters and symbols; don't swap \(\mu\) for "mean".
+- Two-way tables, probability distributions and summary-statistics tables: crop them as pictures with their titles (and give the picture a description that lists the numbers, so a screen reader can read it). A table with one or two rows can be typed into the question instead.
+
+### Printed exams (AP, state and publisher practice tests)
+
+- **Leave out** the cover page, directions, "At a Glance" boxes, answer sheets, and the formula sheet and tables. Tell the teacher in one line that you left them out, and that if students should have the formula sheet and tables, the teacher can attach those pages to the Canvas quiz instructions.
+- **Shared setups** ("Questions 13–15 refer to the following"): put the shared setup, and its picture, at the start of each of those questions, so each one makes sense alone.
+- **No answer key:** work out every answer yourself, mark it with `*`, and list the key in chat (question number and letter, with a one-line reason for anything computed). Say which ones you are least sure of. Never leave a question unmarked.
+- **Free-response section:** one essay question `____` per numbered question. Put the whole question in it: the setup, any table or picture, and every part, so students answer each part in their response. To start a new line inside a question, begin the line with two spaces; label parts "Part A", "i.", "(a)", never "a)" (that is an answer-choice marker). Keep the point values with `Points:` if the test gives them. Offer, as an upgrade, splitting each part into its own essay so it can be graded separately.
+
+```
+Points: 4
+1. Peyton, a researcher at a polling company, wants to ... ![Data from Plan X](q1-plan-x-table.png)
+  Part A
+  i. Identify the population in Plan X.
+  ii. Identify the sampling method in Plan X.
+  Part B
+  Explain why the results of Plan Y cannot be generalized to all registered voters.
+____
+```
+
+- **Long tests:** convert every question. Never shorten, summarize, skip, or switch to pictures to save time. If you truly run out of room, deliver the first part and say exactly which question numbers are left.
+
 ### Step 3: Confirm ambiguities BEFORE generating
 
 **Do not guess.** When the format is unclear, ask. Common cases:
 
-- "I see no correct answers marked in your file. Could you send me an answer key, or tell me which letter is correct for each question?"
+- No correct answers marked and no key attached: work out each answer, mark it, and list your key for the teacher to check (see "Printed exams" above). Ask for a key instead only when the answers depend on something you can't know (a class discussion, a reading you don't have).
 - "Question 5 has 'C, D' marked &mdash; should I make this a multi-answer question (where students select all correct), or did you mean only one of those?"
 - "Question 12 looks like it could be a short-answer fill-in-blank or a multiple choice &mdash; what did you intend?"
 
@@ -400,6 +440,15 @@ A single `____` (four underscores) on a line by itself, after the question. Stud
 
 ```
 1. Explain photosynthesis using at least three terms from this unit.
+____
+```
+
+A question with parts: start each extra line with two spaces and it shows on its own line in Canvas.
+
+```
+2. A random sample of 32 gas stations has a mean price of $3.35.
+  Part A: Identify the variable in the study.
+  Part B: Identify the appropriate inference procedure.
 ____
 ```
 
@@ -822,6 +871,9 @@ Before you finalize the file, verify:
 - [ ] Every `![...](file.png)` has a matching PNG in the `.zip`, cropped from the blank test, not the key.
 - [ ] Every `[name]` in a formula or blank question has its own line under the question, and every formula uses `*` for times.
 - [ ] Science: units are in the question, not the answer; measured answers use a percent margin; huge or tiny numbers use e-notation or a power of ten.
+- [ ] Every question and answer choice is typed text; pictures hold only graphs, plots, diagrams and tables. No choice is just a bare letter.
+- [ ] Every statistics symbol was checked against the page image, not the PDF text (\(\bar{x}\), \(\hat{p}\), \(\mu_d\), \(H_0\), \(H_a\)).
+- [ ] Every question in the test is in the file, and the key you worked out is listed in chat.
 
 ---
 
