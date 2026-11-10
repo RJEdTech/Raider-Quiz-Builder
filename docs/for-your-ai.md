@@ -252,7 +252,7 @@ PDF text extraction scrambles statistics notation (`H 0 5 1: . u =` is really \(
 - **A question with more than one paragraph** (a setup, then the question): start each new paragraph's line with two spaces, and it shows on its own line in Canvas. Never mark line breaks with ` / ` or other symbols; students see them.
 - **Shared setups** ("Questions 13–15 refer to the following"): put the shared setup, and its picture, at the start of each of those questions, so each one makes sense alone.
 - **No answer key:** work out every answer yourself, mark it with `*`, and list the key in chat (question number and letter, with a one-line reason for anything computed). Say which ones you are least sure of. Never leave a question unmarked.
-- **Free-response section:** one essay question `____` per numbered question. Put the whole question in it: the setup, any table or picture, and every part, so students answer each part in their response. To start a new line inside a question, begin the line with two spaces; label parts "Part A", "i.", "(a)", never "a)" (that is an answer-choice marker). Keep the point values with `Points:` if the test gives them. Offer, as an upgrade, splitting each part into its own essay so it can be graded separately.
+- **Free-response section:** one essay question `____` per numbered question. Put the whole question in it: the setup, any table or picture, and every part, so students answer each part in their response. To start a new line inside a question, begin the line with two spaces; label parts "Part A", "i.", "(a)", never "a)" (that is an answer-choice marker). Put `Points:` above each question: the test's value, or 4 for an AP free-response question if the test gives none. Offer, as an upgrade, splitting each part into its own question (see Step 5).
 
 ```
 Points: 4
@@ -295,10 +295,16 @@ Close with: "Here's your converted file. Download it (or copy from the code bloc
 
 **Then offer upgrades in one short question.** The file you just gave is a faithful copy of the test. Canvas can do more than paper, so end by offering only the upgrades that fit *this* test, as a short numbered list the teacher can answer with numbers ("1 and 3"):
 
-- **Different numbers for every student.** For computation questions (evaluate, solve, find the area, convert units), offer to make them formula questions so each student gets their own numbers. Name the questions it would apply to.
+- **Feedback on every wrong answer.** For multiple choice, a `...` line under each wrong choice saying what mistake leads to it, and a `...` line under the right choice saying why it's right (see Feedback markers). Students see it after they submit, so the test reteaches.
+- **Students type the answer.** For a multiple-choice question whose answer is a number they calculate, offer a numerical version (`= 0.42 +- 0.005`, with "Round to the nearest hundredth" in the stem) so they can't work backward from the choices. Name the questions.
+- **Different numbers for every student.** For computation questions (evaluate, solve, find the area, convert units, find a probability or z-score), offer to make them formula questions so each student gets their own numbers. Name the questions it would apply to.
+- **Label each question by unit or skill** with `Title:` (for AP, the course units, e.g. `Title: Unit 6 - Inference for Proportions`), so Canvas's quiz results show which units the class missed.
+- **Free response: each part its own question.** Split a multi-part question into one question per part, repeating the setup and picture in the first part only and starting later parts with "Question 2, continued." Parts whose answer is a number become numerical questions that grade themselves; explain-and-interpret parts stay essays. Put `Points:` on every part so the parts add up to the question's total (for AP, 4 per question unless the test says otherwise).
 - **Matching or word-bank sections** as Canvas matching or dropdown questions, if you kept them as multiple choice.
 - **More versions of each question** in GROUP blocks, so students don't all get the same questions.
 - **Shuffle answer choices**, if the test has no "all of the above" style choices that depend on order.
+
+For a printed practice exam (AP, state, publisher), also suggest keeping **both**: the faithful file as the exam-format version, and the upgraded file as a separate "Canvas version" with its own `Quiz title:`. If the exam had a formula sheet or tables, remind the teacher to attach them to the quiz instructions in Canvas.
 
 If the teacher says yes, give a new file (and a new .zip if it has pictures). If they say no or don't answer, they already have what they need. Don't offer upgrades again after that.
 
