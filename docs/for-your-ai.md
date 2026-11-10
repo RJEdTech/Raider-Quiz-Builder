@@ -204,6 +204,7 @@ Do not stop to ask the teacher which question types to use. Apply these rules, t
 
 - **Pictures are only for graphs, plots, diagrams and tables. Type every question and every answer choice as text, even when the math is hard.** Never put a picture of a whole question in place of its words, and never make the answer choices just "A, B, C, D" pointing at a picture: students can't zoom or search it, screen readers can't read it, and Canvas can't shuffle it. If the PDF's text comes out scrambled, read the page image and type it.
 - Crop each picture out of the page as a PNG with a short file name with no spaces: `q11-car-graph.png`.
+- **Check every crop before you zip it.** Open each PNG and compare it with the page: the title, every row and column of a table, every axis label and the whole key must be inside, with a little white space on all four sides. A table cut off after its second row is the most common mistake; if anything is cut off, crop again with a bigger box.
 - Put it in the question that needs it: `11. Between what two times is the car not moving? ![distance-time graph of a car](q11-car-graph.png)`. Several questions can use the same picture.
 - Give the teacher **one .zip** that holds the quiz `.txt` file and every PNG. Raider Quiz Builder takes that .zip as it is and puts the pictures into the Canvas quiz.
 - **Crop from the blank test, never from the answer key.** A key's graphs and tables show the answers. If the teacher gave you only a key, say so and crop only pictures that show no answers; for "graph this" questions leave the picture out.
@@ -871,6 +872,7 @@ Before you finalize the file, verify:
 - [ ] Every one-number answer is a numerical question; two-number answers are split into two questions.
 - [ ] Math is in `\( ... \)` LaTeX, never single `$`.
 - [ ] Every `![...](file.png)` has a matching PNG in the `.zip`, cropped from the blank test, not the key.
+- [ ] Every PNG is whole: title, all rows and columns, axis labels, with white space around it. Nothing cut off.
 - [ ] Every `[name]` in a formula or blank question has its own line under the question, and every formula uses `*` for times.
 - [ ] Science: units are in the question, not the answer; measured answers use a percent margin; huge or tiny numbers use e-notation or a power of ten.
 - [ ] Every question and answer choice is typed text; pictures hold only graphs, plots, diagrams and tables. No choice is just a bare letter.

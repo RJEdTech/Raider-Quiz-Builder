@@ -1813,12 +1813,21 @@ function showValidationError(msg) {
 
 function renderActionRow(result) {
   actionRow.classList.remove('hidden');
+  // A new file starts fresh: the button says Convert again, and the old
+  // quiz's download goes away so it can't be imported by mistake.
+  convertBtn.querySelector('.btn-label').textContent = 'Convert to Canvas quiz';
+  downloadPanel.classList.add('hidden');
   const hasErrors = result.errors && result.errors.length > 0;
   convertBtn.disabled = hasErrors;
   convertAnywayBtn.classList.toggle('hidden', !hasErrors);
 }
 
-convertBtn.addEventListener('click', runConvert);
+convertBtn.addEventListener('click', () => {
+  // After a quiz is made the button reads "Convert another": it clears the
+  // page for the next test instead of making the same quiz twice.
+  if (!downloadPanel.classList.contains('hidden')) { resetForm(); return; }
+  runConvert();
+});
 convertAnywayBtn.addEventListener('click', runConvert);
 
 async function runConvert() {
@@ -1831,7 +1840,7 @@ async function runConvert() {
   try {
     const blob = await generateQuizZip(parsedResult);
     const url = URL.createObjectURL(blob);
-    const filename = (currentFile.name.replace(/\.(txt|md|docx)$/i, '') || 'quiz') + ' - Canvas.zip';
+    const filename = (currentFile.name.replace(/\.(txt|md|docx|zip)$/i, '') || 'quiz') + ' - Canvas.zip';
     downloadLink.href = url;
     downloadLink.setAttribute('download', filename);
     downloadPanel.classList.remove('hidden');
